@@ -20,6 +20,7 @@ export function ResearchCore() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const targetExplode = useRef(0);
   const tapped = useRef(false);
+  const hovering = useRef(false);
   const requestRenderRef = useRef<() => void>(() => undefined);
 
   useEffect(() => {
@@ -128,19 +129,19 @@ export function ResearchCore() {
 
     // Insight: a ceramic synthesis core wrapped by an optical reading surface.
     addPart(new THREE.SphereGeometry(0.94, 44, 30), ceramic, [0, 0, 0], [0, 0, 0], [0.04, -0.1, 0], [0, 0.06, 0], [1.03, 0.86, 0.76]);
-    addPart(new THREE.SphereGeometry(0.72, 40, 28), optical, [0.12, 0.02, 0.5], [0.08, 0, 0.5], [0.02, 0.08, 0], [0.02, 0.05, 0], [1, 0.82, 0.42]);
+    addPart(new THREE.SphereGeometry(0.72, 40, 28), optical, [0.12, 0.02, 0.5], [0.14, 0.04, 0.82], [0.02, 0.08, 0], [0.02, 0.05, 0], [1, 0.82, 0.42]);
 
     // Structure: calibrated analytical rings, deliberately offset and inclined.
-    addPart(new THREE.TorusGeometry(1.12, 0.075, 16, 72), graphite, [0, 0.02, 0.08], [-0.56, -0.08, 0.25], [0.08, 0.3, 0.02], [0.08, -0.24, 0.05]);
-    addPart(new THREE.TorusGeometry(1.48, 0.044, 14, 80), aluminum, [-0.03, 0.03, -0.02], [0.44, 0.48, -0.12], [0.62, 0.28, 0.48], [-0.22, 0.22, 0.18]);
-    addPart(new THREE.TorusGeometry(1.68, 0.035, 12, 84), graphite, [0.02, -0.02, -0.16], [0.58, -0.4, -0.16], [-0.36, 0.58, -0.22], [0.18, -0.2, -0.16]);
+    addPart(new THREE.TorusGeometry(1.12, 0.075, 16, 72), graphite, [0, 0.02, 0.08], [-0.88, -0.14, 0.42], [0.08, 0.3, 0.02], [0.12, -0.34, 0.08]);
+    addPart(new THREE.TorusGeometry(1.48, 0.044, 14, 80), aluminum, [-0.03, 0.03, -0.02], [0.72, 0.76, -0.2], [0.62, 0.28, 0.48], [-0.3, 0.3, 0.26]);
+    addPart(new THREE.TorusGeometry(1.68, 0.035, 12, 84), graphite, [0.02, -0.02, -0.16], [0.92, -0.66, -0.26], [-0.36, 0.58, -0.22], [0.26, -0.28, -0.22]);
 
     // Observation: five respondents/data points distributed around the model.
-    addPart(new THREE.SphereGeometry(0.18, 24, 18), aluminum, [-1.23, 0.55, 0.28], [-0.48, 0.35, 0.08]);
-    addPart(new THREE.SphereGeometry(0.145, 22, 16), graphite, [1.3, 0.62, 0.1], [0.5, 0.38, 0.12]);
-    addPart(new THREE.SphereGeometry(0.13, 20, 15), frosted, [1.08, -0.84, 0.3], [0.44, -0.4, 0.1]);
-    addPart(new THREE.SphereGeometry(0.105, 18, 14), graphite, [-0.78, -1.02, -0.08], [-0.38, -0.38, -0.06]);
-    addPart(new THREE.SphereGeometry(0.09, 18, 14), frosted, [0.2, 1.28, -0.22], [0.08, 0.45, -0.12]);
+    addPart(new THREE.SphereGeometry(0.18, 24, 18), aluminum, [-1.23, 0.55, 0.28], [-0.72, 0.52, 0.12]);
+    addPart(new THREE.SphereGeometry(0.145, 22, 16), graphite, [1.3, 0.62, 0.1], [0.76, 0.58, 0.18]);
+    addPart(new THREE.SphereGeometry(0.13, 20, 15), frosted, [1.08, -0.84, 0.3], [0.68, -0.62, 0.16]);
+    addPart(new THREE.SphereGeometry(0.105, 18, 14), graphite, [-0.78, -1.02, -0.08], [-0.58, -0.58, -0.1]);
+    addPart(new THREE.SphereGeometry(0.09, 18, 14), frosted, [0.2, 1.28, -0.22], [0.12, 0.72, -0.18]);
 
     const key = new THREE.DirectionalLight(0xffffff, 4.1);
     key.position.set(-4.5, 5.5, 5);
@@ -249,7 +250,22 @@ export function ResearchCore() {
     applyParts();
     requestRenderRef.current();
 
+    const autoExplode = window.setTimeout(() => {
+      if (!reduced && !hovering.current && !tapped.current) {
+        targetExplode.current = 0.84;
+        requestRenderRef.current();
+      }
+    }, 420);
+    const autoAssemble = window.setTimeout(() => {
+      if (!hovering.current && !tapped.current) {
+        targetExplode.current = 0;
+        requestRenderRef.current();
+      }
+    }, 1700);
+
     return () => {
+      window.clearTimeout(autoExplode);
+      window.clearTimeout(autoAssemble);
       window.cancelAnimationFrame(frame);
       window.clearTimeout(idleTimer);
       resizeObserver.disconnect();
@@ -264,6 +280,13 @@ export function ResearchCore() {
     };
   }, []);
 
+  const onPointerEnter = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "touch") return;
+    hovering.current = true;
+    targetExplode.current = 0.9;
+    requestRenderRef.current();
+  };
+
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "touch") return;
     const rect = event.currentTarget.getBoundingClientRect();
@@ -271,13 +294,14 @@ export function ResearchCore() {
     const dy = event.clientY - (rect.top + rect.height / 2);
     const distance = Math.hypot(dx, dy);
     const range = Math.max(rect.width, rect.height) * 0.54;
-    targetExplode.current = clamp(1 - distance / range) * 0.82;
+    targetExplode.current = 0.8 + clamp(1 - distance / range) * 0.14;
     event.currentTarget.style.setProperty("--pointer-x", `${clamp(dx / rect.width + 0.5) * 100}%`);
     event.currentTarget.style.setProperty("--pointer-y", `${clamp(dy / rect.height + 0.5) * 100}%`);
     requestRenderRef.current();
   };
 
   const onPointerLeave = () => {
+    hovering.current = false;
     if (!tapped.current) targetExplode.current = 0;
     requestRenderRef.current();
   };
@@ -285,7 +309,7 @@ export function ResearchCore() {
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "touch") return;
     tapped.current = !tapped.current;
-    targetExplode.current = tapped.current ? 0.72 : 0;
+    targetExplode.current = tapped.current ? 0.9 : 0;
     requestRenderRef.current();
   };
 
@@ -293,6 +317,7 @@ export function ResearchCore() {
     <div
       ref={shellRef}
       className="research-core-realtime"
+      onPointerEnter={onPointerEnter}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
       onPointerDown={onPointerDown}

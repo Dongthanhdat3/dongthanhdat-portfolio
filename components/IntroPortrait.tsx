@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 
 const COMPLETE_EVENT = "portfolio:intro-complete";
 
@@ -70,43 +70,19 @@ export function IntroPortrait() {
   return (
     <div
       className={`portrait-intro${finishing ? " is-finishing" : ""}`}
-      style={{ "--intro-parallax-x": "0px", "--intro-parallax-y": "0px" } as CSSProperties}
       onPointerDown={skip}
       aria-hidden="true"
     >
-      <div className="portrait-intro-field" />
-      <div className="portrait-intro-rim" />
-
-      <div className="portrait-intro-name portrait-intro-name-back">
-        <span>DONG</span>
-        <span className="is-outline">THANH</span>
-        <span>DAT</span>
-      </div>
-
-      <div className="portrait-intro-person">
-        <div className="portrait-intro-shadow" />
+      <div className="portrait-intro-artwork">
         <Image
-          src="/images/avatar-cutout.webp"
+          src="/images/home-intro.webp"
           alt=""
-          width={1440}
-          height={1800}
-          sizes="(max-width: 620px) 94vw, 760px"
+          width={2560}
+          height={1441}
+          sizes="100vw"
           priority
         />
       </div>
-
-      <div className="portrait-intro-name portrait-intro-name-front">
-        <span className="is-ghost">DONG</span>
-        <span className="is-outline">THANH</span>
-        <span>DAT</span>
-      </div>
-
-      <svg className="portrait-signature" viewBox="0 0 220 92" role="presentation">
-        <path d="M18 70 C35 38, 45 17, 61 16 C75 15, 76 27, 68 42 C58 60, 40 70, 21 70 M27 66 C46 59, 59 46, 65 31" />
-        <path d="M82 56 C86 42, 99 37, 107 43 C114 49, 108 61, 98 63 C89 65, 84 59, 89 51 C93 45, 101 44, 108 47 M109 46 C106 55, 108 63, 117 61 C125 59, 132 52, 139 44" />
-        <path d="M132 34 C147 33, 164 30, 180 25 M154 22 C148 35, 139 51, 139 60 C139 68, 149 65, 166 53" />
-      </svg>
-
       <span className="portrait-intro-hint">Chạm để bỏ qua</span>
     </div>
   );

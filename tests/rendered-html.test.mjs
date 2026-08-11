@@ -66,6 +66,7 @@ test("ships every evidence asset", async () => {
     [
       "../public/images/avatar.jpg",
       "../public/images/avatar-cutout.webp",
+      "../public/images/home-intro.webp",
       "../public/images/research-core-static.webp",
       "../public/fonts/inter-latin-variable.woff2",
       "../public/fonts/inter-vietnamese-variable.woff2",

@@ -38,6 +38,7 @@ export function ResearchCoreLoader() {
           <RealtimeResearchCore />
         </Suspense>
       ) : null}
+      <span className="research-core-hint">Di chuột hoặc chạm để phân rã</span>
     </div>
   );
 }

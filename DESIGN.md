@@ -2,14 +2,12 @@
 
 ## Art direction
 
-The portfolio keeps the accepted editorial layout and rebuilds only the opening and analytical hero object. The opening is monochrome portraiture: controlled rim light, deep negative space, layered condensed-scale typography, and a hand-drawn SVG signature. It uses the real supplied portrait asset and does not regenerate the subject.
+The portfolio keeps the accepted editorial layout and rebuilds only the opening and analytical hero object. The opening uses the supplied `Home (1)` monochrome artwork as the exact cinematic key visual—portrait, layered typography, and signature together—without regenerating or re-composing the subject.
 
 ## Intro portrait
 
 - Direct entry: 5 seconds on capable desktop devices; 3.8 seconds on mobile or constrained devices.
-- `DONG THANH DAT` is intentionally unaccented uppercase display text. The professional hero immediately restores the correct Vietnamese name `Đồng Thành Đạt`.
-- Back and foreground type layers pass behind and in front of the portrait without obscuring the face.
-- The signature is SVG stroke animation, not a text font.
+- The complete supplied `DONG THANH DAT` portrait composition is shown intact. The professional hero immediately restores the correct Vietnamese name `Đồng Thành Đạt`.
 - The transition is CSS-only black to white; the intro creates no canvas or WebGL context.
 - Internal returns skip the intro. `?intro=1` forces it and `?skipIntro=1` skips it for QA.
 
