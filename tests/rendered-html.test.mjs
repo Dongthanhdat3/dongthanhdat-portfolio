@@ -34,7 +34,7 @@ test("server-renders the Vietnamese portfolio", async () => {
   assert.match(html, /Dự án tiêu biểu/);
   assert.match(html, /About Me/);
   assert.match(html, /Google Apps Script/);
-  assert.match(html, /research-experience/);
+  assert.match(html, /research-core-stage/);
   assert.match(html, /Trường Đại học Nguyễn Tất Thành/);
   assert.match(html, /Google Advanced Data Analytics Professional Certificate/);
   assert.doesNotMatch(html, /Mohammed Kayser|Fractal Analytics|GPTTConfig|G-E72XQ9P5CW/);
@@ -66,6 +66,8 @@ test("ships every evidence asset", async () => {
     [
       "../public/images/avatar.jpg",
       "../public/images/avatar-cutout.webp",
+      "../public/images/research-core-static.webp",
+      "../public/fonts/inter-variable.woff2",
       "../public/projects/mobifone.pdf",
       "../public/projects/tiktok-shop.pdf",
       "../public/projects/mb-bank.pdf",

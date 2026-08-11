@@ -1,18 +1,15 @@
 import { portfolio } from "@/content/portfolio.vi";
 import { ContactShortcuts } from "./ContactShortcuts";
-import { ResearchCore } from "./ResearchCore";
+import { HeroTitle } from "./HeroTitle";
+import { ResearchCoreLoader } from "./ResearchCoreLoader";
 
 export function Hero() {
   return (
     <section id="home" className="hero" aria-labelledby="hero-title">
-      <ResearchCore />
+      <ResearchCoreLoader />
       <div className="container hero-inner">
         <div className="hero-copy">
-          <h1 id="hero-title" aria-label={portfolio.person.name}>
-            <span className="hero-name-mask"><span>Đồng</span></span>{" "}
-            <span className="hero-name-mask"><span>Thành</span></span>{" "}
-            <span className="hero-name-mask"><span>Đạt</span></span>
-          </h1>
+          <HeroTitle name={portfolio.person.name} />
           <div className="hero-identity">
             <p className="hero-role">{portfolio.person.role}</p>
             <p className="hero-domains">{portfolio.person.domains}</p>
