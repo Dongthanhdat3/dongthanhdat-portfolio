@@ -16,15 +16,15 @@ npm test
 ## Cập nhật nội dung
 
 - Nội dung chính, dự án, chứng chỉ và liên hệ: `content/portfolio.vi.ts`.
-- Ảnh chân dung tối ưu: `public/images/avatar.jpg`.
-- File ảnh gốc: `assets-source/avatar-original.png`.
+- Ảnh chân dung tối ưu: `public/images/avatar-v5.webp`.
+- File ảnh gốc: `assets-source/avatar-v5.png`.
 - PDF dự án: `public/projects/`.
 - PDF và thumbnail chứng chỉ: `public/certificates/`.
 - Social preview: `public/og.png`.
 
 ### Thay ảnh chân dung
 
-Thay `public/images/avatar.jpg` bằng ảnh cùng tên. Nên giữ nền trắng, tỷ lệ gần 4:5 và kích thước khoảng 1.400–1.800 px chiều cao.
+Thay `assets-source/avatar-v5.png`, sau đó xuất derivative WebP có alpha vào `public/images/avatar-v5.webp` ở chiều cao khoảng 1.800 px.
 
 ### Thêm CV
 

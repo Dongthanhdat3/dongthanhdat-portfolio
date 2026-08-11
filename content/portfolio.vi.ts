@@ -39,7 +39,7 @@ export const portfolio = {
       "Tôi định hướng phát triển trong lĩnh vực nghiên cứu thị trường, Consumer Insights và Business Analysis. Điểm mạnh của tôi là khả năng xây dựng một quy trình nghiên cứu hoàn chỉnh: bắt đầu từ vấn đề kinh doanh, chuyển hóa thành mô hình và thang đo, thiết kế công cụ thu thập, xử lý và phân tích dữ liệu, sau đó diễn giải kết quả theo ngôn ngữ quản trị thay vì chỉ dừng ở các chỉ số thống kê.",
       "Với nền tảng Marketing, tôi quan tâm đến việc kết nối dữ liệu với hành vi khách hàng, bối cảnh thị trường và quyết định kinh doanh, để mỗi phân tích đều trả lời được câu hỏi: dữ liệu này có ý nghĩa gì và nên làm gì tiếp theo?",
     ],
-    avatar: "/images/avatar-cutout.webp",
+    avatar: "/images/avatar-v5.webp",
     cv: null as string | null,
   },
   navigation: [
@@ -74,7 +74,7 @@ export const portfolio = {
     { name: "SPSS", slug: "spss", image: "/tools/spss.webp" },
     { name: "Google Analytics", slug: "analytics", image: "/tools/google-analytics.webp" },
     { name: "Python", slug: "python", image: "/tools/python.webp" },
-    { name: "Google Apps Script", slug: "apps-script", image: "/tools/google-apps-script.webp" },
+    { name: "Google Apps Script", slug: "apps-script", image: "/tools/google-apps-script-v5.webp" },
   ],
   education: {
     institution: "Trường Đại học Nguyễn Tất Thành",

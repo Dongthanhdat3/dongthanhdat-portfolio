@@ -34,7 +34,7 @@ test("server-renders the Vietnamese portfolio", async () => {
   assert.match(html, /Dự án tiêu biểu/);
   assert.match(html, /About Me/);
   assert.match(html, /Google Apps Script/);
-  assert.match(html, /research-core-stage/);
+  assert.match(html, /research-core-experience/);
   assert.match(html, /Trường Đại học Nguyễn Tất Thành/);
   assert.match(html, /Google Advanced Data Analytics Professional Certificate/);
   assert.doesNotMatch(html, /Mohammed Kayser|Fractal Analytics|GPTTConfig|G-E72XQ9P5CW/);
@@ -64,9 +64,7 @@ test("renders project and certificate routes", async () => {
 test("ships every evidence asset", async () => {
   await Promise.all(
     [
-      "../public/images/avatar.jpg",
-      "../public/images/avatar-cutout.webp",
-      "../public/images/home-intro.webp",
+      "../public/images/avatar-v5.webp",
       "../public/images/research-core-static.webp",
       "../public/fonts/inter-latin-variable.woff2",
       "../public/fonts/inter-vietnamese-variable.woff2",
@@ -88,7 +86,7 @@ test("ships every evidence asset", async () => {
       "../public/tools/spss.webp",
       "../public/tools/google-analytics.webp",
       "../public/tools/python.webp",
-      "../public/tools/google-apps-script.webp",
+      "../public/tools/google-apps-script-v5.webp",
     ].map((path) => access(new URL(path, import.meta.url))),
   );
 });

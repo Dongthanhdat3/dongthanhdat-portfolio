@@ -1,17 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { COMPLETE_EVENT } from "./IntroPortrait";
+import { INTRO_REVEAL_EVENT } from "./intro-events";
 
 export function HeroTitle({ name }: { name: string }) {
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     const reveal = () => window.requestAnimationFrame(() => setRevealed(true));
-    const waitingForIntro = document.body.classList.contains("intro-open");
-    if (waitingForIntro) window.addEventListener(COMPLETE_EVENT, reveal, { once: true });
-    else reveal();
-    return () => window.removeEventListener(COMPLETE_EVENT, reveal);
+    const prepare = window.setTimeout(() => {
+      const waitingForIntro = document.body.classList.contains("intro-open");
+      if (waitingForIntro) window.addEventListener(INTRO_REVEAL_EVENT, reveal, { once: true });
+      else reveal();
+    }, 48);
+    return () => {
+      window.clearTimeout(prepare);
+      window.removeEventListener(INTRO_REVEAL_EVENT, reveal);
+    };
   }, []);
 
   return (

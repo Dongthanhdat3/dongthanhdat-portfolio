@@ -7,7 +7,7 @@ export default function NotFound() {
         <p className="eyebrow">404</p>
         <h1>Không tìm thấy trang</h1>
         <p>Nội dung bạn đang tìm không tồn tại hoặc đã được di chuyển.</p>
-        <Link className="button button-primary" href="/">
+        <Link prefetch={false} className="button button-primary" href="/">
           Về trang chủ
         </Link>
       </div>

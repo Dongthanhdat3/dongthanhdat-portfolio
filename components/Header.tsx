@@ -17,6 +17,7 @@ export function Header() {
       ? "certificates"
       : "";
   const currentActive = active || routeActive;
+  const darkHeroHeader = pathname === "/" && !open && (currentActive === "" || currentActive === "home");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -83,9 +84,9 @@ export function Header() {
   };
 
   return (
-    <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
+    <header className={`site-header${scrolled ? " is-scrolled" : ""}${darkHeroHeader ? " is-hero-dark" : ""}`}>
       <div className="header-inner">
-        <Link className="wordmark" href="/#home" aria-label="Về trang chủ" onClick={(event) => navigate(event, "/#home")}>
+        <Link prefetch={false} className="wordmark" href="/#home" aria-label="Về trang chủ" onClick={(event) => navigate(event, "/#home")}>
           <Image
             className="heyjo-header-mark"
             src="/brand/heyjo-mark-transparent.webp"
@@ -118,6 +119,7 @@ export function Header() {
             const id = item.href.split("#")[1];
             return (
               <Link
+                prefetch={false}
                 key={item.href}
                 href={item.href}
                 className={currentActive === id ? "is-active" : undefined}

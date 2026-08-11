@@ -29,7 +29,7 @@ export default async function ProjectPage({ params }: PageProps) {
     <main className="detail-page">
       <section className="detail-hero">
         <div className="container detail-hero-inner">
-          <Link className="back-link" href="/#projects">
+          <Link prefetch={false} className="back-link" href="/#projects">
             ← Trở lại dự án
           </Link>
           <div className="detail-intro-grid">
