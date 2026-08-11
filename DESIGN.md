@@ -30,7 +30,7 @@ Pointer proximity or a touch tap separates the assembly. It returns with damping
 - Device pixel ratio is clamped to 1.4 desktop and 1.15 mobile.
 - The canvas renders on demand during interaction and wakes at a low idle cadence. `requestAnimationFrame` and idle timers are cancelled while offscreen or when the tab is hidden.
 - Geometry, materials, PMREM resources, observers, listeners, timers, and animation frames are disposed on unmount.
-- One local variable Inter WOFF2 replaces six remote font weights.
+- Two unicode-ranged local Inter Variable WOFF2 subsets (Latin and Vietnamese, 57 KB combined) replace six remote font weights.
 
 ## Typography and content
 
