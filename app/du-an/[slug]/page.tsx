@@ -1,0 +1,66 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { PdfViewer } from "@/components/PdfViewer";
+import { findProject, projects } from "@/content/portfolio.vi";
+
+type PageProps = { params: Promise<{ slug: string }> };
+
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const project = findProject((await params).slug);
+  if (!project) return {};
+  return {
+    title: project.brand,
+    description: project.description,
+    alternates: { canonical: `/du-an/${project.slug}` },
+  };
+}
+
+export default async function ProjectPage({ params }: PageProps) {
+  const project = findProject((await params).slug);
+  if (!project) notFound();
+
+  return (
+    <main className="detail-page">
+      <section className="detail-hero">
+        <div className="container detail-hero-inner">
+          <Link className="back-link" href="/#du-an">
+            ← Trở lại dự án
+          </Link>
+          <p className="eyebrow">{project.category}</p>
+          <p className={`detail-brand brand-${project.logoTreatment}`}>{project.brand}</p>
+          <h1>{project.title}</h1>
+          <p className="detail-summary">{project.description}</p>
+
+          <dl className="detail-metadata">
+            <div>
+              <dt>Dữ liệu</dt>
+              <dd>{project.sample}</dd>
+            </div>
+            <div>
+              <dt>Phương pháp</dt>
+              <dd>{project.methods}</dd>
+            </div>
+            <div>
+              <dt>Công cụ</dt>
+              <dd>{project.tools.join(" · ")}</dd>
+            </div>
+          </dl>
+
+          <div className="theme-list" aria-label="Chủ đề chính">
+            {project.keyThemes.map((theme) => (
+              <span key={theme}>{theme}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+      <div className="container">
+        <PdfViewer src={project.pdf} title={`Tài liệu dự án ${project.brand}`} />
+      </div>
+    </main>
+  );
+}
