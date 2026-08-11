@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import "./globals.css";
 
-const fallbackSiteUrl = "https://dong-thanh-dat-portfolio.pages.dev";
+const fallbackSiteUrl = "https://dong-thanh-dat-portfolio.ham368955.chatgpt.site";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? fallbackSiteUrl;
 
 export const metadata: Metadata = {
@@ -27,14 +27,14 @@ export const metadata: Metadata = {
     title: "Đồng Thành Đạt — Market Research Analyst",
     description:
       "Nghiên cứu thị trường, Consumer Insights và phân tích dữ liệu để hỗ trợ quyết định kinh doanh.",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Đồng Thành Đạt — Market Research Analyst" }],
+    images: [{ url: "/og-v2.png", width: 1200, height: 630, alt: "Đồng Thành Đạt — Market Research Analyst" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Đồng Thành Đạt — Market Research Analyst",
     description:
       "Nghiên cứu thị trường, Consumer Insights và phân tích dữ liệu để hỗ trợ quyết định kinh doanh.",
-    images: ["/og.png"],
+    images: ["/og-v2.png"],
   },
 };
 

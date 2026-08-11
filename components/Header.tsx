@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { portfolio } from "@/content/portfolio.vi";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -27,13 +29,54 @@ export function Header() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const sections = portfolio.navigation
+      .map((item) => document.getElementById(item.href.split("#")[1]))
+      .filter((section): section is HTMLElement => Boolean(section));
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: "-24% 0px -60%", threshold: [0.05, 0.2, 0.5] },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  const navigate = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    const id = href.split("#")[1];
+    if (window.location.pathname === "/" && id) {
+      const target = document.getElementById(id);
+      if (target) {
+        event.preventDefault();
+        target.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+          block: "start",
+        });
+        window.history.replaceState(null, "", `#${id}`);
+        setActive(id);
+      }
+    }
+    setOpen(false);
+  };
+
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <div className="header-inner">
-        <Link className="wordmark" href="/#trang-chu" aria-label="Về trang chủ">
-          <span className="wordmark-short" aria-hidden="true">
-            ĐT
-          </span>
+        <Link className="wordmark" href="/#home" aria-label="Về trang chủ" onClick={(event) => navigate(event, "/#home")}>
+          <Image
+            className="heyjo-header-mark"
+            src="/brand/heyjo-mark-transparent.webp"
+            alt="HEYJO"
+            width={680}
+            height={620}
+            priority
+          />
           <span className="wordmark-full">Đồng Thành Đạt</span>
         </Link>
 
@@ -54,11 +97,20 @@ export function Header() {
           className={`primary-navigation${open ? " is-open" : ""}`}
           aria-label="Điều hướng chính"
         >
-          {portfolio.navigation.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
-              {item.label}
-            </Link>
-          ))}
+          {portfolio.navigation.map((item) => {
+            const id = item.href.split("#")[1];
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={active === id ? "is-active" : undefined}
+                aria-current={active === id ? "location" : undefined}
+                onClick={(event) => navigate(event, item.href)}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </header>

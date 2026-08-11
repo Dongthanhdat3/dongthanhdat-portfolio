@@ -34,19 +34,21 @@ export const portfolio = {
     eyebrow: "Nghiên cứu thị trường · Phân tích dữ liệu",
     headline:
       "Biến câu hỏi kinh doanh thành một quy trình nghiên cứu có cấu trúc, dữ liệu có kiểm chứng và insight có thể hỗ trợ quyết định.",
-    about:
-      "Tôi định hướng phát triển trong lĩnh vực nghiên cứu thị trường, Consumer Insights và Business Analysis. Điểm mạnh của tôi là khả năng xây dựng một quy trình nghiên cứu hoàn chỉnh: bắt đầu từ vấn đề kinh doanh, chuyển hóa thành mô hình và thang đo, thiết kế công cụ thu thập, xử lý và phân tích dữ liệu, sau đó diễn giải kết quả theo ngôn ngữ quản trị thay vì chỉ dừng ở các chỉ số thống kê. Với nền tảng Marketing, tôi quan tâm đến việc kết nối dữ liệu với hành vi khách hàng, bối cảnh thị trường và quyết định kinh doanh, để mỗi phân tích đều trả lời được câu hỏi: dữ liệu này có ý nghĩa gì và nên làm gì tiếp theo?",
-    avatar: "/images/avatar.jpg",
+    about: [
+      "Tôi định hướng phát triển trong lĩnh vực nghiên cứu thị trường, Consumer Insights và Business Analysis. Điểm mạnh của tôi là khả năng xây dựng một quy trình nghiên cứu hoàn chỉnh: bắt đầu từ vấn đề kinh doanh, chuyển hóa thành mô hình và thang đo, thiết kế công cụ thu thập, xử lý và phân tích dữ liệu, sau đó diễn giải kết quả theo ngôn ngữ quản trị thay vì chỉ dừng ở các chỉ số thống kê.",
+      "Với nền tảng Marketing, tôi quan tâm đến việc kết nối dữ liệu với hành vi khách hàng, bối cảnh thị trường và quyết định kinh doanh, để mỗi phân tích đều trả lời được câu hỏi: dữ liệu này có ý nghĩa gì và nên làm gì tiếp theo?",
+    ],
+    avatar: "/images/avatar-cutout.webp",
     cv: null as string | null,
   },
   navigation: [
-    { label: "Trang chủ", href: "/#trang-chu" },
-    { label: "Về tôi", href: "/#ve-toi" },
-    { label: "Năng lực", href: "/#nang-luc" },
-    { label: "Dự án", href: "/#du-an" },
-    { label: "Học vấn", href: "/#hoc-van" },
-    { label: "Chứng chỉ", href: "/#chung-chi" },
-    { label: "Liên hệ", href: "/#lien-he" },
+    { label: "Trang chủ", href: "/#home" },
+    { label: "About Me", href: "/#about" },
+    { label: "Năng lực", href: "/#capabilities" },
+    { label: "Dự án", href: "/#projects" },
+    { label: "Học vấn", href: "/#education" },
+    { label: "Chứng chỉ", href: "/#certificates" },
+    { label: "Liên hệ", href: "/#contact" },
   ],
   capabilities: {
     research: [
@@ -66,13 +68,12 @@ export const portfolio = {
     ],
   },
   tools: [
-    { name: "Excel", mark: "X" },
-    { name: "SQL", mark: "SQL" },
-    { name: "SPSS", mark: "S" },
-    { name: "Google Analytics", mark: "GA" },
-    { name: "Python", mark: "Py" },
-    { name: "Google Apps Script", mark: "GS" },
-    { name: "Tableau", mark: "T" },
+    { name: "Excel", image: "/tools/excel.webp" },
+    { name: "SQL", image: "/tools/sql.webp" },
+    { name: "SPSS", image: "/tools/spss.webp" },
+    { name: "Google Analytics", image: "/tools/google-analytics.webp" },
+    { name: "Python", image: "/tools/python.webp" },
+    { name: "Google Apps Script", image: "/tools/google-apps-script.webp" },
   ],
   education: {
     institution: "Trường Đại học Nguyễn Tất Thành",
@@ -85,7 +86,8 @@ export const portfolio = {
     linkedinLabel: "linkedin.com/in/đồng-thành-đạt",
     linkedin:
       "https://www.linkedin.com/in/%C4%91%E1%BB%93ng-th%C3%A0nh-%C4%91%E1%BA%A1t",
-    phone: "0879693902",
+    phone: "+84879693902",
+    phoneDisplay: "0879 693 902",
   },
 } as const;
 
@@ -108,7 +110,7 @@ export const projects: Project[] = [
       "Sự hài lòng và lòng trung thành",
     ],
     logoTreatment: "mobifone",
-    cover: "/projects/mobifone-cover.png",
+    cover: "/brands/mobifone.webp",
     pdf: "/projects/mobifone.pdf",
   },
   {
@@ -129,7 +131,7 @@ export const projects: Project[] = [
       "Niềm tin và ý định mua lại",
     ],
     logoTreatment: "tiktok",
-    cover: "/projects/tiktok-shop-cover.png",
+    cover: "/brands/tiktok-shop.webp",
     pdf: "/projects/tiktok-shop.pdf",
   },
   {
@@ -150,7 +152,7 @@ export const projects: Project[] = [
       "Nỗ lực thao tác và self-efficacy",
     ],
     logoTreatment: "mbbank",
-    cover: "/projects/mb-bank-cover.png",
+    cover: "/brands/mb-bank.webp",
     pdf: "/projects/mb-bank.pdf",
   },
 ];
@@ -166,7 +168,7 @@ export const certificates: Certificate[] = [
     verificationUrl:
       "https://coursera.org/verify/professional-cert/4MXR5IP6JIWD",
     summary:
-      "Chương trình thực hành về quy trình chuẩn bị, xử lý, phân tích và trực quan hóa dữ liệu với spreadsheets, SQL, Tableau và Python.",
+      "Chương trình thực hành về quy trình chuẩn bị, xử lý, phân tích và trực quan hóa dữ liệu với spreadsheets, SQL và Python.",
     thumbnail: "/certificates/google-data-analytics.png",
     pdf: "/certificates/google-data-analytics.pdf",
   },

@@ -28,7 +28,7 @@ export default async function CertificatePage({ params }: PageProps) {
     <main className="detail-page certificate-detail-page">
       <section className="detail-hero">
         <div className="container detail-hero-inner">
-          <Link className="back-link" href="/#chung-chi">
+          <Link className="back-link" href="/#certificates">
             ← Trở lại chứng chỉ
           </Link>
           <p className="eyebrow">Chứng chỉ chuyên môn</p>

@@ -4,11 +4,13 @@ import { Certificates } from "@/components/Certificates";
 import { Contact } from "@/components/Contact";
 import { Education } from "@/components/Education";
 import { Hero } from "@/components/Hero";
+import { Intro } from "@/components/Intro";
 import { Projects } from "@/components/Projects";
 
 export default function Home() {
   return (
     <main>
+      <Intro />
       <Hero />
       <About />
       <Capabilities />

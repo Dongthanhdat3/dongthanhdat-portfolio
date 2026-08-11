@@ -3,7 +3,7 @@ import { Reveal } from "./Reveal";
 
 export function Education() {
   return (
-    <section id="hoc-van" className="section education-section" aria-labelledby="education-title">
+    <section id="education" className="section education-section" aria-labelledby="education-title">
       <div className="container">
         <Reveal>
           <p className="eyebrow">Nền tảng học thuật</p>

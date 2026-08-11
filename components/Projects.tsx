@@ -4,7 +4,7 @@ import { Reveal } from "./Reveal";
 
 export function Projects() {
   return (
-    <section id="du-an" className="section projects-section" aria-labelledby="projects-title">
+    <section id="projects" className="section projects-section" aria-labelledby="projects-title">
       <div className="container">
         <Reveal>
           <div className="section-heading split-heading">
@@ -20,7 +20,7 @@ export function Projects() {
         <div className="project-grid">
           {projects.map((project, index) => (
             <Reveal delay={index * 80} key={project.slug}>
-              <ProjectCard project={project} />
+              <ProjectCard project={project} index={index} />
             </Reveal>
           ))}
         </div>

@@ -32,10 +32,13 @@ test("server-renders the Vietnamese portfolio", async () => {
   assert.match(html, /Đồng Thành Đạt/);
   assert.match(html, /Market Research Analyst/);
   assert.match(html, /Dự án tiêu biểu/);
+  assert.match(html, /About Me/);
+  assert.match(html, /Google Apps Script/);
   assert.match(html, /Trường Đại học Nguyễn Tất Thành/);
   assert.match(html, /Google Advanced Data Analytics Professional Certificate/);
   assert.doesNotMatch(html, /Mohammed Kayser|Fractal Analytics|GPTTConfig|G-E72XQ9P5CW/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/);
+  assert.doesNotMatch(html, /Tableau/);
 });
 
 test("renders project and certificate routes", async () => {
@@ -60,13 +63,25 @@ test("ships every evidence asset", async () => {
   await Promise.all(
     [
       "../public/images/avatar.jpg",
+      "../public/images/avatar-cutout.webp",
       "../public/projects/mobifone.pdf",
       "../public/projects/tiktok-shop.pdf",
       "../public/projects/mb-bank.pdf",
       "../public/certificates/google-data-analytics.pdf",
       "../public/certificates/google-advanced-data-analytics.pdf",
       "../public/og.png",
+      "../public/og-v2.png",
       "../public/favicon.png",
+      "../public/brand/heyjo-mark-transparent.webp",
+      "../public/brands/mobifone.webp",
+      "../public/brands/tiktok-shop.webp",
+      "../public/brands/mb-bank.webp",
+      "../public/tools/excel.webp",
+      "../public/tools/sql.webp",
+      "../public/tools/spss.webp",
+      "../public/tools/google-analytics.webp",
+      "../public/tools/python.webp",
+      "../public/tools/google-apps-script.webp",
     ].map((path) => access(new URL(path, import.meta.url))),
   );
 });

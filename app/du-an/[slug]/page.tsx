@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { PdfViewer } from "@/components/PdfViewer";
 import { findProject, projects } from "@/content/portfolio.vi";
 
@@ -28,11 +29,14 @@ export default async function ProjectPage({ params }: PageProps) {
     <main className="detail-page">
       <section className="detail-hero">
         <div className="container detail-hero-inner">
-          <Link className="back-link" href="/#du-an">
+          <Link className="back-link" href="/#projects">
             ← Trở lại dự án
           </Link>
           <p className="eyebrow">{project.category}</p>
-          <p className={`detail-brand brand-${project.logoTreatment}`}>{project.brand}</p>
+          <div className={`detail-brand brand-${project.logoTreatment}`}>
+            <Image src={project.cover} alt={`Logo ${project.brand}`} width={1200} height={720} priority />
+            <span>Dự án nghiên cứu</span>
+          </div>
           <h1>{project.title}</h1>
           <p className="detail-summary">{project.description}</p>
 

@@ -3,7 +3,7 @@ import { Reveal } from "./Reveal";
 
 export function Contact() {
   return (
-    <section id="lien-he" className="section contact-section" aria-labelledby="contact-title">
+    <section id="contact" className="section contact-section" aria-labelledby="contact-title">
       <div className="container">
         <Reveal>
           <div className="contact-grid">
@@ -35,7 +35,7 @@ export function Contact() {
               <div>
                 <dt>Điện thoại</dt>
                 <dd>
-                  <a href={`tel:${portfolio.contact.phone}`}>{portfolio.contact.phone}</a>
+                  <a href={`tel:${portfolio.contact.phone}`}>{portfolio.contact.phoneDisplay}</a>
                 </dd>
               </div>
             </dl>

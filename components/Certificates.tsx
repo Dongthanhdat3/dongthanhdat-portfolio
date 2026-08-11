@@ -4,7 +4,7 @@ import { Reveal } from "./Reveal";
 
 export function Certificates() {
   return (
-    <section id="chung-chi" className="section certificates-section" aria-labelledby="certificates-title">
+    <section id="certificates" className="section certificates-section" aria-labelledby="certificates-title">
       <div className="container">
         <Reveal>
           <div className="section-heading split-heading">

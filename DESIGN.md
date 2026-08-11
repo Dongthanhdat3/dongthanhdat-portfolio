@@ -1,4 +1,10 @@
-# Academic Minimalism × Premium Product UI
+# Premium Tech Minimalism × Academic Research
+
+## Motion Reference — AirPods Product Film
+
+The supplied film is used only as an internal motion reference. The redesign carries forward its scene economy, white studio field, macro object focus, minimal typography, physical materials, soft contact shadows, and precise transitions. No Apple product, footage, logo, or proprietary typography is used in the site.
+
+The opening signature is an original research/data sculpture built from layered analytical axes, orbit geometry, material contrast, and two data nodes. CSS 3D was selected over persistent WebGL to preserve the product-film impression while unmounting all intro rendering after 2.35 seconds.
 
 ## Hướng thiết kế
 
