@@ -27,14 +27,14 @@ export const metadata: Metadata = {
     title: "Đồng Thành Đạt — Market Research Analyst",
     description:
       "Nghiên cứu thị trường, Consumer Insights và phân tích dữ liệu để hỗ trợ quyết định kinh doanh.",
-    images: [{ url: "/og-v2.png", width: 1200, height: 630, alt: "Đồng Thành Đạt — Market Research Analyst" }],
+    images: [{ url: "/og-v3.png", width: 1200, height: 630, alt: "Đồng Thành Đạt — Market Research Analyst" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Đồng Thành Đạt — Market Research Analyst",
     description:
       "Nghiên cứu thị trường, Consumer Insights và phân tích dữ liệu để hỗ trợ quyết định kinh doanh.",
-    images: ["/og-v2.png"],
+    images: ["/og-v3.png"],
   },
 };
 

@@ -1,10 +1,29 @@
+"use client";
+
 import type { Project } from "@/content/portfolio.vi";
 import Image from "next/image";
+import type { PointerEvent } from "react";
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const move = (event: PointerEvent<HTMLAnchorElement>) => {
+    if (event.pointerType === "touch") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    event.currentTarget.style.setProperty("--card-rx", `${(0.5 - y) * 3.2}deg`);
+    event.currentTarget.style.setProperty("--card-ry", `${(x - 0.5) * 4}deg`);
+    event.currentTarget.style.setProperty("--card-light-x", `${x * 100}%`);
+    event.currentTarget.style.setProperty("--card-light-y", `${y * 100}%`);
+  };
+
+  const reset = (event: PointerEvent<HTMLAnchorElement>) => {
+    event.currentTarget.style.setProperty("--card-rx", "0deg");
+    event.currentTarget.style.setProperty("--card-ry", "0deg");
+  };
+
   return (
     <article className="project-card">
-      <a href={`/du-an/${project.slug}`} aria-label={`Xem dự án ${project.brand}`}>
+      <a href={`/du-an/${project.slug}`} aria-label={`Xem dự án ${project.brand}`} onPointerMove={move} onPointerLeave={reset}>
         <div className={`brand-stage brand-${project.logoTreatment}`}>
           <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
           <div className="brand-plaque">
@@ -20,7 +39,8 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         </div>
         <div className="project-card-copy">
           <p className="project-category">{project.category}</p>
-          <h3>{project.title}</h3>
+          <p className="project-brand">{project.brand}</p>
+          <h3>{project.cardTitle}</h3>
           <span className="project-arrow" aria-hidden="true">
             ↗
           </span>

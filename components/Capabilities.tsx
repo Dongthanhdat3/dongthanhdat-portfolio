@@ -1,7 +1,6 @@
 import { portfolio } from "@/content/portfolio.vi";
-import Image from "next/image";
-import type { CSSProperties } from "react";
 import { Reveal } from "./Reveal";
+import { ToolShowcase } from "./ToolShowcase";
 
 function CapabilityList({ title, items }: { title: string; items: readonly string[] }) {
   return (
@@ -39,21 +38,8 @@ export function Capabilities() {
           </div>
         </Reveal>
 
-        <Reveal delay={120}>
-          <div className="tool-gallery" aria-label="Công cụ phân tích">
-            {portfolio.tools.map((tool, index) => (
-              <div className="tool-item" key={tool.name} style={{ "--tool-index": index } as CSSProperties}>
-                <div className="tool-object-stage" aria-hidden="true">
-                  <div className="tool-object">
-                    <Image src={tool.image} alt="" width={640} height={640} sizes="180px" />
-                  </div>
-                </div>
-                <p>{tool.name}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
       </div>
+      <ToolShowcase />
     </section>
   );
 }

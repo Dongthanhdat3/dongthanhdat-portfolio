@@ -2,6 +2,7 @@ export type Project = {
   slug: string;
   brand: string;
   title: string;
+  cardTitle: string;
   category: string;
   sample: string;
   methods: string;
@@ -68,12 +69,12 @@ export const portfolio = {
     ],
   },
   tools: [
-    { name: "Excel", image: "/tools/excel.webp" },
-    { name: "SQL", image: "/tools/sql.webp" },
-    { name: "SPSS", image: "/tools/spss.webp" },
-    { name: "Google Analytics", image: "/tools/google-analytics.webp" },
-    { name: "Python", image: "/tools/python.webp" },
-    { name: "Google Apps Script", image: "/tools/google-apps-script.webp" },
+    { name: "Excel", slug: "excel", image: "/tools/excel.webp" },
+    { name: "SQL", slug: "sql", image: "/tools/sql.webp" },
+    { name: "SPSS", slug: "spss", image: "/tools/spss.webp" },
+    { name: "Google Analytics", slug: "analytics", image: "/tools/google-analytics.webp" },
+    { name: "Python", slug: "python", image: "/tools/python.webp" },
+    { name: "Google Apps Script", slug: "apps-script", image: "/tools/google-apps-script.webp" },
   ],
   education: {
     institution: "Trường Đại học Nguyễn Tất Thành",
@@ -97,6 +98,7 @@ export const projects: Project[] = [
     brand: "MobiFone",
     title:
       "Nghiên cứu các yếu tố ảnh hưởng đến lòng trung thành khách hàng thông qua sự hài lòng đối với Công ty Viễn thông MobiFone tại TP.HCM",
+    cardTitle: "Lòng trung thành khách hàng qua sự hài lòng dịch vụ",
     category: "Dự án nghiên cứu thị trường",
     sample: "450 khách hàng MobiFone tại TP.HCM",
     methods:
@@ -118,6 +120,7 @@ export const projects: Project[] = [
     brand: "TikTok Shop",
     title:
       "Nghiên cứu các yếu tố ảnh hưởng đến niềm tin phục hồi và ý định tiếp tục mua sau sự cố sản phẩm không đúng mô tả trên TikTok Shop",
+    cardTitle: "Hành vi sau sự cố sản phẩm không đúng mô tả",
     category: "Dự án Consumer Insights",
     sample: "1.087 người mua đã hoàn tất trả hàng hoặc hoàn tiền",
     methods:
@@ -139,6 +142,7 @@ export const projects: Project[] = [
     brand: "MB Bank",
     title:
       "Nghiên cứu các yếu tố ảnh hưởng đến niềm tin vào xác thực sinh trắc học và ý định tiếp tục sử dụng App MBBank của khách hàng cá nhân tại TP. Hồ Chí Minh",
+    cardTitle: "Niềm tin vào xác thực sinh trắc học trên MBBank",
     category: "Dự án phân tích trải nghiệm số",
     sample: "1.187 hồ sơ theo cấu trúc bảng hỏi",
     methods:

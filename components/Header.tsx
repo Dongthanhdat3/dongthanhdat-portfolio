@@ -3,12 +3,20 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { portfolio } from "@/content/portfolio.vi";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
+  const pathname = usePathname();
+  const routeActive = pathname.startsWith("/du-an/")
+    ? "projects"
+    : pathname.startsWith("/chung-chi/")
+      ? "certificates"
+      : "";
+  const currentActive = active || routeActive;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -30,6 +38,12 @@ export function Header() {
   }, [open]);
 
   useEffect(() => {
+    if (window.location.pathname === "/" && window.location.hash) {
+      const id = window.location.hash.slice(1);
+      const scrollToHash = () => document.getElementById(id)?.scrollIntoView({ block: "start" });
+      requestAnimationFrame(() => requestAnimationFrame(scrollToHash));
+    }
+
     const sections = portfolio.navigation
       .map((item) => document.getElementById(item.href.split("#")[1]))
       .filter((section): section is HTMLElement => Boolean(section));
@@ -61,6 +75,9 @@ export function Header() {
         window.history.replaceState(null, "", `#${id}`);
         setActive(id);
       }
+    } else if (window.location.pathname !== "/") {
+      event.preventDefault();
+      window.location.assign(href);
     }
     setOpen(false);
   };
@@ -103,8 +120,8 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={active === id ? "is-active" : undefined}
-                aria-current={active === id ? "location" : undefined}
+                className={currentActive === id ? "is-active" : undefined}
+                aria-current={currentActive === id ? "location" : undefined}
                 onClick={(event) => navigate(event, item.href)}
               >
                 {item.label}

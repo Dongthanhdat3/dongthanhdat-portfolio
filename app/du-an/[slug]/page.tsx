@@ -32,13 +32,24 @@ export default async function ProjectPage({ params }: PageProps) {
           <Link className="back-link" href="/#projects">
             ← Trở lại dự án
           </Link>
-          <p className="eyebrow">{project.category}</p>
-          <div className={`detail-brand brand-${project.logoTreatment}`}>
-            <Image src={project.cover} alt={`Logo ${project.brand}`} width={1200} height={720} priority />
-            <span>Dự án nghiên cứu</span>
+          <div className="detail-intro-grid">
+            <div className="detail-intro-copy">
+              <p className="eyebrow">{project.category}</p>
+              <div className={`detail-brand brand-${project.logoTreatment}`}>
+                <Image src={project.cover} alt={`Logo ${project.brand}`} width={1200} height={720} priority />
+                <span>Dự án nghiên cứu</span>
+              </div>
+              <h1>{project.title}</h1>
+              <p className="detail-summary">{project.description}</p>
+            </div>
+            <div className={`detail-product-visual brand-${project.logoTreatment}`} aria-hidden="true">
+              <span className="detail-product-glow" />
+              <span className="detail-product-plaque">
+                <Image src={project.cover} alt="" width={1200} height={720} priority />
+              </span>
+              <span className="detail-product-shadow" />
+            </div>
           </div>
-          <h1>{project.title}</h1>
-          <p className="detail-summary">{project.description}</p>
 
           <dl className="detail-metadata">
             <div>

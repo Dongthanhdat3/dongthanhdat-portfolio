@@ -34,11 +34,13 @@ test("server-renders the Vietnamese portfolio", async () => {
   assert.match(html, /Dự án tiêu biểu/);
   assert.match(html, /About Me/);
   assert.match(html, /Google Apps Script/);
+  assert.match(html, /research-experience/);
   assert.match(html, /Trường Đại học Nguyễn Tất Thành/);
   assert.match(html, /Google Advanced Data Analytics Professional Certificate/);
   assert.doesNotMatch(html, /Mohammed Kayser|Fractal Analytics|GPTTConfig|G-E72XQ9P5CW/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/);
   assert.doesNotMatch(html, /Tableau/);
+  assert.doesNotMatch(html, /Nghiên cứu thị trường · Phân tích dữ liệu/);
 });
 
 test("renders project and certificate routes", async () => {
@@ -71,6 +73,7 @@ test("ships every evidence asset", async () => {
       "../public/certificates/google-advanced-data-analytics.pdf",
       "../public/og.png",
       "../public/og-v2.png",
+      "../public/og-v3.png",
       "../public/favicon.png",
       "../public/brand/heyjo-mark-transparent.webp",
       "../public/brands/mobifone.webp",

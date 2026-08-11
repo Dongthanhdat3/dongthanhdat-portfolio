@@ -1,23 +1,13 @@
 import { portfolio } from "@/content/portfolio.vi";
-import Image from "next/image";
 import { Reveal } from "./Reveal";
+import { PortraitStage } from "./PortraitStage";
 
 export function About() {
   return (
     <section id="about" className="section about-section" aria-labelledby="about-title">
       <div className="container about-grid">
         <Reveal>
-          <div className="about-image-wrap">
-            <Image
-              className="about-image"
-              src={portfolio.person.avatar}
-              alt="Chân dung Đồng Thành Đạt"
-              width={1440}
-              height={1800}
-              sizes="(max-width: 620px) calc(100vw - 40px), (max-width: 820px) 44vw, 560px"
-              loading="lazy"
-            />
-          </div>
+          <PortraitStage src={portfolio.person.avatar} />
         </Reveal>
         <Reveal delay={100}>
           <div className="about-copy">
