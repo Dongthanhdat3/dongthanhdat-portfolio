@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "source": "Untitled-1.html",
+    "capturedAt": "2026-08-11",
+    "role": "Functional reference only"
+  },
+  "contentArchitecture": {
+    "usefulPatterns": [
+      "Fixed navigation",
+      "Hero-to-about progression",
+      "Capability and tool presentation",
+      "Project gallery linking to evidence",
+      "Education, certificates and contact sections"
+    ],
+    "removedPatterns": [
+      "Experience claims from the legacy owner",
+      "Services, testimonials, counters and blog",
+      "Animated job-title carousel",
+      "Certificate card flips",
+      "Project filters and reload control"
+    ]
+  },
+  "technicalAudit": {
+    "legacyDependencies": ["Bootstrap", "jQuery", "WOW.js", "Modernizr", "Font Awesome", "parallax plugins"],
+    "securityAndPrivacyRemovals": [
+      "Legacy Google Analytics ID",
+      "GPT Trainer widget",
+      "Legacy social links and email",
+      "Third-party scripts unrelated to the new portfolio"
+    ],
+    "decision": "Rebuild with typed content, semantic React components and modern CSS."
+  },
+  "takeaways": [
+    "Preserve the evidence-led project journey.",
+    "Keep content separate from interface code.",
+    "Make every major card a semantic keyboard-accessible link."
+  ],
+  "patternsNotToCopy": [
+    "Legacy visual palette",
+    "Template owner content",
+    "Progress counters and skill percentages",
+    "Heavy plugin-based animation",
+    "Inline-style accumulation"
+  ]
+}

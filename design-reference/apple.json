@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "source": "Apple homepage — live visual audit and supplied Apple.xml snapshot",
+    "url": "https://www.apple.com/",
+    "capturedAt": "2026-08-11",
+    "desktopViewport": "1440×900",
+    "mobileViewport": "390×844",
+    "captures": ["apple-desktop.png", "apple-mobile.png"]
+  },
+  "colorSystem": {
+    "dominant": ["#FFFFFF", "#F5F5F7", "#1D1D1F"],
+    "observation": "Surfaces stay neutral; color is concentrated in product imagery and primary actions."
+  },
+  "typography": {
+    "hierarchy": "Large, compact product headings with restrained supporting copy.",
+    "observedHeroWeight": 600,
+    "observedBodyColor": "rgb(29, 29, 31)",
+    "doNotCopy": "SF Pro is proprietary and is not used in the portfolio."
+  },
+  "layout": {
+    "pattern": "Full-width product stages with tightly constrained text blocks and strong vertical rhythm.",
+    "density": "Low"
+  },
+  "spacing": {
+    "principle": "Large negative space around one primary idea per section."
+  },
+  "navigation": {
+    "desktop": "Fixed, compact global bar; live audit measured 44px height.",
+    "mobile": "Condensed icon-led navigation with large menu surface."
+  },
+  "hero": {
+    "pattern": "One dominant headline, one supporting line and a very small CTA set."
+  },
+  "buttons": {
+    "pattern": "Primary filled action paired with a quieter secondary action; subtle color transition."
+  },
+  "cards": {
+    "pattern": "Large visual fields rather than many small cards."
+  },
+  "imageTreatment": {
+    "pattern": "Images are allowed to carry scale while text remains concise."
+  },
+  "borders": {
+    "pattern": "Hairlines and section separation are preferred to heavy containers."
+  },
+  "shadows": {
+    "pattern": "Rare and shallow."
+  },
+  "motion": {
+    "observedTransition": "Color transitions around 320ms with a controlled cubic-bezier curve.",
+    "principle": "Motion clarifies state changes and content entry."
+  },
+  "scrollBehavior": {
+    "pattern": "Long editorial scroll with clear product-stage transitions."
+  },
+  "responsiveBehavior": {
+    "pattern": "Headline scale and composition change deliberately for mobile; imagery remains the focal point."
+  },
+  "interactionStates": {
+    "pattern": "Hover and focus changes are low-amplitude and legible."
+  },
+  "accessibilityPatterns": {
+    "pattern": "Semantic navigation labels, visible text actions and high neutral contrast."
+  },
+  "footer": {
+    "pattern": "Dense legal/navigation footer is visually subordinated to main content."
+  },
+  "takeaways": [
+    "Give every section one clear focal point.",
+    "Use scale and whitespace before decoration.",
+    "Keep the action set deliberately small.",
+    "Use subtle transitions with consistent timing."
+  ],
+  "patternsNotToCopy": [
+    "Proprietary typography",
+    "Apple product photography",
+    "Apple brand color and iconography",
+    "Pixel-for-pixel product-stage layouts"
+  ]
+}

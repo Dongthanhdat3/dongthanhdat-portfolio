@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "source": "Tesla homepage — live visual audit and supplied Testla.xml snapshot",
+    "url": "https://www.tesla.com/",
+    "capturedAt": "2026-08-11",
+    "desktopViewport": "1440×900",
+    "mobileViewport": "390×844",
+    "captures": ["tesla-desktop.png", "tesla-mobile.png"]
+  },
+  "colorSystem": {
+    "dominant": ["#FFFFFF", "#393C41"],
+    "observation": "Neutral interface layers sit over high-impact photography."
+  },
+  "typography": {
+    "hierarchy": "Medium-weight headings, short subheads and direct CTAs.",
+    "observedDesktopHeading": "40px / 48px / 500",
+    "observedMobileHeading": "28px / 36px",
+    "doNotCopy": "Universal Sans is not used in the portfolio."
+  },
+  "layout": {
+    "pattern": "Immersive full-width sections with content anchored to stable grid positions."
+  },
+  "spacing": {
+    "principle": "Large hero zones; actions stay grouped and easy to scan."
+  },
+  "navigation": {
+    "desktop": "Clear brand-left, category-center, utility-right composition.",
+    "mobile": "Compact brand and one explicit menu trigger."
+  },
+  "hero": {
+    "pattern": "Immediate focal statement and one dominant action."
+  },
+  "buttons": {
+    "pattern": "Wide, calm targets with direct language and little ornament."
+  },
+  "cards": {
+    "pattern": "Fewer, larger modules rather than dense card mosaics."
+  },
+  "imageTreatment": {
+    "pattern": "Edge-to-edge visuals with careful focal cropping."
+  },
+  "borders": {
+    "pattern": "Minimal; hierarchy relies on contrast and placement."
+  },
+  "shadows": {
+    "pattern": "Shallow shadows only for floating controls."
+  },
+  "motion": {
+    "observedTransition": "State changes around 330ms with firm easing.",
+    "principle": "Short and purposeful transitions; avoid ornamental motion."
+  },
+  "scrollBehavior": {
+    "pattern": "Large narrative stages establish a steady viewing cadence."
+  },
+  "responsiveBehavior": {
+    "pattern": "Mobile compresses copy and controls while preserving a strong focal point."
+  },
+  "interactionStates": {
+    "pattern": "Clear hover and pressed feedback without dramatic scaling."
+  },
+  "accessibilityPatterns": {
+    "pattern": "Large touch targets and direct action labels."
+  },
+  "footer": {
+    "pattern": "Utility-focused and visually quiet."
+  },
+  "takeaways": [
+    "Make the primary message obvious within one glance.",
+    "Anchor actions consistently across viewports.",
+    "Use wide targets and direct CTA language.",
+    "Keep motion brief and state-driven."
+  ],
+  "patternsNotToCopy": [
+    "Tesla logo and wordmark",
+    "Vehicle photography",
+    "Tesla blue action color",
+    "Immersive product-carousel composition"
+  ]
+}
