@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render(path = "/") {
@@ -89,4 +89,19 @@ test("ships every evidence asset", async () => {
       "../public/tools/google-apps-script-v5.webp",
     ].map((path) => access(new URL(path, import.meta.url))),
   );
+});
+
+test("exports Vercel-compatible static entry points", async () => {
+  const [home, project, certificate] = await Promise.all([
+    readFile(new URL("../dist/index.html", import.meta.url), "utf8"),
+    readFile(new URL("../dist/du-an/mobifone/index.html", import.meta.url), "utf8"),
+    readFile(
+      new URL("../dist/chung-chi/google-data-analytics/index.html", import.meta.url),
+      "utf8",
+    ),
+  ]);
+
+  assert.match(home, /Đồng Thành Đạt/);
+  assert.match(project, /450 khách hàng MobiFone/);
+  assert.match(certificate, /4MXR5IP6JIWD/);
 });
