@@ -1,6 +1,7 @@
 "use client";
 
 import type { PointerEvent, ReactNode } from "react";
+import { HomeIntro } from "./HomeIntro";
 
 export function HomeAtmosphere({ children }: { children: ReactNode }) {
   const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
@@ -12,6 +13,7 @@ export function HomeAtmosphere({ children }: { children: ReactNode }) {
 
   return (
     <main className="home-graphite" onPointerMove={handlePointerMove}>
+      <HomeIntro />
       {children}
     </main>
   );
