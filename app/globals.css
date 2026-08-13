@@ -1538,3 +1538,274 @@ body:has(.home-graphite) .site-footer {
   }
   .home-graphite .capabilities-section { padding-top: 4.25rem; }
 }
+
+/* V6 — restore the supplied HTML panel palettes only inside each project business story.
+   The project overview above remains graphite; the narrative below becomes the brand-specific
+   wine / midnight-blue / warm-brown panel from the provided HTML. */
+.project-detail-page .project-business-story {
+  --panel-ink: #F4F3EF;
+  --panel-ink-dim: #9C9B98;
+  --panel-ink-faint: #5A5A58;
+  --panel-hairline: rgba(244,243,239,.12);
+  --case-accent-1: #d6d6d6;
+  --case-accent-2: #f4f3ef;
+  --case-accent: var(--case-accent-2);
+  position: relative;
+  border-top: 1px solid var(--panel-hairline);
+  background: var(--case-bg);
+  color: var(--panel-ink);
+}
+
+.project-detail-page .project-business-story--tiktok {
+  --case-bg: #120A0D;
+  --case-accent-1: #FF3B5C;
+  --case-accent-2: #FF8A65;
+  --case-accent: #FF8A65;
+}
+.project-detail-page .project-business-story--mbbank {
+  --case-bg: #070B14;
+  --case-accent-1: #2E86FF;
+  --case-accent-2: #7FD1FF;
+  --case-accent: #7FD1FF;
+}
+.project-detail-page .project-business-story--mobifone {
+  --case-bg: #140D07;
+  --case-accent-1: #FF8A00;
+  --case-accent-2: #FFD08A;
+  --case-accent: #FFD08A;
+}
+
+/* Match the supplied HTML panel lighting rather than the graphite continuation. */
+.project-detail-page .project-business-orb {
+  top: -10vw;
+  right: -16vw;
+  width: min(60vw, 760px);
+  background: radial-gradient(
+    circle at 30% 20%,
+    var(--case-accent-1) 0%,
+    var(--case-accent-2) 40%,
+    transparent 70%
+  );
+  filter: blur(90px);
+  opacity: .28;
+}
+
+.project-detail-page .project-business-inner {
+  width: min(100%, 760px);
+  margin-inline: auto;
+  padding-top: clamp(4rem, 7vw, 6.2rem);
+  padding-bottom: clamp(6rem, 10vw, 9rem);
+}
+
+.project-detail-page .project-business-kicker,
+.project-detail-page .project-business-section > h3 {
+  color: var(--case-accent-2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.project-detail-page .project-business-kicker {
+  margin-bottom: 2.8rem;
+}
+
+.project-detail-page .project-business-opening h2 {
+  max-width: 17ch;
+  color: var(--panel-ink);
+  font-size: clamp(2rem, 4vw, 2.875rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+.project-detail-page .project-business-summary {
+  max-width: 56ch;
+  margin-top: 1.25rem;
+  color: var(--panel-ink-dim);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.project-detail-page .project-business-context {
+  max-width: 58ch;
+  margin-top: 1.25rem;
+  color: var(--panel-ink-dim);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.project-detail-page .project-business-metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 2.75rem;
+}
+.project-detail-page .project-business-metric {
+  min-height: 0;
+  border: 1px solid var(--panel-hairline);
+  border-radius: 4px;
+  background: rgba(244,243,239,.04);
+  padding: 20px 18px;
+  box-shadow: none;
+  backdrop-filter: none;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.project-detail-page .project-business-metric:hover {
+  border-color: rgba(244,243,239,.20);
+  background: rgba(244,243,239,.065);
+  transform: translateY(-2px);
+}
+.project-detail-page .project-business-metric strong {
+  margin-bottom: 6px;
+  color: var(--case-accent-2);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.project-detail-page .project-business-metric span {
+  color: var(--panel-ink-faint);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.project-detail-page .project-business-section {
+  margin-top: 3rem;
+}
+.project-detail-page .project-business-section > h3 {
+  margin-bottom: 18px;
+}
+.project-detail-page .project-business-findings {
+  border-top: 1px solid var(--panel-hairline);
+}
+.project-detail-page .project-business-finding {
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--panel-hairline);
+  background: transparent;
+}
+.project-detail-page .project-business-finding:hover {
+  margin-inline: 0;
+  padding-inline: 0;
+  background: transparent;
+}
+.project-detail-page .project-business-index {
+  color: var(--panel-ink-faint);
+  font-size: 13px;
+  font-weight: 600;
+  padding-top: 3px;
+}
+.project-detail-page .project-business-finding h4,
+.project-detail-page .project-business-recommendation h4 {
+  margin-bottom: 6px;
+  color: var(--panel-ink);
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.project-detail-page .project-business-finding p,
+.project-detail-page .project-business-recommendation p,
+.project-detail-page .project-business-evidence p,
+.project-detail-page .project-business-footer p {
+  color: var(--panel-ink-dim);
+  font-size: 13.5px;
+  line-height: 1.68;
+}
+
+.project-detail-page .project-business-recommendations {
+  gap: 26px;
+}
+.project-detail-page .project-business-recommendation {
+  max-width: 760px;
+  margin-left: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  overflow: visible;
+  transition: none;
+}
+.project-detail-page .project-business-recommendation:hover {
+  border-color: transparent;
+  background: transparent;
+  transform: none;
+}
+.project-detail-page .project-business-recommendation > span {
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: var(--case-accent-2);
+  color: #0A0A0A;
+  padding: 3px 9px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.project-detail-page .project-business-evidence {
+  margin-top: 44px;
+  border: 0;
+  border-left: 2px solid var(--case-accent-2);
+  border-radius: 2px;
+  background: rgba(244,243,239,.04);
+  padding: 20px 22px;
+  box-shadow: none;
+}
+.project-detail-page .project-business-evidence > h3 {
+  margin-bottom: 8px;
+  color: var(--panel-ink);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.project-detail-page .project-business-footer {
+  margin-top: 56px;
+  border-top: 1px solid var(--panel-hairline);
+  padding-top: 32px;
+}
+.project-detail-page .project-business-footer p {
+  max-width: 34ch;
+}
+.project-detail-page .project-business-footer a {
+  min-height: 46px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--case-accent-2);
+  color: #0A0A0A;
+  padding: 14px 26px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: none;
+}
+.project-detail-page .project-business-footer a:hover {
+  background: var(--case-accent-2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -8px var(--case-accent-1);
+}
+
+/* No overlay close control is rendered in the embedded project story. */
+.project-detail-page .project-business-story .btn-close { display: none !important; }
+
+@media (max-width: 900px) {
+  .project-detail-page .project-business-metrics { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 620px) {
+  .project-detail-page .project-business-inner {
+    width: min(100%, 760px);
+    padding-top: 3.4rem;
+    padding-bottom: 6rem;
+  }
+  .project-detail-page .project-business-opening h2 {
+    max-width: 17ch;
+    font-size: clamp(2rem, 10.5vw, 2.85rem);
+    line-height: 1.14;
+    letter-spacing: -.02em;
+  }
+  .project-detail-page .project-business-summary { font-size: 15px; }
+  .project-detail-page .project-business-context { font-size: 14px; }
+  .project-detail-page .project-business-metric { padding: 18px 16px; }
+  .project-detail-page .project-business-finding {
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 14px;
+  }
+}
