@@ -909,3 +909,346 @@ main > section:not(.hero) { position:relative; z-index:3; }
   .pdf-actions { gap: .55rem; }
   .pdf-actions .button { min-height: 46px; }
 }
+
+/* Project detail 2026 — unified graphite product-photography atmosphere. */
+.project-detail-page {
+  --project-bg: #08090b;
+  --project-surface: rgba(255,255,255,.035);
+  --project-surface-strong: rgba(255,255,255,.055);
+  --project-line: rgba(235,238,242,.12);
+  --project-line-strong: rgba(235,238,242,.2);
+  --project-text: #f3f4f6;
+  --project-muted: rgba(231,233,237,.62);
+  --project-faint: rgba(231,233,237,.38);
+  --project-light: rgba(205,210,218,.13);
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: clip;
+  background:
+    radial-gradient(ellipse 52% 38% at 77% 13%, rgba(142,148,158,.17), rgba(52,55,61,.075) 38%, transparent 72%),
+    radial-gradient(ellipse 44% 35% at 22% 34%, rgba(105,110,119,.09), transparent 70%),
+    linear-gradient(145deg, #0a0b0d 0%, #0d0e11 42%, #07080a 72%, #050607 100%);
+  color: var(--project-text);
+}
+.project-detail-page::before {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  background: radial-gradient(
+    500px circle at var(--project-pointer-x, 72vw) var(--project-pointer-y, 28vh),
+    rgba(214,218,225,.065),
+    rgba(119,124,134,.025) 34%,
+    transparent 68%
+  );
+  content: "";
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+.project-detail-page > * { position: relative; z-index: 1; }
+.project-detail-page .detail-hero {
+  position: relative;
+  padding-top: clamp(4rem, 7vw, 7rem);
+  padding-bottom: clamp(4.5rem, 7vw, 7rem);
+  background: transparent;
+}
+.project-detail-page .detail-hero::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(231,233,237,.16) 18%, rgba(231,233,237,.08) 82%, transparent);
+  content: "";
+}
+.project-detail-page .back-link,
+.project-detail-page .eyebrow,
+.project-detail-page .detail-summary,
+.project-detail-page .detail-brand span:not(.detail-brand-name),
+.project-detail-page .detail-metadata dt,
+.project-detail-page .theme-list span {
+  color: var(--project-muted);
+}
+.project-detail-page .back-link:hover { color: #fff; }
+.project-detail-page .eyebrow { color: rgba(229,232,237,.48); }
+.project-detail-page .detail-brand {
+  gap: .8rem;
+  margin-bottom: 1.7rem;
+}
+.project-detail-page .detail-brand-name {
+  color: #f4f5f7;
+  font-size: .92rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  text-transform: none;
+}
+.project-detail-page .detail-brand span + span::before {
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  margin-right: .8rem;
+  background: rgba(231,233,237,.22);
+  vertical-align: middle;
+  content: "";
+}
+.project-detail-page .detail-hero h1 {
+  max-width: 870px;
+  color: #f4f5f7;
+  font-size: clamp(3.15rem, 5.4vw, 5.6rem);
+  font-weight: 690;
+  letter-spacing: -.057em;
+  line-height: .98;
+  text-wrap: balance;
+}
+.project-detail-page .detail-summary {
+  max-width: 48rem;
+  font-size: clamp(1.02rem, 1.3vw, 1.2rem);
+  line-height: 1.72;
+}
+.project-detail-page .detail-intro-grid {
+  grid-template-columns: minmax(0, 1.22fr) minmax(310px, .78fr);
+  gap: clamp(3rem, 7vw, 7rem);
+}
+.project-detail-page .detail-product-visual {
+  min-height: 500px;
+  perspective: 1200px;
+}
+.project-detail-page .detail-product-glow {
+  inset: 4% -2% 8%;
+  border-radius: 48%;
+  background:
+    radial-gradient(circle at 46% 38%, rgba(232,235,240,.25), rgba(134,140,150,.12) 28%, rgba(40,42,47,.035) 55%, transparent 73%);
+  filter: blur(34px);
+  opacity: .82;
+}
+.project-detail-page .detail-product-plaque {
+  width: min(92%, 400px);
+  border-color: rgba(255,255,255,.28);
+  border-radius: 38px;
+  background:
+    linear-gradient(145deg, rgba(253,253,254,.96), rgba(225,227,231,.88) 58%, rgba(192,196,203,.8));
+  box-shadow:
+    inset 1px 1px 1px rgba(255,255,255,.95),
+    inset -1px -1px 1px rgba(31,33,37,.08),
+    0 55px 100px rgba(0,0,0,.48),
+    0 0 80px rgba(217,221,228,.08);
+  transform: rotateX(7deg) rotateY(-11deg) rotateZ(1.4deg);
+  transition: transform 520ms var(--ease-reveal), box-shadow 520ms var(--ease-reveal);
+}
+.project-detail-page .detail-product-plaque:hover {
+  transform: rotateX(5deg) rotateY(-7deg) rotateZ(.5deg) translateY(-5px);
+  box-shadow:
+    inset 1px 1px 1px rgba(255,255,255,.95),
+    0 70px 120px rgba(0,0,0,.55),
+    0 0 100px rgba(217,221,228,.12);
+}
+.project-detail-page .detail-product-shadow {
+  right: 8%;
+  bottom: 2%;
+  left: 8%;
+  height: 12%;
+  background: radial-gradient(ellipse, rgba(0,0,0,.72), rgba(0,0,0,.24) 46%, transparent 72%);
+  filter: blur(18px);
+}
+.project-detail-page .detail-metadata {
+  margin-top: clamp(4.5rem, 7vw, 6rem);
+  border-color: var(--project-line);
+}
+.project-detail-page .detail-metadata > div {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--project-line);
+  transition: background 260ms ease, border-color 260ms ease;
+}
+.project-detail-page .detail-metadata > div:hover { background: rgba(255,255,255,.026); }
+.project-detail-page .detail-metadata dd { color: rgba(245,246,248,.88); }
+.project-detail-page .theme-list span {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--project-line);
+  background: rgba(255,255,255,.015);
+  transition: color 240ms ease, border-color 240ms ease, background 240ms ease;
+}
+.project-detail-page .theme-list span:hover {
+  border-color: var(--project-line-strong);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.84);
+}
+
+/* A local silver light follows the pointer inside interactive research surfaces. */
+.project-detail-page [data-project-spotlight] { --spotlight-x: 50%; --spotlight-y: 50%; }
+.project-detail-page [data-project-spotlight]::after {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  background: radial-gradient(
+    230px circle at var(--spotlight-x) var(--spotlight-y),
+    rgba(238,240,244,.1),
+    rgba(188,193,201,.035) 34%,
+    transparent 68%
+  );
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+.project-detail-page [data-project-spotlight]:hover::after { opacity: 1; }
+
+/* The business narrative now continues the same graphite scene instead of switching to a colored panel. */
+.project-detail-page .project-experience-container { position: relative; background: transparent; }
+.project-detail-page .project-business-story,
+.project-detail-page .project-business-story--tiktok,
+.project-detail-page .project-business-story--mbbank,
+.project-detail-page .project-business-story--mobifone {
+  --case-bg: transparent;
+  --case-accent: #e4e7eb;
+  --case-glow: rgba(202,207,216,.12);
+  border-top: 0;
+  background:
+    radial-gradient(ellipse 50% 30% at 76% 6%, rgba(152,158,169,.11), transparent 70%),
+    linear-gradient(180deg, rgba(8,9,11,.08), rgba(4,5,7,.35));
+}
+.project-detail-page .project-business-orb {
+  top: -8rem;
+  right: -10vw;
+  width: min(72vw, 900px);
+  background: radial-gradient(circle at 34% 28%, rgba(202,207,216,.14), rgba(92,96,105,.055) 39%, transparent 72%);
+  filter: blur(70px);
+  opacity: .8;
+}
+.project-detail-page .project-business-inner {
+  width: min(100%, 980px);
+  padding-top: clamp(5.5rem, 9vw, 8rem);
+}
+.project-detail-page .project-business-kicker,
+.project-detail-page .project-business-section > h3 {
+  color: rgba(226,229,234,.55);
+}
+.project-detail-page .project-business-opening h2 {
+  max-width: 17ch;
+  color: #f4f5f7;
+  font-weight: 690;
+  letter-spacing: -.055em;
+}
+.project-detail-page .project-business-summary { color: rgba(239,241,244,.72); }
+.project-detail-page .project-business-context { color: rgba(224,227,232,.53); }
+.project-detail-page .project-business-metrics {
+  gap: .85rem;
+}
+.project-detail-page .project-business-metric {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--project-line);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
+  box-shadow: inset 0 1px rgba(255,255,255,.035);
+  transition: transform 280ms var(--ease-micro), border-color 280ms ease, background 280ms ease;
+}
+.project-detail-page .project-business-metric:hover {
+  border-color: rgba(235,238,242,.21);
+  background: linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+  transform: translateY(-3px);
+}
+.project-detail-page .project-business-metric strong { color: #eceef1; }
+.project-detail-page .project-business-metric span { color: rgba(226,229,234,.46); }
+.project-detail-page .project-business-findings { border-top-color: var(--project-line); }
+.project-detail-page .project-business-finding {
+  position: relative;
+  overflow: hidden;
+  border-bottom-color: var(--project-line);
+  transition: background 260ms ease, padding 360ms var(--ease-reveal);
+}
+.project-detail-page .project-business-finding:hover {
+  margin-inline: -.9rem;
+  padding-inline: .9rem;
+  background: rgba(255,255,255,.018);
+}
+.project-detail-page .project-business-index { color: rgba(225,228,233,.28); }
+.project-detail-page .project-business-finding h4,
+.project-detail-page .project-business-recommendation h4 { color: #eef0f3; }
+.project-detail-page .project-business-finding p,
+.project-detail-page .project-business-recommendation p,
+.project-detail-page .project-business-evidence p,
+.project-detail-page .project-business-footer p { color: rgba(225,228,233,.52); }
+.project-detail-page .project-business-recommendation {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: 1rem 1.05rem 1.1rem;
+  margin-left: -1.05rem;
+  transition: border-color 260ms ease, background 260ms ease, transform 260ms var(--ease-micro);
+}
+.project-detail-page .project-business-recommendation:hover {
+  border-color: rgba(235,238,242,.1);
+  background: rgba(255,255,255,.018);
+  transform: translateX(3px);
+}
+.project-detail-page .project-business-recommendation > span {
+  background: rgba(235,238,242,.9);
+  color: #0b0c0e;
+}
+.project-detail-page .project-business-evidence {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(235,238,242,.11);
+  border-left: 2px solid rgba(235,238,242,.58);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.018));
+}
+.project-detail-page .project-business-evidence > h3 { color: #eef0f3; }
+.project-detail-page .project-business-footer { border-top-color: var(--project-line); }
+.project-detail-page .project-business-footer a {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.28);
+  background: #e9ebee;
+  color: #0b0c0e;
+  box-shadow: 0 16px 50px rgba(0,0,0,.28);
+}
+.project-detail-page .project-business-footer a:hover {
+  background: #fff;
+  box-shadow: 0 22px 58px rgba(0,0,0,.38), 0 0 36px rgba(229,232,237,.08);
+}
+
+/* Keep project pages visually continuous with the dark sticky navigation. */
+.site-header.is-hero-dark:has(+ .project-detail-page),
+body:has(.project-detail-page) .site-header {
+  border-bottom-color: rgba(235,238,242,.075);
+  background: rgba(8,9,11,.82);
+  color: #f4f5f7;
+  box-shadow: none;
+}
+body:has(.project-detail-page) .site-header.is-scrolled { background: rgba(8,9,11,.9); }
+body:has(.project-detail-page) .heyjo-header-mark { filter: grayscale(1) contrast(1.1) brightness(2); opacity: .78; }
+body:has(.project-detail-page) .primary-navigation a { color: rgba(237,239,243,.58); }
+body:has(.project-detail-page) .primary-navigation a:hover,
+body:has(.project-detail-page) .primary-navigation a.is-active { color: #f4f5f7; }
+body:has(.project-detail-page) .primary-navigation a::after { background: #f4f5f7; }
+body:has(.project-detail-page) .menu-button span { background: #f4f5f7; }
+
+@media (max-width: 860px) {
+  body:has(.project-detail-page) .primary-navigation {
+    background: rgba(8,9,11,.985);
+  }
+  body:has(.project-detail-page) .primary-navigation a { color: rgba(244,245,247,.72); }
+  .project-detail-page .detail-intro-grid { gap: 1.5rem; }
+  .project-detail-page .detail-product-visual { min-height: 360px; }
+}
+
+@media (max-width: 620px) {
+  .project-detail-page .detail-hero { padding-top: 3.5rem; }
+  .project-detail-page .detail-hero h1 { font-size: clamp(2.7rem, 12.7vw, 4rem); }
+  .project-detail-page .detail-brand { align-items: flex-start; flex-direction: column; gap: .35rem; }
+  .project-detail-page .detail-brand span + span::before { display: none; }
+  .project-detail-page .detail-product-plaque { width: min(76vw, 330px); }
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .project-detail-page::before { display: none; }
+  .project-detail-page [data-project-spotlight]::after { display: none; }
+  .project-detail-page .detail-product-plaque,
+  .project-detail-page .project-business-metric,
+  .project-detail-page .project-business-recommendation { transition: none; }
+}

@@ -17,7 +17,9 @@ export function Header() {
       ? "certificates"
       : "";
   const currentActive = active || routeActive;
-  const darkHeroHeader = pathname === "/" && !open && (currentActive === "" || currentActive === "home");
+  const darkHeroHeader =
+    pathname.startsWith("/du-an/") ||
+    (pathname === "/" && !open && (currentActive === "" || currentActive === "home"));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);

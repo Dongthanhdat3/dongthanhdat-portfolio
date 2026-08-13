@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ProjectExperience } from "@/components/ProjectExperience";
+import { ProjectAtmosphere } from "@/components/ProjectAtmosphere";
 import { commercialReports } from "@/content/commercialReports";
 import { findProject, projects } from "@/content/portfolio.vi";
 
@@ -30,7 +31,7 @@ export default async function ProjectPage({ params }: PageProps) {
   if (!businessReport) notFound();
 
   return (
-    <main className="detail-page">
+    <ProjectAtmosphere>
       <section className="detail-hero">
         <div className="container detail-hero-inner">
           <Link prefetch={false} className="back-link" href="/#projects">
@@ -40,15 +41,15 @@ export default async function ProjectPage({ params }: PageProps) {
             <div className="detail-intro-copy">
               <p className="eyebrow">{project.category}</p>
               <div className={`detail-brand brand-${project.logoTreatment}`}>
-                <Image src={project.cover} alt={`Logo ${project.brand}`} width={1200} height={720} priority />
+                <span className="detail-brand-name">{project.brand}</span>
                 <span>Dự án nghiên cứu</span>
               </div>
-              <h1>{project.title}</h1>
+              <h1>{project.cardTitle}</h1>
               <p className="detail-summary">{project.description}</p>
             </div>
             <div className={`detail-product-visual brand-${project.logoTreatment}`} aria-hidden="true">
               <span className="detail-product-glow" />
-              <span className="detail-product-plaque">
+              <span className="detail-product-plaque" data-project-spotlight>
                 <Image src={project.cover} alt="" width={1200} height={720} priority />
               </span>
               <span className="detail-product-shadow" />
@@ -56,15 +57,15 @@ export default async function ProjectPage({ params }: PageProps) {
           </div>
 
           <dl className="detail-metadata">
-            <div>
+            <div data-project-spotlight>
               <dt>Dữ liệu</dt>
               <dd>{project.sample}</dd>
             </div>
-            <div>
+            <div data-project-spotlight>
               <dt>Phương pháp</dt>
               <dd>{project.methods}</dd>
             </div>
-            <div>
+            <div data-project-spotlight>
               <dt>Công cụ</dt>
               <dd>{project.tools.join(" · ")}</dd>
             </div>
@@ -72,7 +73,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
           <div className="theme-list" aria-label="Chủ đề chính">
             {project.keyThemes.map((theme) => (
-              <span key={theme}>{theme}</span>
+              <span key={theme} data-project-spotlight>{theme}</span>
             ))}
           </div>
         </div>
@@ -85,6 +86,6 @@ export default async function ProjectPage({ params }: PageProps) {
           pdf={project.pdf}
         />
       </div>
-    </main>
+    </ProjectAtmosphere>
   );
 }

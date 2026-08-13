@@ -22,7 +22,7 @@ export function ProjectExperience({ brand, businessReport, pdf }: ProjectExperie
 
           <div className="project-business-metrics" aria-label="Chỉ số nổi bật">
             {businessReport.metrics.map((metric) => (
-              <div className="project-business-metric" key={`${metric.value}-${metric.label}`}>
+              <div className="project-business-metric" data-project-spotlight key={`${metric.value}-${metric.label}`}>
                 <strong>{metric.value}</strong>
                 <span>{metric.label}</span>
               </div>
@@ -34,7 +34,7 @@ export function ProjectExperience({ brand, businessReport, pdf }: ProjectExperie
           <h3 id={`findings-${businessReport.theme}`}>Phát hiện chính</h3>
           <div className="project-business-findings">
             {businessReport.findings.map((finding) => (
-              <article className="project-business-finding" key={finding.index}>
+              <article className="project-business-finding" data-project-spotlight key={finding.index}>
                 <span className="project-business-index">{finding.index}</span>
                 <div>
                   <h4>{finding.title}</h4>
@@ -49,7 +49,7 @@ export function ProjectExperience({ brand, businessReport, pdf }: ProjectExperie
           <h3 id={`recommendations-${businessReport.theme}`}>Khuyến nghị hành động</h3>
           <div className="project-business-recommendations">
             {businessReport.recommendations.map((recommendation) => (
-              <article className="project-business-recommendation" key={`${recommendation.tag}-${recommendation.title}`}>
+              <article className="project-business-recommendation" data-project-spotlight key={`${recommendation.tag}-${recommendation.title}`}>
                 <span>{recommendation.tag}</span>
                 <h4>{recommendation.title}</h4>
                 <p>{recommendation.description}</p>
@@ -58,14 +58,14 @@ export function ProjectExperience({ brand, businessReport, pdf }: ProjectExperie
           </div>
         </section>
 
-        <aside className="project-business-evidence">
+        <aside className="project-business-evidence" data-project-spotlight>
           <h3>{businessReport.evidenceTitle}</h3>
           <p>{businessReport.evidence}</p>
         </aside>
 
         <footer className="project-business-footer">
           <p>{businessReport.ctaText}</p>
-          <a href={pdf} target="_blank" rel="noopener noreferrer">
+          <a href={pdf} target="_blank" rel="noopener noreferrer" data-project-spotlight>
             Mở báo cáo đầy đủ →
           </a>
         </footer>
