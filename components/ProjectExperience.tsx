@@ -4,67 +4,72 @@ import { useEffect, useState } from "react";
 import type { Project } from "@/content/portfolio.vi";
 import { PdfViewer } from "./PdfViewer";
 
+type Metric = { value: string; label: string };
+type Bar = { label: string; value: string; width: number; negative?: boolean };
+type Table = { headers: string[]; rows: string[][] };
+type Action = { tag: string; title: string; copy: string; rows?: string[][] };
 type Report = {
-  opening: string;
-  memory: string;
-  metrics: Array<{ value: string; label: string; detail: string }>;
-  actions: Array<{ priority: string; title: string; action: string; measure: string }>;
-  flow: string[];
-  boundary: string;
-  next: string;
+  title: string;
+  subtitle: string;
+  sample: string;
+  metrics: Metric[];
+  takeaways: string[];
+  quote: string;
+  context: { title: string; lead: string; callout: string };
+  insight: { title: string; lead: string; bars: Bar[]; table: Table; after?: string; callout?: string };
+  evidence: { title: string; lead: string; table: Table; callout?: string };
+  actions: { title: string; lead: string; items: Action[]; callout?: string };
+  roadmap?: Table;
+  kpis: Array<{ title: string; items: string[] }>;
+  method: { collection: string; analysis: string; limits: string[] };
 };
 
 const reports: Record<string, Report> = {
   mobifone: {
-    opening: "Khách hàng vẫn đang hài lòng — nhưng lòng trung thành có thể bị bào mòn trước khi họ rời mạng.",
-    memory: "Giữ chân không chỉ là chất lượng mạng. Mỗi điểm chạm dịch vụ, chăm sóc và trải nghiệm số đều góp vào quyết định ở lại.",
+    title: "Vì sao điểm hài lòng của MobiFone cao - nhưng vẫn có khách âm thầm rời đi?",
+    subtitle: "Khảo sát 450 khách hàng tại TP.HCM, đối chiếu với 2.821 đánh giá thực tế tại 50 cửa hàng trên Google Maps - nhằm xác định điều gì thật sự giữ chân khách hàng viễn thông trong giai đoạn cạnh tranh 5G.",
+    sample: "450 khách hàng + 2.821 đánh giá Google Maps tại 50 cửa hàng",
     metrics: [
-      { value: "450", label: "khách hàng tại TP.HCM", detail: "mẫu khảo sát của nghiên cứu" },
-      { value: "2.821", label: "phản hồi Google Maps", detail: "từ 50 chi nhánh tại TP.HCM" },
-      { value: "65,3%", label: "mức giải thích tổng hợp", detail: "của chuỗi trải nghiệm → hài lòng → trung thành" },
+      { value: "65%", label: "mức độ dự đoán được lòng trung thành từ toàn bộ trải nghiệm khách hàng" },
+      { value: "66,5%", label: "đánh giá tiêu cực trên Google Maps nhắc đến vấn đề chăm sóc khách hàng" },
+      { value: "4,19/5", label: "điểm hài lòng và trung thành trung bình - có vẻ tốt nhưng che giấu điểm yếu bên dưới" },
     ],
-    actions: [
-      { priority: "01", title: "Bảo vệ giai đoạn 6–12 tháng", action: "Theo dõi điểm chạm hỗ trợ và trải nghiệm số của nhóm mới gắn bó; ưu tiên xử lý ma sát lặp lại trước khi nhu cầu chuyển mạng trở nên dễ hơn.", measure: "Sự hài lòng và lòng trung thành theo thời gian sử dụng" },
-      { priority: "02", title: "Làm chăm sóc khách hàng dễ dự đoán", action: "Chuẩn hóa hướng dẫn, trạng thái xử lý và đường quay lại khi khách cần hỗ trợ.", measure: "Đánh giá chăm sóc khách hàng và tín hiệu phản hồi bên ngoài" },
-      { priority: "03", title: "Khép khoảng cách trải nghiệm số", action: "Kiểm tra các thao tác thường xuyên có làm khách mất thời gian hoặc khó tự xử lý hay không.", measure: "Tính dễ sử dụng, hữu ích và giá trị cảm nhận" },
-    ],
-    flow: ["Chất lượng dịch vụ", "Chăm sóc khách hàng", "Sự hài lòng", "Lòng trung thành"],
-    boundary: "Thiết kế cắt ngang cho thấy các mối liên hệ trong mẫu nghiên cứu; kết quả không phải churn rate toàn hệ thống và không chứng minh quan hệ nhân quả.",
-    next: "Kết nối khảo sát định kỳ với dữ liệu vận hành và hành vi giữ chân theo từng giai đoạn sử dụng để kiểm chứng các điểm ma sát ưu tiên.",
+    takeaways: ["Điểm hài lòng cao không có nghĩa mọi thứ đã ổn: cả 5 yếu tố tạo nên sự hài lòng đều dưới mức kỳ vọng.", "Chất lượng dịch vụ và chăm sóc khách hàng là hai đòn bẩy mạnh nhất.", "Đối chiếu Google Maps xác nhận: chăm sóc khách hàng xuất hiện trong 2/3 đánh giá tiêu cực có nội dung.", "Khách hàng mới dưới 1 năm có điểm hài lòng và trung thành thấp nhất.", "Giới tính không tạo khác biệt về lòng trung thành dù nữ giới đánh giá cao hơn về chăm sóc khách hàng."],
+    quote: "Khách hàng không thức dậy mỗi sáng để tự hỏi mình có trung thành với MobiFone hay không. Họ chỉ nhận ra: cuộc gọi có ổn không, khi có vấn đề có ai xử lý đến cùng không.",
+    context: { title: "Cuộc đua viễn thông đã chuyển từ có sóng sang giữ được khách", lead: "Chuyển mạng giữ số làm giảm rào cản rời bỏ. Đầu tư mạng lưới chỉ tạo giá trị khi trở thành trải nghiệm khách hàng cảm nhận được ở mỗi cuộc gọi, lần truy cập data và lúc cần hỗ trợ.", callout: "Rủi ro giữ chân có thể âm thầm: số điện thoại vẫn còn đó, nhưng data, cuộc gọi hoặc dịch vụ số đã dần chuyển sang nhà mạng khác khi bất tiện nhỏ lặp lại đủ nhiều." },
+    insight: { title: "5 yếu tố tạo nên sự hài lòng - và 2 yếu tố mạnh nhất", lead: "Sự hài lòng tích lũy từ năm khía cạnh trải nghiệm; hai yếu tố đầu tác động nổi bật nhất.", bars: [{ label: "Chất lượng dịch vụ", value: "Ảnh hưởng mạnh nhất", width: 100 }, { label: "Chất lượng chăm sóc khách hàng", value: "Ảnh hưởng mạnh", width: 86 }, { label: "Giá trị nhận được so với chi phí", value: "Ảnh hưởng vừa", width: 77 }, { label: "Mức độ dễ sử dụng ứng dụng và dịch vụ số", value: "Ảnh hưởng vừa", width: 67 }, { label: "Tính hữu ích của hệ sinh thái số", value: "Ảnh hưởng thấp hơn", width: 53 }], table: { headers: ["Khía cạnh", "So với kỳ vọng", "Diễn giải"], rows: [["Chất lượng dịch vụ", "Dưới kỳ vọng", "Đặc biệt ở tốc độ phản hồi yêu cầu và mức độ phù hợp nhu cầu riêng."], ["Giá trị nhận được", "Dưới kỳ vọng nhiều nhất", "Khách chưa thấy rõ lợi thế cạnh tranh so với nhà mạng khác."], ["Mức độ dễ sử dụng ứng dụng", "Dưới kỳ vọng", "Giao diện và trải nghiệm vẫn có thể cải thiện."], ["Tính hữu ích của dịch vụ số", "Dưới kỳ vọng nhẹ", "Tiện ích số chưa thực sự thiết yếu trong đời sống hằng ngày."], ["Chăm sóc khách hàng", "Gần đạt kỳ vọng nhất", "Tốc độ giải quyết khiếu nại vẫn là điểm yếu bên trong."], ["Sự hài lòng & lòng trung thành", "Vượt kỳ vọng", "Đánh giá tổng thể tích cực chưa chắc bền vững lâu dài."]]}, after: "Sự hài lòng giải thích khoảng 31% lý do khách trung thành. Khi ghép cả chuỗi trải nghiệm phía trước, mức giải thích tăng lên khoảng 65%; phần còn lại có thể đến từ hình ảnh thương hiệu, thói quen hoặc chi phí chuyển đổi.", callout: "Điểm tổng thể cao có thể che giấu bất tiện lặp lại ở từng điểm chạm - vùng rủi ro giữ chân âm thầm." },
+    evidence: { title: "Đối chiếu thực tế: khách hàng phàn nàn về điều gì nhiều nhất?", lead: "Trong 2.821 đánh giá Google Maps tại 50 cửa hàng, điểm trung bình đạt 4,3/5. Nhưng 418 đánh giá tiêu cực có nội dung cho thấy một bức tranh cụ thể hơn.", table: { headers: ["Chủ đề bị phàn nàn", "Tỷ lệ xuất hiện trong đánh giá tiêu cực"], rows: [["Chăm sóc khách hàng", "66,5% - cao nhất"], ["Chất lượng dịch vụ", "45,7%"], ["Mức độ dễ sử dụng", "26,1%"], ["Liên quan trực tiếp đến rời mạng", "3,3%"]] }, callout: "Chăm sóc khách hàng là nơi khách gõ cửa khi có vấn đề; một hệ thống mạng tốt nhưng hỗ trợ chậm vẫn có thể khiến khách thất vọng nặng nề." },
+    actions: { title: "Nên làm gì: 5 ưu tiên theo thứ tự", lead: "Thứ tự kết hợp mức độ ảnh hưởng, khoảng trống so với kỳ vọng và tần suất phản ánh thực tế.", items: [{ tag: "Ưu tiên 1", title: "Nâng chất lượng dịch vụ cảm nhận", copy: "Xây SLA theo loại yêu cầu, định tuyến đúng đội ngũ từ lần đầu; cá nhân hóa gói cước bằng dữ liệu hành vi; minh bạch vùng phủ sóng và lộ trình nâng cấp mạng.", rows: [["Hành động", "Mục tiêu"], ["SLA và định tuyến đúng", "Rút ngắn phản hồi"], ["Cá nhân hóa gói cước", "Tăng cảm giác phù hợp"], ["Minh bạch phủ sóng", "Quản lý kỳ vọng"]] }, { tag: "Ưu tiên 2", title: "Tối ưu chăm sóc khách hàng", copy: "Tăng quyền xử lý tuyến đầu, dùng CRM để khách không phải kể lại vấn đề, và tìm nguyên nhân gốc của khoảng cách đánh giá.", rows: [["Hành động", "Mục tiêu"], ["Giải quyết ngay lần đầu", "Giảm chuyển tiếp"], ["Lịch sử tương tác", "Giảm kể lại vấn đề"]] }, { tag: "Ưu tiên 3-5", title: "Làm rõ giá trị, dễ dùng trước, hữu ích sau", copy: "Chuyển thông điệp sang tổng giá trị nhận được; rà soát các tác vụ app tần suất cao; chỉ bổ sung tính năng khi được dùng lặp lại." }], callout: "Chăm sóc đặc biệt 6 tháng đầu cho khách mới: hướng dẫn sau kích hoạt, chủ động phát hiện vướng mắc và quyền lợi khởi động rõ ràng." },
+    kpis: [{ title: "Chất lượng dịch vụ", items: ["Thời gian phản hồi yêu cầu", "Tỷ lệ cuộc gọi lỗi và tốc độ data theo khu vực", "Hài lòng riêng với chất lượng dịch vụ"] }, { title: "Chăm sóc khách hàng", items: ["Tỷ lệ giải quyết ngay lần đầu", "Thời gian xử lý khiếu nại", "Số lần liên hệ lại cùng một vấn đề"] }, { title: "Kết quả cuối cùng", items: ["Hài lòng và trung thành theo thời gian sử dụng", "Tỷ lệ giới thiệu", "Xu hướng chuyển nhu cầu sang nhà mạng khác"] }, { title: "Kiểm chứng thực địa", items: ["Tỷ lệ phản ánh chăm sóc khách hàng trên Google Maps", "Điểm đánh giá theo cửa hàng"] }],
+    method: { collection: "Khảo sát định lượng 450 khách hàng tại TP.HCM đã dùng MobiFone ít nhất 6 tháng, thực hiện tháng 7-8/2025, kết hợp 2.821 đánh giá Google Maps tại 50 cửa hàng trong một năm.", analysis: "Hồi quy tuyến tính: 5 đầu vào giải thích khoảng 50% biến động hài lòng; hài lòng giải thích khoảng 31% trung thành; chuỗi tổng hợp khoảng 65%.", limits: ["Khảo sát cắt ngang và chọn mẫu thuận tiện, không phải ước lượng toàn bộ khách MobiFone tại TP.HCM.", "Mối liên hệ không là bằng chứng nhân quả tuyệt đối.", "Google Maps là dữ liệu tự chọn, phù hợp nhận diện vấn đề hơn ước lượng tỷ lệ toàn thị trường."] },
   },
   "tiktok-shop": {
-    opening: "Hoàn tiền xong chưa có nghĩa là đã phục hồi được khách hàng.",
-    memory: "Hậu mãi có thể sửa một phần quan hệ, nhưng không thể xóa hoàn toàn lời hứa sản phẩm đã bị phá vỡ.",
-    metrics: [
-      { value: "1.087", label: "người mua", detail: "đã hoàn tất trả hàng hoặc hoàn tiền" },
-      { value: "4", label: "tín hiệu có thể can thiệp", detail: "sai lệch, ma sát, công bằng, minh bạch" },
-      { value: "2 waves", label: "ưu tiên hành động", detail: "phòng ngừa trước mua và phục hồi sau sự cố" },
-    ],
-    actions: [
-      { priority: "01", title: "Ngăn sai lệch trước mua", action: "Giảm khoảng cách giữa claim và sản phẩm thực nhận ở các điểm có nguy cơ sai mô tả.", measure: "Tín hiệu sản phẩm không đúng mô tả" },
-      { priority: "02", title: "Giảm công sức chứng minh sự cố", action: "Thiết kế quy trình trả hàng - hoàn tiền ít bước hơn, giữ được trạng thái và chỉ rõ việc cần làm tiếp theo.", measure: "Ma sát quy trình và tỷ lệ hoàn tất" },
-      { priority: "03", title: "Phục hồi như một portfolio", action: "Đọc công bằng kết quả, ma sát và minh bạch thông tin như ba phần liên kết của một trải nghiệm phục hồi.", measure: "Niềm tin phục hồi và ý định tiếp tục mua" },
-    ],
-    flow: ["Lời hứa sản phẩm", "Trải nghiệm phục hồi", "Niềm tin phục hồi", "Lần mua tiếp theo"],
-    boundary: "Kết quả mô tả mối liên hệ trong các sự cố đã được xử lý hậu mãi; không đủ để suy ra hiệu quả nhân quả của một thay đổi chính sách cụ thể.",
-    next: "Nối dữ liệu sự cố với hành vi mua tiếp theo và thử nghiệm có đối chứng các can thiệp giảm sai lệch, ma sát và bất định thông tin.",
+    title: "Vì sao khách hàng không quay lại sau khi đơn hàng bị lỗi trên TikTok Shop?",
+    subtitle: "Nghiên cứu hành vi trên 1.087 người mua đã trải qua sự cố hàng nhận không đúng như quảng cáo và đã hoàn tất khiếu nại - nhằm xác định điều gì quyết định việc tiếp tục mua hay rời bỏ nền tảng.", sample: "1.087 người mua đã hoàn tất khiếu nại/hoàn tiền",
+    metrics: [{ value: "93%", label: "nguy cơ rời bỏ của nhóm trải nghiệm tệ sau sự cố" }, { value: "~2,7x", label: "ảnh hưởng của sai lệch sản phẩm so với từng yếu tố hậu mãi riêng lẻ" }, { value: "80%+", label: "khả năng dự đoán niềm tin và ý định mua lại từ cách sự cố được xử lý" }],
+    takeaways: ["Đóng ticket không có nghĩa là giữ được khách.", "Sản phẩm khác quảng cáo gây hại ý định mua lại gần gấp 3 lần yếu tố hậu mãi riêng lẻ.", "Nguy cơ rời bỏ phụ thuộc case được xử lý như thế nào, không phải khách là ai.", "Bốn yếu tố gần ngang sức: sai lệch, công sức khiếu nại, công bằng hoàn tiền, rõ ràng thông tin.", "Có thể dự đoán rủi ro bằng tín hiệu trong xử lý case để can thiệp trước khi khách rời đi."],
+    quote: "Hoàn tiền xong chưa có nghĩa là đã phục hồi được khách hàng.",
+    context: { title: "Vấn đề đang lớn dần cùng tốc độ tăng trưởng", lead: "Mua qua video ngắn và livestream diễn ra nhanh, trong khi khách chưa kịp kiểm chứng kỹ sản phẩm. Câu hỏi không chỉ là có hoàn tiền hay không, mà là khách có còn muốn quay lại sau khi case đóng.", callout: "Khảo sát 1.087 người mua đã thật sự đi hết hành trình khiếu nại sau sự cố nhận sản phẩm khác đáng kể so với quảng cáo." },
+    insight: { title: "4 điều khách hàng thật sự để ý sau một sự cố", lead: "Khách không chỉ nhìn vào kết quả hoàn tiền; bốn yếu tố cùng định hình niềm tin sau sự cố.", bars: [{ label: "Kết quả hoàn tiền công bằng", value: "Ảnh hưởng cao", width: 86 }, { label: "Công sức, thời gian khiếu nại", value: "Ảnh hưởng cao (tiêu cực)", width: 85, negative: true }, { label: "Thông tin xử lý rõ ràng", value: "Ảnh hưởng cao", width: 84 }, { label: "Sản phẩm sai lệch so với quảng cáo", value: "Ảnh hưởng cao (tiêu cực)", width: 83, negative: true }], table: { headers: ["Khía cạnh", "Trạng thái", "Diễn giải"], rows: [["Sai lệch sản phẩm", "Cao hơn mức chấp nhận", "Sản phẩm nhận được khác quảng cáo rõ ràng."], ["Phiền phức khiếu nại", "Cao hơn mức chấp nhận", "Khách bỏ nhiều công sức hơn mức sẵn lòng."], ["Công bằng hoàn tiền", "Chưa đạt kỳ vọng", "Chưa tương xứng thiệt hại, kể cả chi phí phát sinh."], ["Rõ ràng thông tin", "Nhỉnh hơn trung lập", "Điểm sáng duy nhất, chưa đủ bù điểm yếu."], ["Niềm tin sau xử lý", "Chưa phục hồi", "Đóng case không đồng nghĩa khách tin lại."]]}, after: "Sản phẩm sai để lại một vết sẹo trực tiếp lên ý định mua lại, ngay cả khi niềm tin được phục hồi phần nào.", callout: "Ngăn sai lệch từ đầu mang giá trị giữ chân lớn hơn chỉ cải thiện quy trình sau sự cố." },
+    evidence: { title: "Ai có nguy cơ rời bỏ? Là case như thế nào", lead: "Tuổi, giới tính, giá trị đơn, ngành hàng, mức mua và thời gian dùng gần như không đáng kể. Tín hiệu thật nằm trong trạng thái case.", table: { headers: ["Tín hiệu", "Ảnh hưởng đến rời bỏ"], rows: [["Độ tuổi, giới tính, giá trị đơn, ngành hàng", "Không đáng kể"], ["Kết quả khiếu nại", "Ảnh hưởng rất lớn"], ["Thời gian xử lý", "Ảnh hưởng rất lớn"], ["Số lần gửi lại bằng chứng", "Ảnh hưởng lớn"], ["Nhóm mất niềm tin (~51%)", "93% nguy cơ rời bỏ"], ["Nhóm phục hồi tốt (~49%)", "14% nguy cơ rời bỏ"]] }, callout: "Theo dõi trạng thái từng case thay vì hồ sơ khách: bị từ chối, kéo dài, hoặc phải chứng minh nhiều lần là tín hiệu cảnh báo thật." },
+    actions: { title: "Nên làm gì: 2 nhóm hành động", lead: "Wave 1 phòng ngừa nguồn gây lỗi; Wave 2 phục hồi công bằng, nhẹ nhàng và rõ ràng.", items: [{ tag: "Wave 1", title: "Ngăn sai lệch trước khi khách mua", copy: "Đối chiếu claim với thông số sản phẩm; theo dõi seller, sản phẩm và creator có sai mô tả lặp lại; lưu cam kết livestream để đối chiếu case." }, { tag: "Wave 2", title: "Làm hậu mãi công bằng hơn", copy: "Quy tắc hoàn tiền rõ theo lỗi và thiệt hại; không yêu cầu lại cùng bằng chứng; cho mỗi case dòng thời gian, người xử lý, việc cần bổ sung và lý do quyết định." }], callout: "Siết kiểm tra nội dung không được làm chậm seller hợp lệ; nới bằng chứng không được làm tăng gian lận hoàn tiền." },
+    roadmap: { headers: ["Giai đoạn", "Việc chính", "Cần đo"], rows: [["Ngày 1-30", "Gắn nhãn sự cố, đo niềm tin sau đóng case", "Dữ liệu nền"], ["Ngày 31-60", "Thử kiểm tra quảng cáo và 3 cải tiến hậu mãi có nhóm đối chứng", "Thay đổi chỉ số so với nhóm chưa thử"], ["Ngày 61-90", "Mở rộng, điều chỉnh hoặc dừng", "Tỷ lệ khách quay lại mua"]] },
+    kpis: [{ title: "Phòng ngừa", items: ["Tỷ lệ nội dung lệch thông số", "Case sai mô tả lặp lại", "Tỷ lệ đơn có khiếu nại sai mô tả"] }, { title: "Phục hồi", items: ["Số bước/gửi lại bằng chứng", "Chi phí phát sinh khách chịu", "Thời gian ra kết quả", "Quyết định có giải thích rõ"] }, { title: "Kết quả", items: ["Niềm tin sau đóng case", "Đặt đơn lại trong 90 ngày", "Chuyển sàn làm kênh chính"] }, { title: "Giới hạn an toàn", items: ["Không tăng gian lận hoàn tiền", "Không làm chậm seller hợp lệ", "Không vượt ngưỡng chi phí xử lý"] }],
+    method: { collection: "Khảo sát trực tuyến 1.087 người mua tại Việt Nam, từng nhận sản phẩm khác đáng kể so với quảng cáo trong 6 tháng, đã có quyết định cuối cùng cho yêu cầu trả hàng/hoàn tiền.", analysis: "PLS-SEM với Cronbach's Alpha 0,91-0,93; sáu giả thuyết chính có ý nghĩa mạnh; mô hình giải thích hơn 80% khác biệt về niềm tin và ý định mua lại.", limits: ["Khảo sát cắt ngang cho mối liên hệ, chưa là nhân quả tuyệt đối.", "Mẫu không ngẫu nhiên từ toàn bộ khách TikTok Shop.", "Cần kiểm định lại thang đo niềm tin và ý định mua lại trên mẫu độc lập."] },
   },
   "mb-bank": {
-    opening: "Bảo mật đáng tin vẫn có thể trở thành trải nghiệm khiến người dùng muốn giảm sử dụng.",
-    memory: "Niềm tin không xóa được chi phí thao tác lặp lại. Mục tiêu là giữ lớp bảo vệ cần thiết và loại bỏ ma sát không tạo thêm an toàn.",
-    metrics: [
-      { value: "1.187", label: "hồ sơ khảo sát", detail: "về xác thực sinh trắc học tại TP.HCM" },
-      { value: "0,532", label: "Trust → Continued Use", detail: "hệ số chuẩn hóa trong mô hình" },
-      { value: "−0,363", label: "Effort → Continued Use", detail: "hệ số chuẩn hóa trong mô hình" },
-    ],
-    actions: [
-      { priority: "01", title: "Giảm thử lại và mất trạng thái", action: "Theo dõi luồng theo mã lỗi, giữ trạng thái hợp lệ và đưa ra phương án xử lý thay thế khi xác thực thất bại.", measure: "First-pass success, retry, P90 thời gian, bỏ dở" },
-      { priority: "02", title: "Giải thích đúng lúc", action: "Cho khách biết bước xác thực bảo vệ điều gì, lỗi nào đang xảy ra và phải làm gì tiếp theo.", measure: "Tính minh bạch, độ tin cậy và niềm tin" },
-      { priority: "03", title: "Hỗ trợ theo ngữ cảnh", action: "Tăng hướng dẫn và hỗ trợ cho người gặp nhiều thử lại hoặc khó tự khắc phục lỗi.", measure: "Khoảng cách tự phục hồi và chuyển kênh hỗ trợ" },
-    ],
-    flow: ["Bảo vệ & độ tin cậy", "Niềm tin xác thực", "Nỗ lực thao tác", "Ý định tiếp tục dùng"],
-    boundary: "Các hệ số thể hiện liên hệ trong mẫu cắt ngang, không chứng minh một thay đổi giao diện sẽ tạo ra đúng mức thay đổi sử dụng trong vận hành.",
-    next: "Kết nối telemetry xác thực với khảo sát trải nghiệm và A/B test theo mã lỗi; chỉ mở rộng khi giảm ma sát mà không làm guardrail an toàn xấu đi.",
+    title: "Vì sao khách hàng ngại quét sinh trắc học trên App MBBank - dù vẫn tin hệ thống an toàn?",
+    subtitle: "Nghiên cứu 1.187 khách hàng cá nhân tại TP.HCM đã xác thực sinh trắc học ít nhất 3 lần trong 6 tháng gần nhất, nhằm xác định điều gì quyết định việc tiếp tục gắn bó với App MBBank.", sample: "1.187 khách hàng cá nhân tại TP.HCM",
+    metrics: [{ value: "72%", label: "khách từng phải xác thực lại ít nhất một lần trong 6 tháng" }, { value: "~2x", label: "mức giảm ý định tiếp tục dùng ở nhóm xác thực lại nhiều lần" }, { value: "80%+", label: "khả năng dự đoán niềm tin và ý định dùng app từ trải nghiệm xác thực" }],
+    takeaways: ["Đây không phải bài toán an toàn hay tiện lợi - cần cả hai.", "Số lần phải làm lại là tín hiệu cảnh báo rõ nhất.", "Khách không biết tự xử lý bị ảnh hưởng nặng hơn bởi cùng lỗi.", "Bốn yếu tố gần ngang sức: được bảo vệ, ổn định, hiểu quy trình, quyền riêng tư.", "Cảm giác được bảo vệ đã khá tốt; ưu tiên là giảm phiền phức và lo ngại quyền riêng tư."],
+    quote: "Khách hàng không rời bỏ vì không tin ngân hàng an toàn. Họ rời bỏ vì mỗi lần giao dịch lại phải trả thêm một khoản phí vô hình bằng thời gian và công sức.",
+    context: { title: "Xác thực sinh trắc học không còn là tính năng phụ", lead: "Từ tháng 7/2024, xác thực sinh trắc học là yêu cầu cho giao dịch giá trị cao và đổi thiết bị. Với phần lớn giao dịch diễn ra trên app, vài giây trục trặc ở quy mô lớn sẽ thành thời gian chờ, trì hoãn và nhu cầu hỗ trợ.", callout: "Câu hỏi không phải giữ hay bỏ xác thực, mà là giữ mức bảo mật cần thiết mà không tạo chi phí vô hình quá lớn bằng thời gian, công sức và cảm giác mất kiểm soát." },
+    insight: { title: "4 điều khách hàng dựa vào để tin bước xác thực", lead: "Khách không nhìn thấy thuật toán phía sau; họ đánh giá qua trải nghiệm thực tế.", bars: [{ label: "Cảm giác được bảo vệ", value: "Ảnh hưởng cao nhất", width: 88 }, { label: "Độ ổn định hệ thống", value: "Ảnh hưởng cao", width: 82 }, { label: "Mức độ hiểu quy trình", value: "Ảnh hưởng cao", width: 78 }, { label: "Lo ngại quyền riêng tư", value: "Ảnh hưởng cao (tiêu cực)", width: 69, negative: true }], table: { headers: ["Khía cạnh", "Trạng thái", "Diễn giải"], rows: [["Cảm giác được bảo vệ", "Gần đạt kỳ vọng", "Điểm mạnh, không cần đầu tư thêm nhiều."], ["Độ ổn định", "Khoảng trống vừa phải", "Cần tăng tỷ lệ thành công lần đầu."], ["Hiểu quy trình", "Khoảng trống lớn", "Khách chưa rõ vì sao phải làm và khi lỗi cần làm gì."], ["Quyền riêng tư", "Khoảng trống lớn nhất", "Khách chưa yên tâm dữ liệu được kiểm soát tốt."], ["Phiền phức thao tác", "Khoảng trống lớn", "Cùng quyền riêng tư là điểm chưa hài lòng nhất."]]}, after: "Niềm tin và sự sẵn lòng chịu thao tác là hai đường ảnh hưởng độc lập: tăng niềm tin không xóa chi phí thao tác.", callout: "Cùng một lỗi ảnh hưởng rất khác: nhóm chưa biết tự xử lý cần hỗ trợ chủ động, bên cạnh việc sửa quy trình." },
+    evidence: { title: "Tín hiệu cảnh báo rõ nhất: số lần phải xác thực lại", lead: "Số lần xác thực lại là tín hiệu vận hành dễ theo dõi nhất cho mối liên hệ giữa trải nghiệm và gắn bó.", table: { headers: ["Số lần trong 6 tháng", "Niềm tin", "Ý định tiếp tục dùng"], rows: [["Chưa lần nào (28%)", "Cao nhất", "Cao nhất"], ["1 lần (23%)", "Giảm nhẹ", "Giảm nhẹ"], ["2-3 lần (25%)", "Giảm rõ", "Giảm rõ"], ["Từ 4 lần (25%)", "Thấp nhất", "Giảm gần một nửa"]] }, callout: "72% khách từng xác thực lại; 25% tổng mẫu làm lại từ 4 lần. Nên theo dõi trạng thái từng phiên và loại lỗi, không dựa vào nhân khẩu học." },
+    actions: { title: "Ưu tiên theo mức ảnh hưởng và khoảng trống", lead: "Không phải yếu tố ảnh hưởng lớn nào cũng cần đầu tư thêm khi nó đã ở trạng thái tốt.", items: [{ tag: "Ưu tiên 1", title: "Giảm phiền phức thao tác", copy: "Ghi nhận nguyên nhân lỗi, giữ phần đã xác thực hợp lệ và chuyển hướng cụ thể khi cùng lỗi lặp lại." }, { tag: "Ưu tiên 2", title: "Giảm lo ngại quyền riêng tư, làm rõ quy trình", copy: "Hiển thị ngắn gọn dữ liệu dùng để làm gì; mỗi lỗi nêu nguyên nhân, việc tiếp theo và lối thoát khi thử lại không được." }, { tag: "Duy trì", title: "Giữ cảm giác được bảo vệ", copy: "Duy trì thông điệp đúng lúc, không thêm thao tác chỉ để trông có vẻ an toàn hơn." }, { tag: "Xuyên suốt", title: "Hỗ trợ nhóm chưa tự xử lý", copy: "Khi khách dừng lâu hoặc lặp lỗi, tự động gợi ý kênh hỗ trợ." }], callout: "Giảm phiền phức không được làm tăng gian lận, chấp nhận sai hoặc truy cập trái phép." },
+    roadmap: { headers: ["Giai đoạn", "Việc chính", "Cần đo"], rows: [["Ngày 1-30", "Chuẩn hóa nguyên nhân lỗi và đo mốc hiện tại", "First-pass success, retry, thời gian"], ["Ngày 31-60", "Thử giữ trạng thái, thông tin riêng tư và lỗi dễ hiểu với nhóm đối chứng", "Thành công, retry, niềm tin"], ["Ngày 61-90", "Mở rộng, điều chỉnh hoặc dừng", "Ý định dùng và hành vi giao dịch"]] },
+    kpis: [{ title: "Giảm phiền phức", items: ["Thành công lần đầu", "Retry trung bình", "Thời gian hoàn tất", "Tỷ lệ bỏ dở"] }, { title: "Tin tưởng & hiểu", items: ["Tự khôi phục sau lỗi", "Thông báo lỗi có hướng dẫn", "Điểm tin tưởng sau xác thực"] }, { title: "Kết quả", items: ["Tiếp tục giao dịch trên app", "Chuyển sang hỗ trợ trực tiếp"] }, { title: "Giới hạn an toàn", items: ["Không tăng chấp nhận nhầm", "Không tăng truy cập trái phép", "Không bỏ lọt giao dịch rủi ro"] }],
+    method: { collection: "Khảo sát 1.187 khách hàng 18+ tại TP.HCM có tài khoản MB, đã dùng App MBBank và xác thực sinh trắc học ít nhất 3 lần trong 6 tháng.", analysis: "PLS-SEM kiểm tra cả hiệu ứng điều tiết của năng lực tự xử lý; mô hình giải thích khoảng 77-78% khác biệt về niềm tin và ý định tiếp tục dùng.", limits: ["Khảo sát cắt ngang thể hiện liên hệ, cần A/B test để khẳng định nhân quả.", "Phạm vi TP.HCM có thể chưa phản ánh đầy đủ khu vực khác."] },
   },
 };
 
@@ -73,45 +78,35 @@ export function ProjectExperience({ project }: { project: Project }) {
   const report = reports[project.slug];
 
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get("view") === "research") setView("research");
+    const sync = () => setView(new URLSearchParams(window.location.search).get("view") === "research" ? "research" : "commercial");
+    sync(); window.addEventListener("popstate", sync); return () => window.removeEventListener("popstate", sync);
   }, []);
+  const select = (next: "commercial" | "research") => { setView(next); const url = new URL(window.location.href); next === "research" ? url.searchParams.set("view", "research") : url.searchParams.delete("view"); window.history.replaceState(null, "", url); };
 
-  const select = (next: "commercial" | "research") => {
-    setView(next);
-    const url = new URL(window.location.href);
-    next === "research" ? url.searchParams.set("view", "research") : url.searchParams.delete("view");
-    window.history.replaceState(null, "", url);
-  };
-
-  return (
-    <section className="project-experience" aria-label="Cách đọc dự án">
-      <div className="container">
-        <div className="project-view-switcher" role="tablist" aria-label="Chọn cách đọc dự án">
-          <button className={view === "commercial" ? "is-active" : ""} role="tab" aria-selected={view === "commercial"} onClick={() => select("commercial")}>
-            <strong>Báo cáo kinh doanh</strong><span>Commercial Report</span>
-          </button>
-          <button className={view === "research" ? "is-active" : ""} role="tab" aria-selected={view === "research"} onClick={() => select("research")}>
-            <strong>Báo cáo nghiên cứu</strong><span>Full Research PDF</span>
-          </button>
-        </div>
-        {view === "commercial" ? <CommercialReport project={project} report={report} onResearch={() => select("research")} /> : <PdfViewer src={project.pdf} preview={project.preview} title={`Tài liệu dự án ${project.brand}`} />}
-      </div>
-    </section>
-  );
+  return <section className="project-experience" aria-label="Cách đọc dự án"><div className="container">
+    <div className="project-view-switcher" role="tablist" aria-label="Chọn cách đọc dự án">
+      <button className={view === "commercial" ? "is-active" : ""} role="tab" aria-selected={view === "commercial"} onClick={() => select("commercial")}><strong>Báo cáo kinh doanh</strong><span>Commercial Report</span></button>
+      <button className={view === "research" ? "is-active" : ""} role="tab" aria-selected={view === "research"} onClick={() => select("research")}><strong>Báo cáo nghiên cứu</strong><span>Full Research PDF</span></button>
+    </div>
+    {view === "commercial" ? <CommercialReport report={report} onResearch={() => select("research")} /> : <PdfViewer src={project.pdf} preview={project.preview} title={`Tài liệu dự án ${project.brand}`} />}
+  </div></section>;
 }
 
-function CommercialReport({ project, report, onResearch }: { project: Project; report: Report; onResearch: () => void }) {
-  return <article className={`commercial-report brand-${project.logoTreatment}`}>
-    <header className="commercial-opening">
-      <p className="eyebrow">Decision brief · {project.brand}</p>
-      <h2>{report.opening}</h2>
-      <div className="report-snapshot"><span>Mẫu: {project.sample}</span><span>Trọng tâm: {project.keyThemes[0]}</span><span>Tác giả: Đồng Thành Đạt</span></div>
-    </header>
-    <section className="report-section report-summary"><p className="eyebrow">60 giây cho người ra quyết định</p><div className="metric-grid">{report.metrics.map((metric) => <div className="metric-card" key={metric.label}><strong>{metric.value}</strong><h3>{metric.label}</h3><p>{metric.detail}</p></div>)}</div></section>
-    <section className="report-memory"><p>Nếu chỉ nhớ một điều</p><h3>{report.memory}</h3></section>
-    <section className="report-section"><div className="report-section-heading"><p className="eyebrow">Ưu tiên hành động</p><h3>Đi từ điểm ma sát có thể can thiệp đến tín hiệu cần theo dõi.</h3></div><div className="action-grid">{report.actions.map((action) => <article className="action-card" key={action.priority}><span>{action.priority}</span><h4>{action.title}</h4><p>{action.action}</p><small><b>Theo dõi:</b> {action.measure}</small></article>)}</div></section>
-    <section className="report-section report-flow"><p className="eyebrow">Chuỗi bằng chứng</p><div>{report.flow.map((item, index) => <span key={item}>{item}{index < report.flow.length - 1 && <i aria-hidden="true">→</i>}</span>)}</div><p>Các bước mô tả cấu trúc diễn giải từ nghiên cứu, không phải một tuyên bố nhân quả.</p></section>
-    <section className="report-section report-boundary"><p className="eyebrow">Dữ liệu chưa cho phép kết luận gì?</p><p>{report.boundary}</p><p><b>Nên kiểm chứng tiếp:</b> {report.next}</p></section>
-    <section className="report-section report-evidence"><p className="eyebrow">Dữ liệu & bằng chứng kỹ thuật</p><h3>Đi sâu khi bạn cần kiểm tra phương pháp, thang đo và bảng kết quả.</h3><div className="evidence-actions"><button onClick={onResearch}>Xem báo cáo nghiên cứu đầy đủ</button><a href={project.workbookUrl} target="_blank" rel="noopener noreferrer">Mở dữ liệu Excel</a></div></section>
+function CommercialReport({ report, onResearch }: { report: Report; onResearch: () => void }) {
+  return <article className="commercial-report">
+    <header className="commercial-opening"><p className="eyebrow">Market Research Report · Business Summary</p><h2>{report.title}</h2><p className="commercial-subtitle">{report.subtitle}</p><div className="report-snapshot"><span>Thực hiện bởi: Đồng Thành Đạt</span><span>Quy mô: {report.sample}</span></div></header>
+    <section className="report-section"><p className="eyebrow">Tóm tắt điều hành</p><h3 className="report-display">5 điều cần biết trong 60 giây</h3><div className="metric-grid">{report.metrics.map((metric) => <div className="metric-card" key={metric.value}><strong>{metric.value}</strong><p>{metric.label}</p></div>)}</div><ol className="takeaway-list">{report.takeaways.map((item) => <li key={item}>{item}</li>)}</ol></section>
+    <section className="report-memory"><p>Nếu chỉ nhớ một điều</p><h3>{report.quote}</h3></section>
+    <section className="report-section report-story"><p className="eyebrow">Bối cảnh</p><h3 className="report-display">{report.context.title}</h3><p className="report-lead">{report.context.lead}</p><aside className="report-callout">{report.context.callout}</aside></section>
+    <InsightSection insight={report.insight} />
+    <section className="report-section report-story"><p className="eyebrow">Phát hiện chính</p><h3 className="report-display">{report.evidence.title}</h3><p className="report-lead">{report.evidence.lead}</p><DataTable table={report.evidence.table} />{report.evidence.callout && <aside className="report-callout">{report.evidence.callout}</aside>}</section>
+    <section className="report-section report-story"><p className="eyebrow">Khuyến nghị hành động</p><h3 className="report-display">{report.actions.title}</h3><p className="report-lead">{report.actions.lead}</p><div className="recommendation-grid">{report.actions.items.map((item) => <article className="recommendation-card" key={item.title}><span>{item.tag}</span><h4>{item.title}</h4><p>{item.copy}</p>{item.rows && <DataTable table={{ headers: item.rows[0], rows: item.rows.slice(1) }} />}</article>)}</div>{report.actions.callout && <aside className="report-callout">{report.actions.callout}</aside>}</section>
+    {report.roadmap && <section className="report-section report-story"><p className="eyebrow">Kế hoạch triển khai</p><h3 className="report-display">Lộ trình thử nghiệm 90 ngày</h3><DataTable table={report.roadmap} /><div className="decision-gate"><span>Mở rộng<br /><small>Lợi ích rõ và guardrail ổn</small></span><span>Điều chỉnh<br /><small>Tín hiệu tốt nhưng chưa đủ rõ</small></span><span>Dừng<br /><small>Rủi ro tăng hoặc không hiệu quả</small></span></div></section>}
+    <section className="report-section report-story"><p className="eyebrow">Đo lường thành công</p><h3 className="report-display">Những con số nên theo dõi hằng tháng</h3><div className="kpi-grid">{report.kpis.map((group) => <article key={group.title}><h4>{group.title}</h4><ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div></section>
+    <section className="report-section report-method"><p className="eyebrow">Phụ lục</p><h3 className="report-display">Về phương pháp nghiên cứu</h3><h4>Cách thu thập dữ liệu</h4><p>{report.method.collection}</p><h4>Cách phân tích</h4><p>{report.method.analysis}</p><h4>Giới hạn cần lưu ý</h4><ul>{report.method.limits.map((limit) => <li key={limit}>{limit}</li>)}</ul></section>
+    <section className="report-evidence"><p className="eyebrow">Báo cáo nghiên cứu đầy đủ</p><h3>Kiểm tra phương pháp, thang đo và kết quả kỹ thuật trong PDF nguồn.</h3><button onClick={onResearch}>Mở báo cáo nghiên cứu</button></section>
   </article>;
 }
+
+function InsightSection({ insight }: { insight: Report["insight"] }) { return <section className="report-section report-story"><p className="eyebrow">Phát hiện chính</p><h3 className="report-display">{insight.title}</h3><p className="report-lead">{insight.lead}</p><div className="influence-bars">{insight.bars.map((bar) => <div key={bar.label}><div><span>{bar.label}</span><b>{bar.value}</b></div><i><em className={bar.negative ? "is-negative" : ""} style={{ width: `${bar.width}%` }} /></i></div>)}</div><DataTable table={insight.table} />{insight.after && <p className="report-copy">{insight.after}</p>}{insight.callout && <aside className="report-callout">{insight.callout}</aside>}</section>; }
+function DataTable({ table }: { table: Table }) { return <div className="report-table-wrap"><table className="report-table"><thead><tr>{table.headers.map((header) => <th key={header}>{header}</th>)}</tr></thead><tbody>{table.rows.map((row, index) => <tr key={`${row[0]}-${index}`}>{row.map((cell, cellIndex) => <td key={cellIndex}>{cell}</td>)}</tr>)}</tbody></table></div>; }
