@@ -2068,3 +2068,69 @@ body:has(.project-detail-page--mobifone) .site-header {
   .project-detail-page .project-business-summary,
   .project-detail-page .project-business-context { max-width: 100%; }
 }
+
+
+/* ===== V8 — supplied brand marks + restrained report CTA =====
+   Brand assets are tightly cropped transparent marks. Keep their optical
+   size consistent in both homepage plaques and project hero plaques. */
+.home-graphite .brand-mobifone .brand-plaque img {
+  width: 66%;
+  height: 46%;
+}
+.home-graphite .brand-tiktok .brand-plaque img {
+  width: 72%;
+  height: 48%;
+}
+.home-graphite .brand-mbbank .brand-plaque img {
+  width: 62%;
+  height: 48%;
+}
+
+.project-detail-page .detail-product-visual.brand-mobifone .detail-product-plaque img {
+  width: 66%;
+  height: 46%;
+}
+.project-detail-page .detail-product-visual.brand-tiktok .detail-product-plaque img {
+  width: 72%;
+  height: 48%;
+}
+.project-detail-page .detail-product-visual.brand-mbbank .detail-product-plaque img {
+  width: 62%;
+  height: 48%;
+}
+
+/* The full-report action should read like a premium editorial link,
+   not a filled CTA block. */
+.project-detail-page .project-business-footer a {
+  min-height: 48px;
+  border: 1px solid rgba(var(--project-accent-rgb), .62);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--project-accent);
+  padding: 13px 24px;
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.025),
+    0 0 0 0 rgba(var(--project-accent-rgb), 0);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    border-color 220ms ease,
+    background 220ms ease,
+    color 220ms ease,
+    box-shadow 280ms ease,
+    transform 220ms ease;
+}
+.project-detail-page .project-business-footer a:hover {
+  border-color: rgba(var(--project-accent-rgb), .92);
+  background: rgba(var(--project-accent-rgb), .075);
+  color: color-mix(in srgb, var(--project-accent) 88%, #fff 12%);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.04),
+    0 14px 38px -26px rgba(var(--project-accent-rgb), .92),
+    0 0 34px rgba(var(--project-accent-rgb), .08);
+  transform: translateY(-2px);
+}
+.project-detail-page .project-business-footer a:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--project-accent) 78%, #fff 22%);
+  outline-offset: 4px;
+}
