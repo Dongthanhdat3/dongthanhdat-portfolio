@@ -1,29 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function PdfViewer({
   src,
-  preview,
+  previewSrc,
   title,
 }: {
   src: string;
-  preview: string;
+  previewSrc: string;
   title: string;
 }) {
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
-  const [mountViewer, setMountViewer] = useState(false);
-
-  useEffect(() => {
-    const schedule = "requestIdleCallback" in window
-      ? window.requestIdleCallback(() => setMountViewer(true), { timeout: 240 })
-      : window.setTimeout(() => setMountViewer(true), 80);
-    return () => {
-      if ("cancelIdleCallback" in window) window.cancelIdleCallback(schedule as number);
-      else window.clearTimeout(schedule as number);
-    };
-  }, []);
 
   return (
     <section className="pdf-section" aria-labelledby="tai-lieu-heading">
@@ -31,6 +20,9 @@ export function PdfViewer({
         <div>
           <p className="eyebrow">Tài liệu đầy đủ</p>
           <h2 id="tai-lieu-heading">Đọc nghiên cứu</h2>
+          <p className="pdf-description">
+            PDF chỉ được tải sau khi bạn chọn tab này để giữ project page nhẹ hơn ở lần mở đầu tiên.
+          </p>
         </div>
         <div className="pdf-actions">
           <a className="button button-secondary" href={src} target="_blank" rel="noreferrer">
@@ -43,8 +35,25 @@ export function PdfViewer({
       </div>
 
       <div className="pdf-frame" data-status={status}>
-        <Image className="pdf-preview" src={preview} alt={`Trang đầu ${title}`} width={1406} height={1988} priority />
-        {status === "loading" && <span className="pdf-progress" aria-label="Đang chuẩn bị tài liệu" />}
+        {status !== "ready" && (
+          <div className="pdf-preview" aria-hidden="true">
+            <Image
+              src={previewSrc}
+              alt=""
+              width={1200}
+              height={1697}
+              sizes="(max-width: 900px) 100vw, 1200px"
+              priority={false}
+            />
+            {status === "loading" && (
+              <div className="pdf-state" role="status">
+                <span className="loading-line" />
+                Đang tải tài liệu…
+              </div>
+            )}
+          </div>
+        )}
+
         {status === "error" ? (
           <div className="pdf-state pdf-error">
             <p>Trình duyệt không thể hiển thị tài liệu này trong trang.</p>
@@ -52,15 +61,14 @@ export function PdfViewer({
               Mở PDF trong cửa sổ mới
             </a>
           </div>
-        ) : mountViewer ? (
+        ) : (
           <iframe
             src={`${src}#view=FitH`}
             title={title}
-            loading="lazy"
             onLoad={() => setStatus("ready")}
             onError={() => setStatus("error")}
           />
-        ) : null}
+        )}
       </div>
     </section>
   );

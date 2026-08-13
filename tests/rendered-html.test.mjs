@@ -1,10 +1,6 @@
 import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
-import { join } from "node:path";
-import { fileURLToPath } from "node:url";
 import test from "node:test";
-
-const root = fileURLToPath(new URL("..", import.meta.url));
 
 async function render(path = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -38,7 +34,7 @@ test("server-renders the Vietnamese portfolio", async () => {
   assert.match(html, /Dự án tiêu biểu/);
   assert.match(html, /Giới thiệu/);
   assert.match(html, /Google Apps Script/);
-  assert.match(html, /heyjo-emblem-experience/);
+  assert.match(html, /research-core-experience/);
   assert.match(html, /Trường Đại học Nguyễn Tất Thành/);
   assert.match(html, /Google Advanced Data Analytics Professional Certificate/);
   assert.doesNotMatch(html, /Mohammed Kayser|Fractal Analytics|GPTTConfig|G-E72XQ9P5CW/);
@@ -48,20 +44,37 @@ test("server-renders the Vietnamese portfolio", async () => {
 });
 
 test("renders project and certificate routes", async () => {
-  const [projectResponse, certificateResponse] = await Promise.all([
+  const [mobifoneResponse, tiktokResponse, mbResponse, certificateResponse] = await Promise.all([
     render("/du-an/mobifone"),
+    render("/du-an/tiktok-shop"),
+    render("/du-an/mb-bank"),
     render("/chung-chi/google-data-analytics"),
   ]);
-  assert.equal(projectResponse.status, 200);
+  assert.equal(mobifoneResponse.status, 200);
+  assert.equal(tiktokResponse.status, 200);
+  assert.equal(mbResponse.status, 200);
   assert.equal(certificateResponse.status, 200);
 
-  const [projectHtml, certificateHtml] = await Promise.all([
-    projectResponse.text(),
+  const [mobifoneHtml, tiktokHtml, mbHtml, certificateHtml] = await Promise.all([
+    mobifoneResponse.text(),
+    tiktokResponse.text(),
+    mbResponse.text(),
     certificateResponse.text(),
   ]);
-  assert.match(projectHtml, /450 khách hàng MobiFone/);
-  assert.match(projectHtml, /Báo cáo kinh doanh/);
-  assert.match(projectHtml, /mobifone-research\.pdf/);
+
+  for (const projectHtml of [mobifoneHtml, tiktokHtml, mbHtml]) {
+    assert.match(projectHtml, /Báo cáo kinh doanh/);
+    assert.match(projectHtml, /Báo cáo nghiên cứu/);
+    assert.match(projectHtml, /Ưu tiên hiển thị/);
+    assert.doesNotMatch(projectHtml, /<iframe[^>]+projects\//);
+  }
+
+  assert.match(mobifoneHtml, /450 khách hàng MobiFone/);
+  assert.match(mobifoneHtml, /5 điều cần biết trong 60 giây/);
+  assert.match(tiktokHtml, /1\.087 người mua/);
+  assert.match(tiktokHtml, /93%/);
+  assert.match(mbHtml, /1\.187/);
+  assert.match(mbHtml, /72%/);
   assert.match(certificateHtml, /4MXR5IP6JIWD/);
   assert.match(certificateHtml, /\/certificates\/google-data-analytics\.pdf/);
 });
@@ -70,15 +83,15 @@ test("ships every evidence asset", async () => {
   await Promise.all(
     [
       "../public/images/avatar-v5.webp",
-      "../public/brand/heyjo-mark-transparent.webp",
+      "../public/images/research-core-static.webp",
       "../public/fonts/inter-latin-variable.woff2",
       "../public/fonts/inter-vietnamese-variable.woff2",
-      "../public/projects/mobifone-research.pdf",
-      "../public/projects/tiktok-shop-research.pdf",
-      "../public/projects/mbbank-research.pdf",
-      "../public/projects/previews/mobifone-page-1.webp",
-      "../public/projects/previews/tiktok-shop-page-1.webp",
-      "../public/projects/previews/mbbank-page-1.webp",
+      "../public/projects/mobifone.pdf",
+      "../public/projects/tiktok-shop.pdf",
+      "../public/projects/mb-bank.pdf",
+      "../public/projects/mobifone-preview.webp",
+      "../public/projects/tiktok-shop-preview.webp",
+      "../public/projects/mb-bank-preview.webp",
       "../public/certificates/google-data-analytics.pdf",
       "../public/certificates/google-advanced-data-analytics.pdf",
       "../public/og.png",
@@ -97,15 +110,6 @@ test("ships every evidence asset", async () => {
       "../public/tools/google-apps-script-v5.webp",
     ].map((path) => access(new URL(path, import.meta.url))),
   );
-});
-
-test("project pages default to the commercial report and reference only new PDFs", async () => {
-  const html = await readFile(join(root, "dist/du-an/mobifone/index.html"), "utf8");
-  assert.match(html, /Báo cáo kinh doanh/);
-  assert.match(html, /mobifone-research\.pdf/);
-  assert.doesNotMatch(html, /\/projects\/mobifone\.pdf/);
-  await access(join(root, "dist/projects/previews/mobifone-page-1.webp"));
-  await access(join(root, "dist/projects/mobifone-research.pdf"));
 });
 
 test("exports Vercel-compatible static entry points", async () => {

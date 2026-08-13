@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ProjectExperience } from "@/components/ProjectExperience";
+import { commercialReports } from "@/content/commercialReports";
 import { findProject, projects } from "@/content/portfolio.vi";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -24,6 +25,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ProjectPage({ params }: PageProps) {
   const project = findProject((await params).slug);
   if (!project) notFound();
+
+  const businessReport = commercialReports[project.slug];
+  if (!businessReport) notFound();
 
   return (
     <main className="detail-page">
@@ -73,7 +77,15 @@ export default async function ProjectPage({ params }: PageProps) {
           </div>
         </div>
       </section>
-      <ProjectExperience project={project} />
+
+      <div className="container project-experience-container">
+        <ProjectExperience
+          brand={project.brand}
+          businessReport={businessReport}
+          pdf={project.pdf}
+          pdfPreview={project.pdfPreview}
+        />
+      </div>
     </main>
   );
 }
