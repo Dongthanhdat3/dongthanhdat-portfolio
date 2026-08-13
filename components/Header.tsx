@@ -19,7 +19,7 @@ export function Header() {
   const currentActive = active || routeActive;
   const darkHeroHeader =
     pathname.startsWith("/du-an/") ||
-    (pathname === "/" && !open && (currentActive === "" || currentActive === "home"));
+    pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);

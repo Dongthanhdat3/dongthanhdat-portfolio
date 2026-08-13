@@ -4,11 +4,12 @@ import { Certificates } from "@/components/Certificates";
 import { Contact } from "@/components/Contact";
 import { Education } from "@/components/Education";
 import { Hero } from "@/components/Hero";
+import { HomeAtmosphere } from "@/components/HomeAtmosphere";
 import { Projects } from "@/components/Projects";
 
 export default function Home() {
   return (
-    <main>
+    <HomeAtmosphere>
       <Hero />
       <About />
       <Capabilities />
@@ -16,6 +17,6 @@ export default function Home() {
       <Education />
       <Certificates />
       <Contact />
-    </main>
+    </HomeAtmosphere>
   );
 }

@@ -1252,3 +1252,224 @@ body:has(.project-detail-page) .menu-button span { background: #f4f5f7; }
   .project-detail-page .project-business-metric,
   .project-detail-page .project-business-recommendation { transition: none; }
 }
+
+/* Home 2026 — continuous graphite / silver product-photography atmosphere. */
+.home-graphite {
+  --home-bg: #07080a;
+  --home-panel: rgba(255,255,255,.034);
+  --home-panel-strong: rgba(255,255,255,.055);
+  --home-line: rgba(232,235,240,.12);
+  --home-text: #f2f3f5;
+  --home-muted: rgba(232,234,238,.72);
+  --home-faint: rgba(232,234,238,.48);
+  position: relative;
+  background:
+    radial-gradient(ellipse 58% 30% at 76% 14%, rgba(152,158,168,.16), rgba(76,80,88,.055) 42%, transparent 72%),
+    radial-gradient(ellipse 48% 34% at 18% 48%, rgba(102,107,116,.075), transparent 72%),
+    linear-gradient(145deg, #0a0b0d 0%, #0d0e11 39%, #08090b 68%, #050607 100%);
+  color: var(--home-text);
+}
+.home-graphite::before {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  background: radial-gradient(
+    430px circle at var(--home-pointer-x, 74vw) var(--home-pointer-y, 30vh),
+    rgba(224,227,233,.075),
+    rgba(145,150,160,.028) 35%,
+    transparent 69%
+  );
+  content: "";
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.home-graphite > section { position: relative; z-index: 2; }
+.home-graphite .hero,
+.home-graphite .about-section,
+.home-graphite .capabilities-section,
+.home-graphite .projects-section,
+.home-graphite .education-section,
+.home-graphite .certificates-section,
+.home-graphite .contact-section,
+.home-graphite .tool-lab {
+  background: transparent;
+  color: var(--home-text);
+}
+.home-graphite .hero {
+  background:
+    radial-gradient(ellipse 54% 68% at 78% 43%, rgba(119,124,134,.26) 0%, rgba(42,44,50,.15) 34%, rgba(8,9,11,0) 69%),
+    linear-gradient(138deg, rgba(9,9,11,.7), rgba(13,14,17,.38) 50%, rgba(5,6,8,.72));
+}
+.home-graphite .about-section,
+.home-graphite .capabilities-section,
+.home-graphite .projects-section,
+.home-graphite .education-section,
+.home-graphite .certificates-section {
+  border-top: 1px solid rgba(235,238,242,.055);
+}
+.home-graphite .eyebrow,
+.home-graphite .split-heading > p,
+.home-graphite .about-paragraphs p,
+.home-graphite .capability-column li,
+.home-graphite .education-period,
+.home-graphite .education-graduation,
+.home-graphite .certificate-meta,
+.home-graphite .certificate-copy > p:not(.certificate-meta),
+.home-graphite .project-category,
+.home-graphite .tool-lab-heading > p:last-child,
+.home-graphite .contact-intro {
+  color: var(--home-muted);
+}
+.home-graphite h2,
+.home-graphite h3,
+.home-graphite .project-brand,
+.home-graphite .education-record p,
+.home-graphite .certificate-copy h3 {
+  color: var(--home-text);
+}
+.home-graphite .button-secondary {
+  border-color: rgba(235,238,242,.26);
+  background: rgba(255,255,255,.025);
+  color: var(--home-text);
+}
+.home-graphite .button-secondary:hover {
+  border-color: rgba(245,247,250,.54);
+  background: rgba(255,255,255,.07);
+}
+.home-graphite .about-image-wrap {
+  border-radius: 36px;
+  background: radial-gradient(circle at 50% 35%, rgba(226,229,235,.09), rgba(90,94,103,.025) 46%, transparent 76%);
+}
+.home-graphite .portrait-light {
+  background: radial-gradient(circle at 56% 36%, rgba(240,242,246,.16) 0, rgba(137,142,152,.07) 40%, rgba(12,13,16,0) 76%);
+}
+.home-graphite .portrait-shadow { background: rgba(0,0,0,.58); }
+.home-graphite .about-image { filter: grayscale(.12) contrast(1.04) drop-shadow(20px 28px 28px rgba(0,0,0,.28)); }
+.home-graphite .capability-column,
+.home-graphite .education-record { border-color: var(--home-line); }
+.home-graphite .tool-lab::before {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(172,178,188,.14), transparent 48%),
+    linear-gradient(180deg, rgba(255,255,255,.025), transparent 34%);
+}
+.home-graphite .tool-gallery { border-color: var(--home-line); }
+.home-graphite .tool-item {
+  border-color: var(--home-line);
+  background:
+    radial-gradient(circle at var(--tool-light-x) var(--tool-light-y), rgba(235,238,243,.13), rgba(168,173,183,.035) 25%, transparent 45%),
+    linear-gradient(145deg, rgba(255,255,255,.014), rgba(255,255,255,.004));
+  transition: background 180ms ease, border-color 240ms ease;
+}
+.home-graphite .tool-item:hover {
+  border-color: rgba(236,239,244,.22);
+}
+.home-graphite .tool-name { color: rgba(246,247,249,.9); }
+.home-graphite .brand-stage {
+  border-color: var(--home-line);
+  background:
+    radial-gradient(circle at var(--card-light-x) var(--card-light-y), rgba(231,234,239,.13), rgba(116,121,131,.045) 36%, rgba(20,22,26,.1) 68%),
+    linear-gradient(150deg, #121419, #0a0b0e 64%, #060709);
+  box-shadow: inset 0 1px rgba(255,255,255,.025);
+}
+.home-graphite .brand-stage::before {
+  background: conic-gradient(from 180deg at 50% 50%, transparent, rgba(226,229,235,.16), transparent 28%);
+}
+.home-graphite .project-card:hover .brand-stage {
+  border-color: rgba(235,238,242,.23);
+  box-shadow: 0 32px 80px rgba(0,0,0,.38), 0 0 60px rgba(213,217,224,.035);
+}
+.home-graphite .project-index,
+.home-graphite .brand-note { color: var(--home-faint); }
+.home-graphite .brand-plaque {
+  border-color: rgba(255,255,255,.28);
+  background: linear-gradient(145deg, rgba(249,250,252,.96), rgba(215,218,224,.9) 61%, rgba(172,177,186,.84));
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.96), 0 36px 72px rgba(0,0,0,.48), 0 0 44px rgba(226,229,235,.055);
+}
+.home-graphite .project-arrow {
+  border-color: var(--home-line);
+  color: rgba(244,246,249,.86);
+}
+.home-graphite .project-card:hover .project-arrow {
+  background: #eceef2;
+  color: #08090b;
+}
+.home-graphite .certificate-card {
+  border-color: var(--home-line);
+  background: linear-gradient(145deg, rgba(255,255,255,.042), rgba(255,255,255,.014));
+  box-shadow: inset 0 1px rgba(255,255,255,.025);
+}
+.home-graphite .certificate-card:hover {
+  border-color: rgba(235,238,242,.2);
+  box-shadow: 0 32px 80px rgba(0,0,0,.36), 0 0 60px rgba(220,224,231,.03);
+}
+.home-graphite .certificate-preview { background: #111318; }
+.home-graphite .certificate-preview img { opacity: .88; filter: grayscale(.16) contrast(1.03); }
+.home-graphite .certificate-actions a { border-color: rgba(244,246,249,.6); }
+.home-graphite .contact-section {
+  border-top: 1px solid var(--home-line);
+  background: linear-gradient(180deg, rgba(10,11,14,.26), rgba(5,6,8,.75));
+}
+
+/* Project reading contrast: still soft, but no longer visually muddy. */
+.project-detail-page {
+  --project-muted: rgba(236,238,242,.72);
+  --project-faint: rgba(236,238,242,.48);
+}
+.project-detail-page .eyebrow { color: rgba(235,238,242,.58); }
+.project-detail-page .detail-summary { color: rgba(239,241,244,.76); }
+.project-detail-page .project-business-kicker,
+.project-detail-page .project-business-section > h3 { color: rgba(234,237,242,.64); }
+.project-detail-page .project-business-summary { color: rgba(242,244,247,.82); }
+.project-detail-page .project-business-context { color: rgba(234,237,241,.68); }
+.project-detail-page .project-business-metric span { color: rgba(232,235,240,.62); }
+.project-detail-page .project-business-index { color: rgba(233,236,240,.42); }
+.project-detail-page .project-business-finding p,
+.project-detail-page .project-business-recommendation p,
+.project-detail-page .project-business-evidence p,
+.project-detail-page .project-business-footer p { color: rgba(233,236,240,.68); }
+
+body:has(.home-graphite) {
+  background: #07080a;
+  color: #f2f3f5;
+}
+body:has(.home-graphite) .site-header,
+body:has(.home-graphite) .site-header.is-scrolled {
+  border-bottom-color: rgba(235,238,242,.075);
+  background: rgba(8,9,11,.82);
+  color: #f4f5f7;
+  box-shadow: none;
+}
+body:has(.home-graphite) .site-header .heyjo-header-mark {
+  filter: grayscale(1) contrast(1.2) brightness(2.1);
+  opacity: .88;
+}
+body:has(.home-graphite) .site-header .primary-navigation a { color: rgba(245,245,247,.64); }
+body:has(.home-graphite) .site-header .primary-navigation a:hover,
+body:has(.home-graphite) .site-header .primary-navigation a.is-active { color: #f5f5f7; }
+body:has(.home-graphite) .site-header .primary-navigation a::after { background: #f5f5f7; }
+body:has(.home-graphite) .site-header .menu-button span { background: #f5f5f7; }
+body:has(.home-graphite) .site-footer {
+  background: #050608;
+  border-top-color: rgba(235,238,242,.075);
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .home-graphite::before { display: none; }
+}
+
+.home-graphite .contact-shortcut { color: rgba(236,239,243,.68); }
+.home-graphite .contact-shortcut:hover { background: rgba(255,255,255,.07); color: #fff; }
+.home-graphite .contact-tooltip { background: #eef0f3; color: #090a0c; }
+
+@media (max-width: 860px) {
+  body:has(.home-graphite) .primary-navigation {
+    background: rgba(7,8,10,.985);
+  }
+  body:has(.home-graphite) .primary-navigation a {
+    color: rgba(244,246,249,.76);
+  }
+  body:has(.home-graphite) .primary-navigation a:hover,
+  body:has(.home-graphite) .primary-navigation a.is-active {
+    color: #fff;
+  }
+}
