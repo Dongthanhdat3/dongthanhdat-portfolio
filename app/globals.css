@@ -1473,3 +1473,68 @@ body:has(.home-graphite) .site-footer {
     color: #fff;
   }
 }
+
+/* V5 review refinements — typography breathing room, subtle contrast lift, tighter About divider. */
+.project-detail-page .detail-hero h1 {
+  font-size: clamp(2.95rem, 5vw, 5.1rem);
+  letter-spacing: -.047em;
+  line-height: 1.075;
+  text-wrap: balance;
+}
+
+.project-detail-page .project-business-opening h2 {
+  max-width: 17ch;
+  font-size: clamp(2.75rem, 5.1vw, 5rem);
+  letter-spacing: -.045em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+/* Roughly a five-percent readability lift without flattening the graphite mood. */
+.project-detail-page {
+  --project-muted: rgba(239,241,244,.76);
+  --project-faint: rgba(239,241,244,.52);
+}
+.project-detail-page .eyebrow { color: rgba(238,240,244,.62); }
+.project-detail-page .detail-summary { color: rgba(242,244,247,.80); }
+.project-detail-page .project-business-kicker,
+.project-detail-page .project-business-section > h3 { color: rgba(238,240,244,.68); }
+.project-detail-page .project-business-summary { color: rgba(245,246,248,.85); }
+.project-detail-page .project-business-context { color: rgba(238,240,244,.72); }
+.project-detail-page .project-business-metric span { color: rgba(237,239,243,.66); }
+.project-detail-page .project-business-index { color: rgba(237,239,243,.46); }
+.project-detail-page .project-business-finding p,
+.project-detail-page .project-business-recommendation p,
+.project-detail-page .project-business-evidence p,
+.project-detail-page .project-business-footer p { color: rgba(237,239,243,.72); }
+
+.home-graphite {
+  --home-muted: rgba(237,239,243,.76);
+  --home-faint: rgba(237,239,243,.52);
+}
+.home-graphite .tool-lab-heading > p:last-child { color: rgba(237,239,243,.60); }
+
+/* End the About portrait block exactly at the portrait baseline, then start capabilities cleanly. */
+.home-graphite .about-section {
+  padding-bottom: 0;
+  border-top-color: rgba(235,238,242,.055);
+  border-bottom: 1px solid rgba(235,238,242,.075);
+}
+.home-graphite .capabilities-section {
+  padding-top: clamp(4.5rem, 7vw, 6.5rem);
+  border-top: 0;
+}
+
+@media (max-width: 620px) {
+  .project-detail-page .detail-hero h1 {
+    font-size: clamp(2.4rem, 11.5vw, 3.55rem);
+    line-height: 1.085;
+    letter-spacing: -.042em;
+  }
+  .project-detail-page .project-business-opening h2 {
+    font-size: clamp(2.35rem, 11vw, 3.55rem);
+    line-height: 1.1;
+    letter-spacing: -.04em;
+  }
+  .home-graphite .capabilities-section { padding-top: 4.25rem; }
+}
