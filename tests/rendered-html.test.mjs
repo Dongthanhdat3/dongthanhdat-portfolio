@@ -63,17 +63,18 @@ test("renders project and certificate routes", async () => {
   ]);
 
   for (const projectHtml of [mobifoneHtml, tiktokHtml, mbHtml]) {
-    assert.match(projectHtml, /Báo cáo kinh doanh/);
-    assert.match(projectHtml, /Báo cáo nghiên cứu/);
-    assert.match(projectHtml, /Ưu tiên hiển thị/);
+    assert.doesNotMatch(projectHtml, /Hai góc nhìn cho cùng một dự án/);
+    assert.doesNotMatch(projectHtml, /Ưu tiên hiển thị/);
+    assert.doesNotMatch(projectHtml, /PDF chỉ được tải sau khi bạn chọn tab này/);
     assert.doesNotMatch(projectHtml, /<iframe[^>]+projects\//);
+    assert.match(projectHtml, /Mở báo cáo đầy đủ →/);
   }
 
-  assert.match(mobifoneHtml, /450 khách hàng MobiFone/);
-  assert.match(mobifoneHtml, /5 điều cần biết trong 60 giây/);
-  assert.match(tiktokHtml, /1\.087 người mua/);
+  assert.match(mobifoneHtml, /450 khách hàng khảo sát trực tiếp/);
+  assert.match(mobifoneHtml, /66\.5%/);
+  assert.match(tiktokHtml, /Vì sao khách hàng không quay lại sau một đơn hàng lỗi\?/);
   assert.match(tiktokHtml, /93%/);
-  assert.match(mbHtml, /1\.187/);
+  assert.match(mbHtml, /Vì sao khách ngại quét sinh trắc học/);
   assert.match(mbHtml, /72%/);
   assert.match(certificateHtml, /4MXR5IP6JIWD/);
   assert.match(certificateHtml, /\/certificates\/google-data-analytics\.pdf/);

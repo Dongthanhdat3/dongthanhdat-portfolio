@@ -1,87 +1,75 @@
-"use client";
-
-import { useId, useState } from "react";
-import { CommercialReport } from "@/components/CommercialReport";
-import { PdfViewer } from "@/components/PdfViewer";
 import type { CommercialReportData } from "@/content/commercialReports";
-
-type ReportMode = "business" | "research";
 
 type ProjectExperienceProps = {
   brand: string;
   businessReport: CommercialReportData;
   pdf: string;
-  pdfPreview: string;
 };
 
-export function ProjectExperience({ brand, businessReport, pdf, pdfPreview }: ProjectExperienceProps) {
-  const [mode, setMode] = useState<ReportMode>("business");
-  const id = useId();
-  const businessPanelId = `${id}-business-panel`;
-  const researchPanelId = `${id}-research-panel`;
-
+export function ProjectExperience({ brand, businessReport, pdf }: ProjectExperienceProps) {
   return (
-    <section className="project-experience" aria-labelledby={`${id}-experience-title`}>
-      <div className="project-experience-head">
-        <div>
-          <p className="eyebrow">Project Experience</p>
-          <h2 id={`${id}-experience-title`}>Hai góc nhìn cho cùng một dự án</h2>
-          <p>
-            Bắt đầu bằng góc nhìn kinh doanh để nắm quyết định, sau đó chuyển sang bản nghiên cứu đầy đủ khi cần kiểm tra phương pháp và bằng chứng.
-          </p>
-        </div>
+    <section
+      className={`project-business-story project-business-story--${businessReport.theme}`}
+      aria-label={`Báo cáo kinh doanh ${brand}`}
+    >
+      <div className="project-business-orb" aria-hidden="true" />
+      <div className="project-business-inner">
+        <header className="project-business-opening">
+          <p className="project-business-kicker">{businessReport.kicker}</p>
+          <h2>{businessReport.title}</h2>
+          <p className="project-business-summary">{businessReport.summary}</p>
+          <p className="project-business-context">{businessReport.context}</p>
 
-        <div className="project-report-tabs" role="tablist" aria-label={`Chọn loại báo cáo ${brand}`}>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={mode === "business"}
-            aria-controls={businessPanelId}
-            id={`${id}-business-tab`}
-            className={mode === "business" ? "is-active" : undefined}
-            onClick={() => setMode("business")}
-          >
-            <span>Báo cáo kinh doanh</span>
-            <small>Ưu tiên hiển thị</small>
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={mode === "research"}
-            aria-controls={researchPanelId}
-            id={`${id}-research-tab`}
-            className={mode === "research" ? "is-active" : undefined}
-            onClick={() => setMode("research")}
-          >
-            <span>Báo cáo nghiên cứu</span>
-            <small>PDF đầy đủ</small>
-          </button>
-        </div>
+          <div className="project-business-metrics" aria-label="Chỉ số nổi bật">
+            {businessReport.metrics.map((metric) => (
+              <div className="project-business-metric" key={`${metric.value}-${metric.label}`}>
+                <strong>{metric.value}</strong>
+                <span>{metric.label}</span>
+              </div>
+            ))}
+          </div>
+        </header>
+
+        <section className="project-business-section" aria-labelledby={`findings-${businessReport.theme}`}>
+          <h3 id={`findings-${businessReport.theme}`}>Phát hiện chính</h3>
+          <div className="project-business-findings">
+            {businessReport.findings.map((finding) => (
+              <article className="project-business-finding" key={finding.index}>
+                <span className="project-business-index">{finding.index}</span>
+                <div>
+                  <h4>{finding.title}</h4>
+                  <p>{finding.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="project-business-section" aria-labelledby={`recommendations-${businessReport.theme}`}>
+          <h3 id={`recommendations-${businessReport.theme}`}>Khuyến nghị hành động</h3>
+          <div className="project-business-recommendations">
+            {businessReport.recommendations.map((recommendation) => (
+              <article className="project-business-recommendation" key={`${recommendation.tag}-${recommendation.title}`}>
+                <span>{recommendation.tag}</span>
+                <h4>{recommendation.title}</h4>
+                <p>{recommendation.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <aside className="project-business-evidence">
+          <h3>{businessReport.evidenceTitle}</h3>
+          <p>{businessReport.evidence}</p>
+        </aside>
+
+        <footer className="project-business-footer">
+          <p>{businessReport.ctaText}</p>
+          <a href={pdf} target="_blank" rel="noopener noreferrer">
+            Mở báo cáo đầy đủ →
+          </a>
+        </footer>
       </div>
-
-      {mode === "business" ? (
-        <div
-          id={businessPanelId}
-          role="tabpanel"
-          aria-labelledby={`${id}-business-tab`}
-          className="project-report-panel"
-        >
-          <CommercialReport report={businessReport} brand={brand} />
-        </div>
-      ) : (
-        <div
-          id={researchPanelId}
-          role="tabpanel"
-          aria-labelledby={`${id}-research-tab`}
-          className="project-report-panel"
-        >
-          <PdfViewer
-            src={pdf}
-            previewSrc={pdfPreview}
-            title={`Tài liệu dự án ${brand}`}
-          />
-        </div>
-      )}
     </section>
   );
 }

@@ -20,9 +20,6 @@ export function PdfViewer({
         <div>
           <p className="eyebrow">Tài liệu đầy đủ</p>
           <h2 id="tai-lieu-heading">Đọc nghiên cứu</h2>
-          <p className="pdf-description">
-            PDF chỉ được tải sau khi bạn chọn tab này để giữ project page nhẹ hơn ở lần mở đầu tiên.
-          </p>
         </div>
         <div className="pdf-actions">
           <a className="button button-secondary" href={src} target="_blank" rel="noreferrer">

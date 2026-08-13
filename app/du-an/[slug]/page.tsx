@@ -83,7 +83,6 @@ export default async function ProjectPage({ params }: PageProps) {
           brand={project.brand}
           businessReport={businessReport}
           pdf={project.pdf}
-          pdfPreview={project.pdfPreview}
         />
       </div>
     </main>
