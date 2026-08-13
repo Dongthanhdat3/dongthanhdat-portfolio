@@ -59,7 +59,7 @@ export default async function CertificatePage({ params }: PageProps) {
         </div>
       </section>
       <div className="container">
-        <PdfViewer src={certificate.pdf} title={certificate.title} />
+        <PdfViewer src={certificate.pdf} preview={certificate.thumbnail} title={certificate.title} />
       </div>
     </main>
   );

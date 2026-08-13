@@ -12,6 +12,8 @@ export type Project = {
   logoTreatment: "mobifone" | "tiktok" | "mbbank";
   cover: string;
   pdf: string;
+  preview: string;
+  workbookUrl: string;
 };
 
 export type Certificate = {
@@ -44,7 +46,7 @@ export const portfolio = {
   },
   navigation: [
     { label: "Trang chủ", href: "/#home" },
-    { label: "About Me", href: "/#about" },
+    { label: "Giới thiệu", href: "/#about" },
     { label: "Năng lực", href: "/#capabilities" },
     { label: "Dự án", href: "/#projects" },
     { label: "Học vấn", href: "/#education" },
@@ -113,7 +115,9 @@ export const projects: Project[] = [
     ],
     logoTreatment: "mobifone",
     cover: "/brands/mobifone.webp",
-    pdf: "/projects/mobifone.pdf",
+    pdf: "/projects/mobifone-research.pdf",
+    preview: "/projects/previews/mobifone-page-1.webp",
+    workbookUrl: "https://docs.google.com/spreadsheets/d/1FIfgE6wgn1DKSOUrSNVN55GRn3SgZcLhoaJIttMY9ks/edit?gid=2078438798#gid=2078438798",
   },
   {
     slug: "tiktok-shop",
@@ -135,7 +139,9 @@ export const projects: Project[] = [
     ],
     logoTreatment: "tiktok",
     cover: "/brands/tiktok-shop.webp",
-    pdf: "/projects/tiktok-shop.pdf",
+    pdf: "/projects/tiktok-shop-research.pdf",
+    preview: "/projects/previews/tiktok-shop-page-1.webp",
+    workbookUrl: "https://docs.google.com/spreadsheets/d/1S9cTf8SfNe8o9LcTx2QA8l2OhXVLHeWV/edit?gid=1881595040#gid=1881595040",
   },
   {
     slug: "mb-bank",
@@ -157,7 +163,9 @@ export const projects: Project[] = [
     ],
     logoTreatment: "mbbank",
     cover: "/brands/mb-bank.webp",
-    pdf: "/projects/mb-bank.pdf",
+    pdf: "/projects/mbbank-research.pdf",
+    preview: "/projects/previews/mbbank-page-1.webp",
+    workbookUrl: "https://docs.google.com/spreadsheets/d/1Tfoy-72MGe7tiuJ_UAm-F7fQp-tg02tD/edit?gid=1998058213#gid=1998058213",
   },
 ];
 

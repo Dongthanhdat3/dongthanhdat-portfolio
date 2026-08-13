@@ -1,15 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export function PdfViewer({
   src,
+  preview,
   title,
 }: {
   src: string;
+  preview: string;
   title: string;
 }) {
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [mountViewer, setMountViewer] = useState(false);
+
+  useEffect(() => {
+    const schedule = "requestIdleCallback" in window
+      ? window.requestIdleCallback(() => setMountViewer(true), { timeout: 240 })
+      : window.setTimeout(() => setMountViewer(true), 80);
+    return () => {
+      if ("cancelIdleCallback" in window) window.cancelIdleCallback(schedule as number);
+      else window.clearTimeout(schedule as number);
+    };
+  }, []);
 
   return (
     <section className="pdf-section" aria-labelledby="tai-lieu-heading">
@@ -29,12 +43,8 @@ export function PdfViewer({
       </div>
 
       <div className="pdf-frame" data-status={status}>
-        {status === "loading" && (
-          <div className="pdf-state" role="status">
-            <span className="loading-line" />
-            Đang tải tài liệu…
-          </div>
-        )}
+        <Image className="pdf-preview" src={preview} alt={`Trang đầu ${title}`} width={1406} height={1988} priority />
+        {status === "loading" && <span className="pdf-progress" aria-label="Đang chuẩn bị tài liệu" />}
         {status === "error" ? (
           <div className="pdf-state pdf-error">
             <p>Trình duyệt không thể hiển thị tài liệu này trong trang.</p>
@@ -42,7 +52,7 @@ export function PdfViewer({
               Mở PDF trong cửa sổ mới
             </a>
           </div>
-        ) : (
+        ) : mountViewer ? (
           <iframe
             src={`${src}#view=FitH`}
             title={title}
@@ -50,7 +60,7 @@ export function PdfViewer({
             onLoad={() => setStatus("ready")}
             onError={() => setStatus("error")}
           />
-        )}
+        ) : null}
       </div>
     </section>
   );

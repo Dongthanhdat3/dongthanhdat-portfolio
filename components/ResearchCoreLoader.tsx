@@ -1,27 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import { lazy, Suspense } from "react";
 
-const RealtimeResearchCore = lazy(() =>
-  import("./ResearchCore").then((module) => ({ default: module.ResearchCore })),
+const RealtimeHeyjoEmblem = lazy(() =>
+  import("./HeyjoEmblem").then((module) => ({ default: module.HeyjoEmblem })),
 );
 
-export function ResearchCoreLoader() {
+export function HeyjoEmblemLoader() {
   return (
-    <div className="research-core-experience" aria-hidden="true">
-      <div className="research-core-static">
-        <Image
-          src="/images/research-core-static.webp"
-          alt=""
-          width={720}
-          height={720}
-          sizes="(max-width: 620px) 100vw, 720px"
-          priority
-        />
-      </div>
+    <div className="heyjo-emblem-experience" aria-hidden="true">
       <Suspense fallback={null}>
-        <RealtimeResearchCore />
+        <RealtimeHeyjoEmblem />
       </Suspense>
     </div>
   );

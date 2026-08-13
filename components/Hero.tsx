@@ -1,12 +1,12 @@
 import { portfolio } from "@/content/portfolio.vi";
 import { ContactShortcuts } from "./ContactShortcuts";
 import { HeroTitle } from "./HeroTitle";
-import { ResearchCoreLoader } from "./ResearchCoreLoader";
+import { HeyjoEmblemLoader } from "./ResearchCoreLoader";
 
 export function Hero() {
   return (
     <section id="home" className="hero" aria-labelledby="hero-title">
-      <ResearchCoreLoader />
+      <HeyjoEmblemLoader />
       <div className="container hero-inner">
         <div className="hero-copy">
           <HeroTitle name={portfolio.person.name} />

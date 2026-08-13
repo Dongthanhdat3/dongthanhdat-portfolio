@@ -12,7 +12,7 @@ export function About() {
         <Reveal delay={100}>
           <div className="about-copy">
             <p className="eyebrow">Định hướng nghề nghiệp</p>
-            <h2 id="about-title">About Me</h2>
+            <h2 id="about-title">Giới thiệu</h2>
             <div className="about-paragraphs">
               {portfolio.person.about.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>

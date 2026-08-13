@@ -2,9 +2,13 @@
 
 import type { Project } from "@/content/portfolio.vi";
 import Image from "next/image";
+import Link from "next/link";
 import type { PointerEvent } from "react";
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const prefetch = () => {
+    void fetch(`/du-an/${project.slug}`, { priority: "low" } as RequestInit).catch(() => undefined);
+  };
   const move = (event: PointerEvent<HTMLAnchorElement>) => {
     if (event.pointerType === "touch") return;
     const rect = event.currentTarget.getBoundingClientRect();
@@ -23,7 +27,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
   return (
     <article className="project-card">
-      <a href={`/du-an/${project.slug}`} aria-label={`Xem dự án ${project.brand}`} onPointerMove={move} onPointerLeave={reset}>
+      <Link href={`/du-an/${project.slug}`} aria-label={`Xem dự án ${project.brand}`} onPointerMove={move} onPointerLeave={reset} onPointerEnter={prefetch} onFocus={prefetch}>
         <div className={`brand-stage brand-${project.logoTreatment}`}>
           <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
           <div className="brand-plaque">
@@ -45,7 +49,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             ↗
           </span>
         </div>
-      </a>
+      </Link>
     </article>
   );
 }

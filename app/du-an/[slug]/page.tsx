@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { PdfViewer } from "@/components/PdfViewer";
+import { ProjectExperience } from "@/components/ProjectExperience";
 import { findProject, projects } from "@/content/portfolio.vi";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -73,9 +73,7 @@ export default async function ProjectPage({ params }: PageProps) {
           </div>
         </div>
       </section>
-      <div className="container">
-        <PdfViewer src={project.pdf} title={`Tài liệu dự án ${project.brand}`} />
-      </div>
+      <ProjectExperience project={project} />
     </main>
   );
 }
