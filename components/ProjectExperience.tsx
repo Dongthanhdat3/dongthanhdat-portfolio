@@ -47,15 +47,58 @@ export function ProjectExperience({ brand, businessReport, pdf }: ProjectExperie
 
         <section className="project-business-section" aria-labelledby={`recommendations-${businessReport.theme}`}>
           <h3 id={`recommendations-${businessReport.theme}`}>Khuyến nghị hành động</h3>
-          <div className="project-business-recommendations">
-            {businessReport.recommendations.map((recommendation) => (
-              <article className="project-business-recommendation" data-project-spotlight key={`${recommendation.tag}-${recommendation.title}`}>
-                <span>{recommendation.tag}</span>
-                <h4>{recommendation.title}</h4>
-                <p>{recommendation.description}</p>
-              </article>
-            ))}
-          </div>
+          {businessReport.recommendationIntro && <p className="project-business-section-intro">{businessReport.recommendationIntro}</p>}
+
+          {businessReport.waves && (
+            <div className="project-business-wave-track">
+              {businessReport.waves.map((wave) => (
+                <article className={`project-business-wave${wave.muted ? " is-muted" : ""}`} key={`${wave.badge}-${wave.title}`}>
+                  <span className="project-business-wave-badge">{wave.badge}</span>
+                  <div className="project-business-wave-copy">
+                    <span className="project-business-wave-label">{wave.label}</span>
+                    <h4>{wave.title}</h4>
+                    <p>{wave.description}</p>
+                    {wave.branches && (
+                      <div className="project-business-wave-branches">
+                        {wave.branches.map((branch) => (
+                          <div className="project-business-wave-branch" data-project-spotlight key={`${branch.tag}-${branch.title}`}>
+                            <span>{branch.tag}</span>
+                            <h5>{branch.title}</h5>
+                            <p>{branch.description}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+
+          {businessReport.priorities && (
+            <div className="project-business-priority-list">
+              {businessReport.priorities.map((item) => (
+                <article className="project-business-priority" data-project-spotlight key={item.rank}>
+                  <span className="project-business-priority-rank">{item.rank}</span>
+                  <div>
+                    <h4>{item.title}</h4>
+                    <p>{item.description}</p>
+                  </div>
+                  <div className="project-business-priority-track" aria-hidden="true">
+                    <span style={{ width: `${item.strength}%` }} />
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+
+          {businessReport.maintain && (
+            <aside className="project-business-maintain" data-project-spotlight>
+              <span>{businessReport.maintain.tag}</span>
+              <h4>{businessReport.maintain.title}</h4>
+              <p>{businessReport.maintain.description}</p>
+            </aside>
+          )}
         </section>
 
         <aside className="project-business-evidence" data-project-spotlight>

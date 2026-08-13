@@ -15,6 +15,28 @@ export type CaseRecommendation = {
   description: string;
 };
 
+export type WaveBranch = {
+  tag: string;
+  title: string;
+  description: string;
+};
+
+export type WaveItem = {
+  badge: string;
+  label: string;
+  title: string;
+  description: string;
+  muted?: boolean;
+  branches?: WaveBranch[];
+};
+
+export type PriorityItem = {
+  rank: string;
+  title: string;
+  description: string;
+  strength: number;
+};
+
 export type CommercialReportData = {
   theme: "tiktok" | "mbbank" | "mobifone";
   kicker: string;
@@ -24,6 +46,10 @@ export type CommercialReportData = {
   metrics: CaseMetric[];
   findings: CaseFinding[];
   recommendations: CaseRecommendation[];
+  recommendationIntro?: string;
+  waves?: WaveItem[];
+  priorities?: PriorityItem[];
+  maintain?: { tag: string; title: string; description: string };
   evidenceTitle: string;
   evidence: string;
   ctaText: string;
@@ -49,7 +75,7 @@ export const commercialReports: Record<string, CommercialReportData> = {
       },
       {
         value: "96%",
-        label: "Độ chính xác mô hình dự đoán khách có nguy cơ rời bỏ",
+        label: "Chỉ số AUC của mô hình dự đoán khách có nguy cơ rời bỏ",
       },
     ],
     findings: [
@@ -96,6 +122,37 @@ export const commercialReports: Record<string, CommercialReportData> = {
         title: "Thử nghiệm có đo lường trước khi mở rộng toàn nền tảng",
         description:
           "30 ngày đầu dùng để chuẩn hóa cách gắn nhãn sự cố và đo mức niềm tin làm mốc so sánh. 30 ngày kế tiếp chạy thử có nhóm đối chứng cho cả hai nhóm hành động. 30 ngày cuối dùng để quyết định mở rộng, điều chỉnh hoặc dừng lại dựa trên tỷ lệ khách thật sự quay lại mua, không chỉ điểm khảo sát niềm tin.",
+      },
+    ],
+    recommendationIntro:
+      "Nghiên cứu gốc tổ chức hành động thành hai đợt triển khai, gọi là Wave, dựa trên độ lớn tổng hiệu ứng của từng yếu tố lên ý định mua lại.",
+    waves: [
+      {
+        badge: "1",
+        label: "Wave 1",
+        title: "Chặn cú sốc gốc, trước khi cần phục hồi",
+        description:
+          "Giảm mức sai lệch giữa nội dung bán hàng và sản phẩm thật. Đây là đòn bẩy có tổng hiệu ứng lớn nhất lên ý định mua lại, khoảng 0,696, gấp gần 2,7 lần từng đòn bẩy hậu mãi riêng lẻ. Hành động chịu lực là đối chiếu các nội dung quảng cáo quan trọng về kích thước, chất liệu, công dụng và hình ảnh với thuộc tính sản phẩm thật, đồng thời theo dõi người bán hoặc sản phẩm có tỷ lệ khiếu nại sai mô tả lặp lại để đưa vào diện kiểm tra ưu tiên trước khi bán.",
+      },
+      {
+        badge: "2",
+        label: "Wave 2",
+        title: "Phục hồi quan hệ theo ba nhánh chạy song song",
+        description:
+          "Ba đòn bẩy dưới đây có tổng hiệu ứng gần bằng nhau, chỉ chênh lệch rất nhỏ, nên được triển khai đồng thời thay vì xếp thứ tự trước sau.",
+        branches: [
+          { tag: "Công bằng hoàn tiền", title: "Kết quả tương xứng thiệt hại", description: "Bộ quy tắc hoàn tiền theo loại lỗi và mức thiệt hại thực tế, tính cả chi phí phát sinh ngoài giá sản phẩm." },
+          { tag: "Giảm ma sát quy trình", title: "Không hỏi lại cùng bằng chứng", description: "Không bắt khách gửi lại bằng chứng đã cung cấp khi case chuyển giữa các bộ phận xử lý." },
+          { tag: "Minh bạch xử lý", title: "Một dòng thời gian duy nhất", description: "Mỗi case hiển thị rõ trạng thái, việc còn thiếu, thời hạn và căn cứ ra quyết định." },
+        ],
+      },
+      {
+        badge: "PRT",
+        label: "Xuyên suốt, không phải Wave riêng",
+        title: "Theo dõi niềm tin phục hồi như chỉ báo dẫn đường",
+        description:
+          "Niềm tin sau khi case đóng được đo để dự đoán khả năng mua lại, nhưng không được biến thành một ưu tiên can thiệp đứng ngang hàng hai Wave ở trên. Toàn bộ hai Wave nên được thử nghiệm có nhóm đối chứng trong một lộ trình khoảng 90 ngày trước khi mở rộng toàn nền tảng.",
+        muted: true,
       },
     ],
     evidenceTitle: "Cách dữ liệu được kiểm chứng",
@@ -172,6 +229,28 @@ export const commercialReports: Record<string, CommercialReportData> = {
           "Khi hệ thống phát hiện một khách hàng dừng lại lâu ở một bước, thử lại nhiều lần hoặc lặp lại cùng một loại lỗi, nên tự động gợi ý mở kênh hỗ trợ thay vì để khách tự loay hoay.",
       },
     ],
+    recommendationIntro:
+      "Bốn trụ cột được tổ chức thành hai Wave dựa trên mức ảnh hưởng đến ý định tiếp tục dùng app và khoảng trống hiệu suất hiện tại, không đơn thuần theo thứ hạng ảnh hưởng riêng lẻ.",
+    waves: [
+      {
+        badge: "1", label: "Wave 1", title: "Giảm ma sát và sửa nơi sinh ra ma sát",
+        description: "Nỗ lực xác thực đứng hạng ưu tiên cao nhất trong năm trụ cột, vì vừa ảnh hưởng lớn vừa còn khoảng trống hiệu suất khoảng 51%. Độ ổn định hệ thống được xử lý cùng Wave này dù thứ hạng ưu tiên thấp hơn, vì sự thiếu ổn định của hệ thống có thể chính là nguồn gây ra vòng lặp khiến nỗ lực xác thực tăng lên.",
+        branches: [
+          { tag: "Hạng ưu tiên 1", title: "Nỗ lực xác thực cảm nhận", description: "Giữ trạng thái đã xác thực khi lỗi xảy ra giữa chừng, không bắt khách làm lại từ đầu." },
+          { tag: "Hạng ưu tiên 4", title: "Độ ổn định hệ thống", description: "Giảm lỗi theo thiết bị, camera và mạng, tránh mất trạng thái phiên đang xác thực." },
+        ],
+      },
+      {
+        badge: "2", label: "Wave 2", title: "Giảm bất định thông tin, trả lại cảm giác kiểm soát",
+        description: "Lo ngại quyền riêng tư đứng hạng ưu tiên thứ hai vì có khoảng trống hiệu suất lớn nhất, khoảng 58%. Minh bạch quy trình đứng hạng thứ ba với khoảng trống khoảng 41%.",
+        branches: [
+          { tag: "Hạng ưu tiên 2", title: "Quyền riêng tư dữ liệu", description: "Lớp thông tin ngắn ngay tại điểm xác thực về việc dữ liệu dùng để làm gì và lưu ở đâu." },
+          { tag: "Hạng ưu tiên 3", title: "Minh bạch quy trình", description: "Thông báo lỗi có ba phần rõ ràng: nguyên nhân, việc cần làm tiếp theo, và lối thoát nếu thử lại nhiều lần vẫn thất bại." },
+        ],
+      },
+      { badge: "5", label: "Duy trì, không cần đầu tư thêm", title: "Giữ nguyên hiệu quả bảo mật cảm nhận", description: "Yếu tố này đứng hạng ưu tiên thấp nhất trong năm trụ cột vì đã gần đạt kỳ vọng, khoảng trống hiệu suất chỉ còn khoảng 28%. Nên duy trì thông điệp ngắn gọn về việc bước xác thực đang bảo vệ điều gì, không thêm thao tác chỉ để trông có vẻ an toàn hơn.", muted: true },
+      { badge: "BSE", label: "Xuyên suốt, không phải Wave riêng", title: "Năng lực tự thực hiện là lớp hỗ trợ", description: "Năng lực tự xử lý có vai trò điều tiết chứ không cạnh tranh thứ hạng với bốn trụ cột trên. Hiệu ứng trực tiếp lên ý định tiếp tục rất nhỏ, nhưng mức độ làm dịu tác động xấu của nỗ lực xác thực lại rất rõ rệt. Hệ thống nên dùng tín hiệu này để quyết định khi nào cần chủ động mở hỗ trợ.", muted: true },
+    ],
     evidenceTitle: "Cách dữ liệu được kiểm chứng",
     evidence:
       "Mô hình phương trình cấu trúc trên 1.187 quan sát, có kiểm định vai trò điều tiết của năng lực tự xử lý đối với mối liên hệ giữa nỗ lực thao tác và ý định tiếp tục. Toàn bộ giả thuyết chính đều có ý nghĩa thống kê mạnh và mô hình giải thích được phần lớn sự khác biệt về niềm tin giữa các khách hàng.",
@@ -246,6 +325,20 @@ export const commercialReports: Record<string, CommercialReportData> = {
           "Vì đây là nhóm có điểm hài lòng và trung thành thấp nhất, cần một hành trình có cấu trúc bắt đầu ngay sau kích hoạt, gồm hướng dẫn ngắn, chủ động liên hệ để phát hiện vướng mắc sớm, và một quyền lợi khởi động đủ rõ để khách cảm nhận giá trị ngay từ đầu.",
       },
     ],
+    recommendationIntro:
+      "Không giống hai nghiên cứu còn lại, báo cáo gốc của MobiFone xếp hạng năm yếu tố theo mức ảnh hưởng đến sự hài lòng thay vì nhóm theo Wave, vì cả năm yếu tố cùng tác động lên một biến trung gian duy nhất là sự hài lòng, không có cấu trúc phân nhánh song song như hai nghiên cứu trên.",
+    priorities: [
+      { rank: "01", title: "Chất lượng dịch vụ cảm nhận", description: "Ảnh hưởng mạnh nhất đến sự hài lòng. Ưu tiên rút ngắn thời gian phản hồi yêu cầu hỗ trợ.", strength: 100 },
+      { rank: "02", title: "Chất lượng chăm sóc khách hàng", description: "Cũng là chủ đề bị nhắc nhiều nhất trong đánh giá tiêu cực thực tế. Ưu tiên giải quyết ngay lần liên hệ đầu tiên.", strength: 86 },
+      { rank: "03", title: "Giá trị cảm nhận", description: "Khách chưa thấy rõ lợi thế cạnh tranh so với nhà mạng khác. Cần truyền thông giá trị tổng thể, không chỉ giá cước.", strength: 77 },
+      { rank: "04", title: "Tính dễ sử dụng", description: "Rà soát ứng dụng theo các tác vụ có tần suất cao nhất để giảm số bước thao tác.", strength: 67 },
+      { rank: "05", title: "Tính hữu ích", description: "Chỉ bổ sung tính năng khi tính năng đó thực sự được dùng lặp lại, tránh làm ứng dụng nặng hơn.", strength: 53 },
+    ],
+    maintain: {
+      tag: "Giải pháp xuyên suốt",
+      title: "Chăm sóc riêng cho khách hàng mới trong 6 tháng đầu",
+      description: "Vì đây là nhóm có điểm hài lòng và trung thành thấp nhất trong mọi nhóm thời gian sử dụng, cần một hành trình có cấu trúc bắt đầu ngay sau kích hoạt, gồm hướng dẫn ngắn, chủ động liên hệ để phát hiện vướng mắc sớm, và một quyền lợi khởi động đủ rõ để khách cảm nhận giá trị ngay từ đầu.",
+    },
     evidenceTitle: "Cách dữ liệu được kiểm chứng",
     evidence:
       "Kết quả kết hợp hai nguồn độc lập, khảo sát định lượng 450 khách hàng bằng hồi quy tuyến tính, và đối chiếu 2.821 đánh giá công khai tại 50 cửa hàng trên Google Maps. Việc hai nguồn dữ liệu khác nhau cùng chỉ về một vấn đề, chăm sóc khách hàng, làm tăng đáng kể độ tin cậy của phát hiện này so với chỉ dựa vào một khảo sát đơn lẻ.",
