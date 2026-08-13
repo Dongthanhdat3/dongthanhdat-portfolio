@@ -31,7 +31,7 @@ export default async function ProjectPage({ params }: PageProps) {
   if (!businessReport) notFound();
 
   return (
-    <ProjectAtmosphere>
+    <ProjectAtmosphere theme={businessReport.theme}>
       <section className="detail-hero">
         <div className="container detail-hero-inner">
           <Link prefetch={false} className="back-link" href="/#projects">

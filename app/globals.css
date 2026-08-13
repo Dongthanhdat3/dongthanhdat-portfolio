@@ -1809,3 +1809,262 @@ body:has(.home-graphite) .site-footer {
     gap: 14px;
   }
 }
+
+/* Project detail v7 — project-matched atmosphere + exact supplied report rhythm. */
+.project-detail-page {
+  --project-bg-deep: #08090b;
+  --project-bg-mid: #0d0e11;
+  --project-accent: #d9dde4;
+  --project-accent-rgb: 217,221,228;
+  --project-pointer-glow: rgba(217,221,228,.085);
+  --project-pointer-soft: rgba(217,221,228,.028);
+  --project-surface-hover: rgba(217,221,228,.045);
+  --project-line: rgba(244,243,239,.13);
+  --project-line-strong: rgba(244,243,239,.22);
+  --project-text: #f4f3ef;
+  --project-muted: rgba(244,243,239,.70);
+  --project-faint: rgba(244,243,239,.46);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--project-bg-mid) 92%, #fff 8%) 0%, var(--project-bg-deep) 42%, var(--project-bg-deep) 100%);
+}
+.project-detail-page--tiktok {
+  --project-bg-deep: #120a0d;
+  --project-bg-mid: #1b0d12;
+  --project-accent: #ff8a65;
+  --project-accent-rgb: 255,138,101;
+  --project-pointer-glow: rgba(255,82,108,.13);
+  --project-pointer-soft: rgba(255,138,101,.035);
+  --project-surface-hover: rgba(255,138,101,.055);
+}
+.project-detail-page--mbbank {
+  --project-bg-deep: #070b14;
+  --project-bg-mid: #0b1726;
+  --project-accent: #7fd1ff;
+  --project-accent-rgb: 127,209,255;
+  --project-pointer-glow: rgba(46,134,255,.14);
+  --project-pointer-soft: rgba(127,209,255,.035);
+  --project-surface-hover: rgba(127,209,255,.052);
+}
+.project-detail-page--mobifone {
+  --project-bg-deep: #140d07;
+  --project-bg-mid: #211508;
+  --project-accent: #ffd08a;
+  --project-accent-rgb: 255,208,138;
+  --project-pointer-glow: rgba(255,138,0,.14);
+  --project-pointer-soft: rgba(255,208,138,.035);
+  --project-surface-hover: rgba(255,208,138,.05);
+}
+
+/* A theme-colored light follows the pointer across the whole project page. */
+.project-detail-page::before {
+  background: radial-gradient(
+    520px circle at var(--project-pointer-x, 72vw) var(--project-pointer-y, 28vh),
+    var(--project-pointer-glow),
+    var(--project-pointer-soft) 34%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+
+.project-detail-page .detail-hero {
+  background: transparent;
+  border-bottom: 0;
+}
+.project-detail-page .detail-hero::after {
+  background: linear-gradient(90deg, transparent, rgba(var(--project-accent-rgb), .24) 18%, rgba(var(--project-accent-rgb), .08) 82%, transparent);
+}
+.project-detail-page .back-link,
+.project-detail-page .eyebrow,
+.project-detail-page .detail-summary,
+.project-detail-page .detail-brand span:not(.detail-brand-name),
+.project-detail-page .detail-metadata dt,
+.project-detail-page .theme-list span {
+  color: var(--project-muted);
+}
+.project-detail-page .eyebrow { color: rgba(var(--project-accent-rgb), .72); }
+.project-detail-page .detail-brand-name { color: #f7f5f2; }
+.project-detail-page .detail-brand span + span::before { background: rgba(var(--project-accent-rgb), .34); }
+.project-detail-page .detail-hero h1 { color: #f7f5f2; }
+.project-detail-page .detail-summary { color: rgba(244,243,239,.76); }
+
+/* The large colored illumination now lives behind the silver logo plaque. */
+.project-detail-page .detail-product-visual { isolation: isolate; }
+.project-detail-page .detail-product-glow {
+  inset: -16% -26% -20% -26%;
+  border-radius: 46%;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(var(--project-accent-rgb), .34) 0%, rgba(var(--project-accent-rgb), .18) 27%, rgba(var(--project-accent-rgb), .055) 49%, transparent 72%);
+  filter: blur(54px);
+  opacity: .9;
+}
+.project-detail-page .detail-product-plaque {
+  box-shadow:
+    inset 1px 1px 1px rgba(255,255,255,.96),
+    inset -1px -1px 1px rgba(31,33,37,.08),
+    0 55px 100px rgba(0,0,0,.5),
+    0 0 82px rgba(var(--project-accent-rgb), .11);
+}
+.project-detail-page .detail-product-plaque:hover {
+  box-shadow:
+    inset 1px 1px 1px rgba(255,255,255,.96),
+    0 70px 120px rgba(0,0,0,.56),
+    0 0 110px rgba(var(--project-accent-rgb), .18);
+}
+
+.project-detail-page .detail-metadata { border-color: rgba(var(--project-accent-rgb), .16); }
+.project-detail-page .detail-metadata > div { border-color: rgba(var(--project-accent-rgb), .13); }
+.project-detail-page .detail-metadata > div:hover { background: rgba(var(--project-accent-rgb), .035); }
+.project-detail-page .detail-metadata dd { color: rgba(248,246,243,.92); }
+.project-detail-page .theme-list span {
+  border-color: rgba(var(--project-accent-rgb), .2);
+  background: rgba(var(--project-accent-rgb), .018);
+}
+.project-detail-page .theme-list span:hover {
+  border-color: rgba(var(--project-accent-rgb), .45);
+  background: rgba(var(--project-accent-rgb), .075);
+  color: #fff;
+}
+
+/* Local cursor light uses each project's own accent instead of silver. */
+.project-detail-page [data-project-spotlight]::after {
+  background: radial-gradient(
+    245px circle at var(--spotlight-x) var(--spotlight-y),
+    rgba(var(--project-accent-rgb), .14),
+    rgba(var(--project-accent-rgb), .045) 34%,
+    transparent 68%
+  );
+}
+
+/* The supplied HTML report starts directly after the project keywords and stays in the same color scene. */
+.project-detail-page .project-experience-container {
+  position: relative;
+  background: transparent;
+}
+.project-detail-page .project-business-story,
+.project-detail-page .project-business-story--tiktok,
+.project-detail-page .project-business-story--mbbank,
+.project-detail-page .project-business-story--mobifone {
+  --case-bg: transparent;
+  --case-accent: var(--project-accent);
+  --case-glow: transparent;
+  border-top: 1px solid rgba(var(--project-accent-rgb), .12);
+  background: transparent;
+}
+/* The old report orb is removed; its light has been moved to the logo plaque above. */
+.project-detail-page .project-business-orb { display: none; }
+.project-detail-page .project-business-inner {
+  width: min(100%, 1120px);
+  margin-inline: auto;
+  padding-top: clamp(5rem, 8vw, 7rem);
+  padding-bottom: clamp(6rem, 10vw, 9rem);
+}
+.project-detail-page .project-business-opening { width: 100%; }
+.project-detail-page .project-business-kicker,
+.project-detail-page .project-business-section > h3 {
+  color: var(--project-accent);
+}
+.project-detail-page .project-business-opening h2 {
+  max-width: 1000px;
+  color: #f7f5f2;
+  font-size: clamp(3rem, 5.3vw, 5rem);
+  font-weight: 760;
+  letter-spacing: -.052em;
+  line-height: 1.055;
+  text-wrap: balance;
+}
+.project-detail-page .project-business-summary,
+.project-detail-page .project-business-context {
+  width: 100%;
+  max-width: 1000px;
+}
+.project-detail-page .project-business-summary {
+  color: rgba(244,243,239,.76);
+}
+.project-detail-page .project-business-context {
+  color: rgba(244,243,239,.66);
+}
+.project-detail-page .project-business-metrics {
+  width: 100%;
+  gap: 1rem;
+}
+.project-detail-page .project-business-metric {
+  border-color: rgba(var(--project-accent-rgb), .19);
+  border-radius: 5px;
+  background: rgba(244,243,239,.035);
+  box-shadow: inset 0 1px rgba(255,255,255,.025);
+}
+.project-detail-page .project-business-metric:hover {
+  border-color: rgba(var(--project-accent-rgb), .42);
+  background: rgba(var(--project-accent-rgb), .055);
+  transform: translateY(-2px);
+}
+.project-detail-page .project-business-metric strong { color: var(--project-accent); }
+.project-detail-page .project-business-metric span { color: rgba(244,243,239,.52); }
+.project-detail-page .project-business-findings { border-top-color: rgba(var(--project-accent-rgb), .16); }
+.project-detail-page .project-business-finding {
+  border-bottom-color: rgba(var(--project-accent-rgb), .16);
+}
+.project-detail-page .project-business-finding:hover {
+  background: rgba(var(--project-accent-rgb), .028);
+}
+.project-detail-page .project-business-index { color: rgba(244,243,239,.34); }
+.project-detail-page .project-business-finding h4,
+.project-detail-page .project-business-recommendation h4 { color: #f7f5f2; }
+.project-detail-page .project-business-finding p,
+.project-detail-page .project-business-recommendation p,
+.project-detail-page .project-business-evidence p,
+.project-detail-page .project-business-footer p { color: rgba(244,243,239,.64); }
+.project-detail-page .project-business-recommendation {
+  border-radius: 5px;
+}
+.project-detail-page .project-business-recommendation:hover {
+  border-color: rgba(var(--project-accent-rgb), .19);
+  background: rgba(var(--project-accent-rgb), .03);
+}
+.project-detail-page .project-business-recommendation > span {
+  background: var(--project-accent);
+  color: #0a0a0a;
+}
+.project-detail-page .project-business-evidence {
+  border: 1px solid rgba(var(--project-accent-rgb), .14);
+  border-left: 2px solid var(--project-accent);
+  border-radius: 3px;
+  background: rgba(244,243,239,.035);
+}
+.project-detail-page .project-business-evidence > h3 { color: #f7f5f2; }
+.project-detail-page .project-business-footer { border-top-color: rgba(var(--project-accent-rgb), .16); }
+.project-detail-page .project-business-footer a {
+  border-color: transparent;
+  background: var(--project-accent);
+  color: #09090a;
+  box-shadow: none;
+}
+.project-detail-page .project-business-footer a:hover {
+  background: color-mix(in srgb, var(--project-accent) 90%, #fff 10%);
+  box-shadow: 0 18px 46px -24px rgba(var(--project-accent-rgb), .85);
+}
+
+/* Keep the sticky navigation visually attached to each project palette. */
+body:has(.project-detail-page--tiktok) .site-header,
+body:has(.project-detail-page--tiktok) .site-header.is-scrolled { background: rgba(18,10,13,.9); }
+body:has(.project-detail-page--mbbank) .site-header,
+body:has(.project-detail-page--mbbank) .site-header.is-scrolled { background: rgba(7,11,20,.91); }
+body:has(.project-detail-page--mobifone) .site-header,
+body:has(.project-detail-page--mobifone) .site-header.is-scrolled { background: rgba(20,13,7,.91); }
+body:has(.project-detail-page--tiktok) .site-header,
+body:has(.project-detail-page--mbbank) .site-header,
+body:has(.project-detail-page--mobifone) .site-header {
+  border-bottom-color: rgba(244,243,239,.075);
+}
+
+@media (max-width: 620px) {
+  .project-detail-page .project-business-inner { width: 100%; }
+  .project-detail-page .project-business-opening h2 {
+    max-width: 100%;
+    font-size: clamp(2.7rem, 12vw, 4rem);
+    line-height: 1.08;
+  }
+  .project-detail-page .project-business-summary,
+  .project-detail-page .project-business-context { max-width: 100%; }
+}

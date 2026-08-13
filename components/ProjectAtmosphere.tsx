@@ -2,7 +2,9 @@
 
 import type { PointerEvent, ReactNode } from "react";
 
-export function ProjectAtmosphere({ children }: { children: ReactNode }) {
+type ProjectTheme = "tiktok" | "mbbank" | "mobifone";
+
+export function ProjectAtmosphere({ children, theme }: { children: ReactNode; theme: ProjectTheme }) {
   const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
     if (event.pointerType === "touch") return;
 
@@ -19,7 +21,10 @@ export function ProjectAtmosphere({ children }: { children: ReactNode }) {
   };
 
   return (
-    <main className="detail-page project-detail-page" onPointerMove={handlePointerMove}>
+    <main
+      className={`detail-page project-detail-page project-detail-page--${theme}`}
+      onPointerMove={handlePointerMove}
+    >
       {children}
     </main>
   );
