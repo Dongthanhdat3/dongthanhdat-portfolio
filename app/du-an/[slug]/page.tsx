@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
 import { ProjectExperience } from "@/components/ProjectExperience";
 import { ProjectAtmosphere } from "@/components/ProjectAtmosphere";
@@ -34,9 +33,9 @@ export default async function ProjectPage({ params }: PageProps) {
     <ProjectAtmosphere theme={businessReport.theme}>
       <section className="detail-hero">
         <div className="container detail-hero-inner">
-          <Link prefetch={false} className="back-link" href="/#projects">
+          <a className="back-link" href="/#projects">
             ← Trở lại dự án
-          </Link>
+          </a>
           <div className="detail-intro-grid">
             <div className="detail-intro-copy">
               <p className="eyebrow">{project.category}</p>
@@ -84,6 +83,7 @@ export default async function ProjectPage({ params }: PageProps) {
           brand={project.brand}
           businessReport={businessReport}
           pdf={project.pdf}
+          englishPdf={project.englishPdf}
         />
       </div>
     </ProjectAtmosphere>

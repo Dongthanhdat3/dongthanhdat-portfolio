@@ -4,9 +4,10 @@ type ProjectExperienceProps = {
   brand: string;
   businessReport: CommercialReportData;
   pdf: string;
+  englishPdf: string;
 };
 
-export function ProjectExperience({ brand, businessReport, pdf }: ProjectExperienceProps) {
+export function ProjectExperience({ brand, businessReport, pdf, englishPdf }: ProjectExperienceProps) {
   return (
     <section
       className={`project-business-story project-business-story--${businessReport.theme}`}
@@ -108,9 +109,14 @@ export function ProjectExperience({ brand, businessReport, pdf }: ProjectExperie
 
         <footer className="project-business-footer">
           <p>{businessReport.ctaText}</p>
-          <a href={pdf} target="_blank" rel="noopener noreferrer" data-project-spotlight>
-            Mở báo cáo đầy đủ →
-          </a>
+          <div className="project-business-report-actions">
+            <a href={englishPdf} target="_blank" rel="noopener noreferrer" data-project-spotlight>
+              Open the English report
+            </a>
+            <a href={pdf} target="_blank" rel="noopener noreferrer" data-project-spotlight>
+              Mở báo cáo tiếng Việt
+            </a>
+          </div>
         </footer>
       </div>
     </section>

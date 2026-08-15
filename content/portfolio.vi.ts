@@ -12,6 +12,7 @@ export type Project = {
   logoTreatment: "mobifone" | "tiktok" | "mbbank";
   cover: string;
   pdf: string;
+  englishPdf: string;
   pdfPreview: string;
 };
 
@@ -115,6 +116,7 @@ export const projects: Project[] = [
     logoTreatment: "mobifone",
     cover: "/brands/mobifone.webp",
     pdf: "/projects/mobifone.pdf",
+    englishPdf: "/projects/mobifone-english.pdf",
     pdfPreview: "/projects/mobifone-preview.webp",
   },
   {
@@ -138,6 +140,7 @@ export const projects: Project[] = [
     logoTreatment: "tiktok",
     cover: "/brands/tiktok-shop.webp",
     pdf: "/projects/tiktok-shop.pdf",
+    englishPdf: "/projects/tiktok-shop-english.pdf",
     pdfPreview: "/projects/tiktok-shop-preview.webp",
   },
   {
@@ -161,6 +164,7 @@ export const projects: Project[] = [
     logoTreatment: "mbbank",
     cover: "/brands/mb-bank.webp",
     pdf: "/projects/mb-bank.pdf",
+    englishPdf: "/projects/mb-bank-english.pdf",
     pdfPreview: "/projects/mb-bank-preview.webp",
   },
 ];

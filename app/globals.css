@@ -2687,3 +2687,38 @@ body:has(.project-detail-page--mobifone) .site-header {
 @media (prefers-reduced-motion: reduce) {
   .space-intro { display: none !important; }
 }
+
+/* ===== FINAL bilingual research report actions + reliable project return link ===== */
+.project-detail-page .back-link {
+  position: relative;
+  z-index: 12;
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.project-detail-page .back-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--project-accent) 72%, #fff 28%);
+  outline-offset: 5px;
+}
+.project-business-report-actions {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.project-detail-page .project-business-report-actions a {
+  width: auto;
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .project-business-report-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .project-detail-page .project-business-report-actions a {
+    width: 100%;
+  }
+}
