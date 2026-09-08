@@ -2731,13 +2731,12 @@ body:has(.project-detail-page--mobifone) .site-header {
   }
 }
 
-
-/* ===== V16 — Experience section: graphite continuity + subtle result motion ===== */
+/* ===== V19 — Compact expandable experience, photographic media + calm motion ===== */
 .experience-section {
   position: relative;
   overflow: hidden;
   background: transparent;
-  color: var(--text-primary);
+  color: var(--home-text, var(--text-primary));
   isolation: isolate;
 }
 
@@ -2746,24 +2745,19 @@ body:has(.project-detail-page--mobifone) .site-header {
   z-index: -1;
   inset: 0;
   background:
-    radial-gradient(ellipse 46% 34% at 86% 18%, rgba(154,160,171,.095), transparent 70%),
-    radial-gradient(ellipse 38% 30% at 8% 84%, rgba(103,108,118,.055), transparent 72%),
-    linear-gradient(90deg, transparent 0 49.96%, rgba(235,238,242,.028) 50%, transparent 50.04%);
-  background-size: auto, auto, 34vw 34vw;
+    radial-gradient(ellipse 44% 34% at 88% 18%, rgba(154,160,171,.08), transparent 70%),
+    radial-gradient(ellipse 38% 28% at 8% 84%, rgba(103,108,118,.048), transparent 72%);
   content: "";
-  opacity: .78;
   pointer-events: none;
 }
 
-.experience-inner {
-  position: relative;
-}
+.experience-inner { position: relative; }
 
 .experience-heading {
   grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .62fr);
   gap: clamp(2rem, 7vw, 7rem);
   align-items: end;
-  margin-bottom: clamp(3.5rem, 6vw, 6rem);
+  margin-bottom: clamp(2.5rem, 4.5vw, 4.5rem);
 }
 
 .experience-eyebrow {
@@ -2787,34 +2781,52 @@ body:has(.project-detail-page--mobifone) .site-header {
   line-height: 1.7;
 }
 
-.experience-record {
+.experience-card {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(5.5rem, .28fr) minmax(0, 1.15fr) minmax(15rem, .57fr);
-  gap: clamp(2rem, 5vw, 5rem);
-  padding: clamp(2rem, 3.2vw, 3.25rem) 0 clamp(1.5rem, 2.4vw, 2.4rem);
+  overflow: hidden;
   border-top: 1px solid var(--home-line, rgba(235,238,242,.12));
   border-bottom: 1px solid var(--home-line, rgba(235,238,242,.12));
+}
+
+.experience-card-toggle {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(5rem, .2fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.25rem, 4vw, 4rem);
+  padding: clamp(1.8rem, 3.1vw, 3rem) 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.experience-card-toggle:focus-visible {
+  outline: 1px solid rgba(255,255,255,.55);
+  outline-offset: 10px;
+  border-radius: 8px;
 }
 
 .experience-index {
   align-self: start;
   color: rgba(232,235,240,.12);
-  font-size: clamp(4.25rem, 7vw, 7rem);
+  font-size: clamp(4rem, 6.4vw, 6.8rem);
   font-weight: 600;
   letter-spacing: -.09em;
   line-height: .78;
+  transition: color 280ms ease;
 }
 
-.experience-main {
-  min-width: 0;
-}
+.experience-card.is-expanded .experience-index { color: rgba(232,235,240,.2); }
+
+.experience-card-heading { min-width: 0; }
 
 .experience-meta {
   display: flex;
   flex-wrap: wrap;
   gap: .65rem 1.2rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: .85rem;
   color: var(--home-muted, var(--text-secondary));
   font-size: .72rem;
   font-weight: 650;
@@ -2833,22 +2845,165 @@ body:has(.project-detail-page--mobifone) .site-header {
   content: "";
 }
 
-.experience-main h3 {
-  margin-bottom: 1.25rem;
+.experience-card-title {
+  display: block;
   color: var(--home-text, var(--text-primary));
-  font-size: clamp(2rem, 3vw, 3.1rem);
+  font-size: clamp(1.8rem, 2.7vw, 2.9rem);
   font-weight: 550;
   letter-spacing: -.055em;
   line-height: 1.04;
 }
 
-.experience-main h3 span {
+.experience-card-title i {
   color: rgba(232,235,240,.34);
+  font-style: normal;
 }
+
+.experience-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  color: rgba(235,238,242,.58);
+  font-size: .78rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.experience-card-arrow {
+  display: inline-grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid rgba(235,238,242,.16);
+  border-radius: 50%;
+  color: rgba(245,247,250,.8);
+  font-size: 1rem;
+  transition: transform 360ms var(--ease-reveal), background 260ms ease, color 260ms ease, border-color 260ms ease;
+}
+
+.experience-card:hover .experience-card-arrow,
+.experience-card:focus-within .experience-card-arrow {
+  transform: translate(2px,-2px);
+  border-color: rgba(235,238,242,.34);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+}
+
+.experience-card.is-expanded .experience-card-arrow { transform: rotate(45deg); }
+
+.experience-card-details {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 850ms var(--ease-reveal), opacity 360ms ease;
+}
+
+.experience-card.is-expanded .experience-card-details {
+  max-height: 2600px;
+  opacity: 1;
+}
+
+.experience-card-details[aria-hidden="true"] { pointer-events: none; }
+
+.experience-media-wrap {
+  padding: 0 0 clamp(2rem, 3vw, 3rem);
+}
+
+.experience-media {
+  --media-rotate-x: 0deg;
+  --media-rotate-y: 0deg;
+  --media-shine-x: 50%;
+  --media-shine-y: 45%;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(.65rem, 1vw, 1rem);
+  border: 1px solid rgba(235,238,242,.11);
+  border-radius: 28px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.012)),
+    #090a0c;
+  box-shadow: 0 28px 70px rgba(0,0,0,.27), inset 0 1px rgba(255,255,255,.035);
+  transform: perspective(1100px) rotateX(var(--media-rotate-x)) rotateY(var(--media-rotate-y)) translateY(0);
+  transform-style: preserve-3d;
+  transition: transform 420ms var(--ease-reveal), box-shadow 420ms ease;
+  will-change: transform;
+}
+
+.experience-media::before {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  background: radial-gradient(220px circle at var(--media-shine-x) var(--media-shine-y), rgba(255,255,255,.13), transparent 67%);
+  content: "";
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.experience-media::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 21px;
+  box-shadow: inset 0 1px rgba(255,255,255,.03);
+  content: "";
+  pointer-events: none;
+}
+
+.experience-media-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 21px;
+  background: #111214;
+  aspect-ratio: 1.35 / 1;
+}
+
+.experience-media-frame img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(.96) contrast(1.02);
+  transform: scale(1.01);
+  transition: transform 850ms var(--ease-reveal), filter 500ms ease;
+}
+
+.experience-media:hover .experience-media-frame img {
+  transform: scale(1.025);
+  filter: saturate(1) contrast(1.025);
+}
+
+.experience-media-caption {
+  position: absolute;
+  z-index: 4;
+  right: 1.3rem;
+  bottom: 1.25rem;
+  left: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: rgba(255,255,255,.72);
+  font-size: .7rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.experience-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(19rem, .6fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: 0 0 clamp(2.2rem, 3.6vw, 3.6rem);
+}
+
+.experience-main { min-width: 0; }
 
 .experience-summary {
   max-width: 48rem;
-  margin-bottom: 2.2rem;
+  margin-bottom: 2rem;
   color: var(--home-muted, var(--text-secondary));
   font-size: clamp(1rem, 1.18vw, 1.12rem);
   line-height: 1.72;
@@ -2879,61 +3034,23 @@ body:has(.project-detail-page--mobifone) .site-header {
   height: 5px;
   border-radius: 50%;
   background: rgba(240,242,245,.72);
-  box-shadow: 0 0 0 0 rgba(240,242,245,.22);
   content: "";
-  animation: experience-dot-breathe 3.8s ease-in-out infinite;
+  animation: experience-dot-breathe 4.5s ease-in-out infinite;
 }
 
 .experience-results {
   position: relative;
-  align-self: stretch;
+  align-self: start;
   overflow: hidden;
-  padding: clamp(1.5rem, 2.3vw, 2.25rem);
+  padding: clamp(1.55rem, 2.3vw, 2.2rem);
   border: 1px solid rgba(235,238,242,.11);
   border-radius: 24px;
   background:
-    radial-gradient(circle at 82% 14%, rgba(255,255,255,.095), transparent 32%),
-    linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.018)),
+    radial-gradient(circle at 82% 10%, rgba(255,255,255,.09), transparent 34%),
+    linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.016)),
     #08090b;
   color: #fff;
-  box-shadow:
-    inset 0 1px rgba(255,255,255,.035),
-    0 24px 60px rgba(0,0,0,.22);
-}
-
-.experience-border-tracer {
-  position: absolute;
-  z-index: 3;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.experience-border-tracer-path {
-  fill: none;
-  stroke: rgba(255,255,255,.98);
-  stroke-width: .36;
-  stroke-linecap: round;
-  stroke-dasharray: 5 95;
-  stroke-dashoffset: 0;
-  filter: drop-shadow(0 0 3px rgba(255,255,255,.48));
-  animation: experience-border-trace 18s linear infinite;
-}
-
-
-.experience-results::after {
-  position: absolute;
-  right: -18%;
-  bottom: -28%;
-  width: 62%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(184,190,201,.08), transparent 66%);
-  content: "";
-  pointer-events: none;
-  animation: experience-result-glow 6s ease-in-out infinite;
+  box-shadow: inset 0 1px rgba(255,255,255,.035), 0 24px 60px rgba(0,0,0,.22);
 }
 
 .experience-results-label {
@@ -2942,7 +3059,7 @@ body:has(.project-detail-page--mobifone) .site-header {
   display: flex;
   align-items: center;
   gap: .55rem;
-  margin: 0 0 1.5rem;
+  margin: 0 0 1rem;
   color: rgba(255,255,255,.46);
   font-size: .68rem;
   font-weight: 650;
@@ -2953,40 +3070,53 @@ body:has(.project-detail-page--mobifone) .site-header {
 .experience-results-label::before {
   width: 5px;
   height: 5px;
+  flex: 0 0 auto;
   border-radius: 50%;
   background: rgba(238,241,245,.82);
-  box-shadow: 0 0 0 0 rgba(238,241,245,.25);
   content: "";
-  animation: experience-dot-breathe 3.8s ease-in-out infinite;
+  animation: experience-dot-breathe 4.2s ease-in-out infinite;
 }
 
-.experience-metrics {
+.experience-results-line {
   position: relative;
-  z-index: 1;
-  display: grid;
-  gap: 1.65rem;
+  height: 1px;
+  margin-bottom: .5rem;
+  background: rgba(255,255,255,.14);
+  overflow: visible;
 }
+
+.experience-results-line::after {
+  position: absolute;
+  top: -1px;
+  left: -5%;
+  width: 46px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.95), rgba(255,255,255,0));
+  content: "";
+  filter: blur(.2px);
+  animation: experience-edge-tracer 18s linear infinite;
+  box-shadow: 0 0 12px rgba(255,255,255,.16);
+}
+
+.experience-metrics { position: relative; z-index: 1; display: grid; gap: 0; }
 
 .experience-metric {
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255,255,255,.14);
+  position: relative;
+  padding: 1.2rem 0 1.4rem;
+  border-top: 1px solid rgba(255,255,255,.12);
 }
+
+.experience-metric:first-child { border-top: 0; }
 
 .experience-metric strong {
   display: block;
   color: #fff;
-  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+  font-size: clamp(2.7rem, 4vw, 4.05rem);
   font-weight: 600;
   letter-spacing: -.065em;
   line-height: .95;
   font-variant-numeric: tabular-nums;
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-.experience-counter {
-  display: inline-block;
-  min-width: 4.25ch;
 }
 
 .experience-metric span {
@@ -2995,110 +3125,43 @@ body:has(.project-detail-page--mobifone) .site-header {
   color: rgba(255,255,255,.5);
   font-size: .78rem;
   line-height: 1.4;
-  opacity: 0;
-  transform: translateY(6px);
 }
 
-.reveal.is-visible .experience-metric strong,
-.reveal.is-visible .experience-metric span {
-  animation: experience-metric-enter 680ms var(--ease-reveal) forwards;
-}
-
-.reveal.is-visible .experience-metric:nth-child(1) strong,
-.reveal.is-visible .experience-metric:nth-child(1) span { animation-delay: 120ms; }
-.reveal.is-visible .experience-metric:nth-child(2) strong,
-.reveal.is-visible .experience-metric:nth-child(2) span { animation-delay: 220ms; }
-.reveal.is-visible .experience-metric:nth-child(3) strong,
-.reveal.is-visible .experience-metric:nth-child(3) span { animation-delay: 320ms; }
-
-@keyframes experience-metric-enter {
-  to { opacity: 1; transform: none; }
-}
-
-@keyframes experience-border-trace {
-  to { stroke-dashoffset: -100; }
-}
-
-@keyframes experience-result-glow {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(.92); opacity: .6; }
-  50% { transform: translate3d(-8%, -7%, 0) scale(1.04); opacity: 1; }
+@keyframes experience-edge-tracer {
+  0%, 8% { left: -5%; opacity: 0; }
+  12% { opacity: 1; }
+  46% { left: 46%; opacity: .92; }
+  80% { left: 100%; opacity: .72; }
+  87%, 100% { left: 108%; opacity: 0; }
 }
 
 @keyframes experience-dot-breathe {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(240,242,245,.18); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(240,242,245,.14); }
   50% { box-shadow: 0 0 0 5px rgba(240,242,245,0); }
 }
 
 @media (max-width: 860px) {
-  .experience-heading {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-bottom: 3.5rem;
-  }
-
-  .experience-heading h2 {
-    font-size: var(--heading);
-  }
-
-  .experience-heading-note {
-    max-width: 36rem;
-  }
-
-  .experience-record {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .experience-index {
-    font-size: clamp(3.8rem, 13vw, 6rem);
-  }
-
-  .experience-results {
-    min-width: 0;
-  }
-
-  .experience-metrics {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
+  .experience-heading { grid-template-columns: 1fr; gap: 1.35rem; margin-bottom: 3rem; }
+  .experience-card-toggle { grid-template-columns: minmax(4rem, .16fr) minmax(0, 1fr); gap: 1.25rem; }
+  .experience-card-action { grid-column: 2; justify-self: start; }
+  .experience-detail-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 560px) {
-  .experience-section {
-    padding-block: 5.5rem;
-  }
-
-  .experience-heading h2 {
-    font-size: clamp(2.15rem, 10vw, 3rem);
-  }
-
-  .experience-main h3 {
-    font-size: clamp(1.75rem, 8vw, 2.4rem);
-  }
-
-  .experience-metrics {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .experience-metric strong {
-    font-size: clamp(2.5rem, 14vw, 3.8rem);
-  }
+  .experience-section { padding-block: 5.5rem; }
+  .experience-card-toggle { grid-template-columns: 1fr; gap: 1rem; }
+  .experience-index { font-size: clamp(3.8rem, 18vw, 5.4rem); }
+  .experience-card-action { grid-column: auto; }
+  .experience-card-title { font-size: clamp(1.7rem, 8vw, 2.3rem); }
+  .experience-media { border-radius: 22px; }
+  .experience-media-frame { border-radius: 16px; aspect-ratio: 1.08 / 1; }
+  .experience-media-caption { font-size: .6rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .experience-border-tracer-path,
-  .experience-results::after,
+  .experience-media { transform: none !important; transition: none; }
+  .experience-media-frame img { transition: none; }
+  .experience-results-line::after,
   .experience-bullets li::before,
-  .experience-results-label::before {
-    animation: none;
-  }
-
-  .reveal.is-visible .experience-metric strong,
-  .reveal.is-visible .experience-metric span {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
+  .experience-results-label::before { animation: none; }
 }
-
