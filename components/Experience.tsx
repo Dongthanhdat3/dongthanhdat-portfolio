@@ -68,6 +68,52 @@ export function Experience() {
   const experience = portfolio.experience;
   const [expanded, setExpanded] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
+  const mediaScrollRef = useRef<HTMLDivElement>(null);
+  const [mediaScrollRatio, setMediaScrollRatio] = useState(0);
+  const [isMediaScrollable, setIsMediaScrollable] = useState(false);
+
+  const syncMediaScrollbar = () => {
+    const node = mediaScrollRef.current;
+    if (!node) return;
+    const max = Math.max(0, node.scrollHeight - node.clientHeight);
+    setIsMediaScrollable(max > 4);
+    setMediaScrollRatio(max > 0 ? node.scrollTop / max : 0);
+  };
+
+  useEffect(() => {
+    if (!expanded) return;
+    const node = mediaScrollRef.current;
+    if (!node) return;
+    const observer = new ResizeObserver(syncMediaScrollbar);
+    observer.observe(node);
+    syncMediaScrollbar();
+    return () => observer.disconnect();
+  }, [expanded]);
+
+  const handleMediaScroll = () => syncMediaScrollbar();
+
+  const handleScrollbarPointerDown = (event: PointerEvent<HTMLButtonElement>) => {
+    const rail = event.currentTarget.parentElement;
+    const node = mediaScrollRef.current;
+    if (!rail || !node) return;
+    event.preventDefault();
+    const startY = event.clientY;
+    const railHeight = rail.clientHeight;
+    const thumbHeight = 48;
+    const travel = Math.max(1, railHeight - thumbHeight);
+
+    const onMove = (move: globalThis.PointerEvent) => {
+      const delta = move.clientY - startY;
+      const ratio = Math.max(0, Math.min(1, mediaScrollRatio + delta / travel));
+      node.scrollTop = ratio * (node.scrollHeight - node.clientHeight);
+    };
+    const onUp = () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp, { once: true });
+  };
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const node = imageRef.current;
@@ -145,12 +191,35 @@ export function Experience() {
                   onPointerMove={handlePointerMove}
                   onPointerLeave={resetPointer}
                 >
-                  <div className="experience-media-frame">
-                    <img
-                      src="/experience/mobifone-youtube.jpg"
-                      alt="Kênh YouTube Giải pháp Công nghệ Thông tin MobiFone"
-                    />
+                  <div
+                    ref={mediaScrollRef}
+                    className="experience-media-scroll"
+                    onScroll={handleMediaScroll}
+                  >
+                    <div className="experience-media-frame">
+                      <img
+                        src="/experience/mobifone-youtube.jpg"
+                        alt="Kênh YouTube Giải pháp Công nghệ Thông tin MobiFone"
+                      />
+                    </div>
                   </div>
+                  {isMediaScrollable && (
+                    <div className="experience-media-scrollbar">
+                      <div className="experience-media-scrollbar-track" />
+                      <button
+                        type="button"
+                        className="experience-media-scrollbar-thumb"
+                        style={{
+                          top: `calc(16px + ${mediaScrollRatio * 100}% - ${mediaScrollRatio * 80}px)`,
+                        }}
+                        aria-label="Kéo để xem toàn bộ ảnh"
+                        onPointerDown={handleScrollbarPointerDown}
+                      >
+                        <span />
+                      </button>
+                      <span className="experience-media-scroll-hint">KÉO</span>
+                    </div>
+                  )}
                   <div className="experience-media-caption">
                     <span>MobiFone · YouTube</span>
                     <span>Thực tế triển khai nội dung</span>

@@ -2951,19 +2951,31 @@ body:has(.project-detail-page--mobifone) .site-header {
   pointer-events: none;
 }
 
-.experience-media-frame {
+.experience-media-scroll {
   position: relative;
-  overflow: hidden;
+  height: clamp(430px, 48vw, 680px);
+  overflow-x: hidden;
+  overflow-y: auto;
   border-radius: 21px;
   background: #111214;
-  aspect-ratio: 1.35 / 1;
+  scrollbar-width: none;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+.experience-media-scroll::-webkit-scrollbar { width: 0; height: 0; }
+
+.experience-media-frame {
+  position: relative;
+  width: 100%;
+  background: #111214;
 }
 
 .experience-media-frame img {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center top;
   filter: saturate(.96) contrast(1.02);
   transform: scale(1.01);
@@ -2973,6 +2985,85 @@ body:has(.project-detail-page--mobifone) .site-header {
 .experience-media:hover .experience-media-frame img {
   transform: scale(1.025);
   filter: saturate(1) contrast(1.025);
+}
+
+.experience-media-scrollbar {
+  position: absolute;
+  z-index: 7;
+  top: 0;
+  right: .45rem;
+  bottom: 0;
+  width: 30px;
+  pointer-events: none;
+}
+
+.experience-media-scrollbar-track {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  bottom: 16px;
+  width: 2px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.13);
+  box-shadow: 0 0 7px rgba(255,255,255,.04);
+}
+
+.experience-media-scrollbar-thumb {
+  position: absolute;
+  right: 4px;
+  width: 14px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(223,227,233,.86));
+  box-shadow: 0 0 10px rgba(255,255,255,.56), 0 0 24px rgba(255,255,255,.22), inset 0 1px rgba(255,255,255,1);
+  cursor: grab;
+  pointer-events: auto;
+  transition: transform 180ms ease, box-shadow 220ms ease;
+  touch-action: none;
+  animation: experience-scroll-thumb-pulse 3.8s ease-in-out infinite;
+}
+
+.experience-media-scrollbar-thumb:active { cursor: grabbing; }
+.experience-media-scrollbar-thumb:hover {
+  transform: scaleX(1.14);
+  box-shadow: 0 0 14px rgba(255,255,255,.78), 0 0 28px rgba(255,255,255,.3), inset 0 1px rgba(255,255,255,1);
+}
+
+.experience-media-scrollbar-thumb span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(40,42,46,.58);
+  transform: translate(-50%, -50%);
+}
+
+.experience-media-scroll-hint {
+  position: absolute;
+  right: 1px;
+  bottom: 3.2rem;
+  color: rgba(255,255,255,.94);
+  font-size: .48rem;
+  font-weight: 750;
+  letter-spacing: .16em;
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(255,255,255,.45);
+  animation: experience-scroll-hint 2.8s ease-in-out infinite;
+}
+
+@keyframes experience-scroll-thumb-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(255,255,255,.44), 0 0 18px rgba(255,255,255,.16), inset 0 1px rgba(255,255,255,1); }
+  50% { box-shadow: 0 0 14px rgba(255,255,255,.78), 0 0 30px rgba(255,255,255,.28), inset 0 1px rgba(255,255,255,1); }
+}
+
+@keyframes experience-scroll-hint {
+  0%, 100% { opacity: .55; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(4px); }
 }
 
 .experience-media-caption {
@@ -3154,7 +3245,8 @@ body:has(.project-detail-page--mobifone) .site-header {
   .experience-card-action { grid-column: auto; }
   .experience-card-title { font-size: clamp(1.7rem, 8vw, 2.3rem); }
   .experience-media { border-radius: 22px; }
-  .experience-media-frame { border-radius: 16px; aspect-ratio: 1.08 / 1; }
+  .experience-media-scroll { height: min(72vh, 520px); }
+  .experience-media-frame { border-radius: 16px; }
   .experience-media-caption { font-size: .6rem; }
 }
 
