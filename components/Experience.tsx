@@ -12,7 +12,7 @@ export function Experience() {
     >
       <div className="container experience-inner">
         <Reveal>
-          <div className="experience-heading">
+          <div className="section-heading split-heading experience-heading">
             <div>
               <p className="eyebrow experience-eyebrow">Kinh nghiệm thực tế</p>
               <h2 id="experience-title">Kinh nghiệm</h2>

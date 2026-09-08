@@ -1458,6 +1458,7 @@ body:has(.project-detail-page) .menu-button span { background: #f4f5f7; }
 .home-graphite .about-section,
 .home-graphite .capabilities-section,
 .home-graphite .projects-section,
+.home-graphite .experience-section,
 .home-graphite .education-section,
 .home-graphite .certificates-section,
 .home-graphite .contact-section,
@@ -1473,6 +1474,7 @@ body:has(.project-detail-page) .menu-button span { background: #f4f5f7; }
 .home-graphite .about-section,
 .home-graphite .capabilities-section,
 .home-graphite .projects-section,
+.home-graphite .experience-section,
 .home-graphite .education-section,
 .home-graphite .certificates-section {
   border-top: 1px solid rgba(235,238,242,.055);
@@ -1486,12 +1488,18 @@ body:has(.project-detail-page) .menu-button span { background: #f4f5f7; }
 .home-graphite .certificate-meta,
 .home-graphite .certificate-copy > p:not(.certificate-meta),
 .home-graphite .project-category,
+.home-graphite .experience-eyebrow,
+.home-graphite .experience-heading-note,
+.home-graphite .experience-meta,
+.home-graphite .experience-summary,
+.home-graphite .experience-bullets li,
 .home-graphite .tool-lab-heading > p:last-child,
 .home-graphite .contact-intro {
   color: var(--home-muted);
 }
 .home-graphite h2,
 .home-graphite h3,
+.home-graphite .experience-main h3,
 .home-graphite .project-brand,
 .home-graphite .education-record p,
 .home-graphite .certificate-copy h3 {
@@ -2724,14 +2732,11 @@ body:has(.project-detail-page--mobifone) .site-header {
 }
 
 
-/* ===== V15 — Experience section: high-attention editorial break before projects ===== */
+/* ===== V16 — Experience section: graphite continuity + subtle result motion ===== */
 .experience-section {
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 92% 14%, rgba(29,29,31,.06), transparent 28%),
-    radial-gradient(circle at 4% 82%, rgba(29,29,31,.045), transparent 26%),
-    var(--surface);
+  background: transparent;
   color: var(--text-primary);
   isolation: isolate;
 }
@@ -2741,12 +2746,12 @@ body:has(.project-detail-page--mobifone) .site-header {
   z-index: -1;
   inset: 0;
   background:
-    linear-gradient(90deg, transparent 0 49.96%, rgba(29,29,31,.045) 50%, transparent 50.04%),
-    linear-gradient(180deg, transparent 0 49.96%, rgba(29,29,31,.035) 50%, transparent 50.04%);
-  background-size: 25vw 25vw;
-  mask-image: linear-gradient(180deg, #000, transparent 92%);
+    radial-gradient(ellipse 46% 34% at 86% 18%, rgba(154,160,171,.095), transparent 70%),
+    radial-gradient(ellipse 38% 30% at 8% 84%, rgba(103,108,118,.055), transparent 72%),
+    linear-gradient(90deg, transparent 0 49.96%, rgba(235,238,242,.028) 50%, transparent 50.04%);
+  background-size: auto, auto, 34vw 34vw;
   content: "";
-  opacity: .4;
+  opacity: .78;
   pointer-events: none;
 }
 
@@ -2755,47 +2760,47 @@ body:has(.project-detail-page--mobifone) .site-header {
 }
 
 .experience-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, .58fr);
-  gap: clamp(2rem, 8vw, 8rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .62fr);
+  gap: clamp(2rem, 7vw, 7rem);
   align-items: end;
-  margin-bottom: clamp(4rem, 7vw, 7rem);
+  margin-bottom: clamp(3.5rem, 6vw, 6rem);
 }
 
 .experience-eyebrow {
-  margin-bottom: 1rem;
-  color: var(--text-secondary);
+  margin-bottom: 1.1rem;
+  color: var(--home-muted, var(--text-secondary));
 }
 
 .experience-heading h2 {
-  color: var(--text-primary);
-  font-size: clamp(4.5rem, 9vw, 8.6rem);
-  font-weight: 600;
-  letter-spacing: -.075em;
-  line-height: .88;
+  color: var(--home-text, var(--text-primary));
+  font-size: var(--heading);
+  font-weight: 650;
+  letter-spacing: -.045em;
+  line-height: 1.03;
 }
 
 .experience-heading-note {
-  max-width: 30rem;
-  margin: 0 0 .35rem;
-  color: var(--text-secondary);
-  font-size: clamp(1rem, 1.18vw, 1.12rem);
+  max-width: 34rem;
+  margin: 0 0 .25rem;
+  color: var(--home-muted, var(--text-secondary));
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
   line-height: 1.7;
 }
 
 .experience-record {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(6rem, .3fr) minmax(0, 1.15fr) minmax(15rem, .55fr);
+  grid-template-columns: minmax(5.5rem, .28fr) minmax(0, 1.15fr) minmax(15rem, .57fr);
   gap: clamp(2rem, 5vw, 5rem);
-  padding: clamp(2rem, 3.5vw, 3.5rem) 0 clamp(1.5rem, 2.5vw, 2.5rem);
-  border-top: 1px solid rgba(29,29,31,.2);
-  border-bottom: 1px solid rgba(29,29,31,.12);
+  padding: clamp(2rem, 3.2vw, 3.25rem) 0 clamp(1.5rem, 2.4vw, 2.4rem);
+  border-top: 1px solid var(--home-line, rgba(235,238,242,.12));
+  border-bottom: 1px solid var(--home-line, rgba(235,238,242,.12));
 }
 
 .experience-index {
   align-self: start;
-  color: rgba(29,29,31,.12);
-  font-size: clamp(4.5rem, 8vw, 8rem);
+  color: rgba(232,235,240,.12);
+  font-size: clamp(4.25rem, 7vw, 7rem);
   font-weight: 600;
   letter-spacing: -.09em;
   line-height: .78;
@@ -2810,7 +2815,7 @@ body:has(.project-detail-page--mobifone) .site-header {
   flex-wrap: wrap;
   gap: .65rem 1.2rem;
   margin-bottom: 1.25rem;
-  color: var(--text-secondary);
+  color: var(--home-muted, var(--text-secondary));
   font-size: .72rem;
   font-weight: 650;
   letter-spacing: .12em;
@@ -2824,13 +2829,13 @@ body:has(.project-detail-page--mobifone) .site-header {
   height: 3px;
   margin: 0 .85rem .15rem 0;
   border-radius: 50%;
-  background: rgba(29,29,31,.34);
+  background: rgba(232,235,240,.32);
   content: "";
 }
 
 .experience-main h3 {
   margin-bottom: 1.25rem;
-  color: var(--text-primary);
+  color: var(--home-text, var(--text-primary));
   font-size: clamp(2rem, 3vw, 3.1rem);
   font-weight: 550;
   letter-spacing: -.055em;
@@ -2838,13 +2843,13 @@ body:has(.project-detail-page--mobifone) .site-header {
 }
 
 .experience-main h3 span {
-  color: rgba(29,29,31,.35);
+  color: rgba(232,235,240,.34);
 }
 
 .experience-summary {
   max-width: 48rem;
   margin-bottom: 2.2rem;
-  color: var(--text-secondary);
+  color: var(--home-muted, var(--text-secondary));
   font-size: clamp(1rem, 1.18vw, 1.12rem);
   line-height: 1.72;
 }
@@ -2861,7 +2866,7 @@ body:has(.project-detail-page--mobifone) .site-header {
 .experience-bullets li {
   position: relative;
   padding-left: 1.45rem;
-  color: var(--text-secondary);
+  color: var(--home-muted, var(--text-secondary));
   font-size: clamp(.96rem, 1.05vw, 1.04rem);
   line-height: 1.7;
 }
@@ -2873,22 +2878,60 @@ body:has(.project-detail-page--mobifone) .site-header {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--text-primary);
+  background: rgba(240,242,245,.72);
+  box-shadow: 0 0 0 0 rgba(240,242,245,.22);
   content: "";
+  animation: experience-dot-breathe 3.8s ease-in-out infinite;
 }
 
 .experience-results {
+  position: relative;
   align-self: stretch;
+  overflow: hidden;
   padding: clamp(1.5rem, 2.3vw, 2.25rem);
+  border: 1px solid rgba(235,238,242,.11);
   border-radius: 24px;
   background:
-    radial-gradient(circle at 82% 14%, rgba(255,255,255,.1), transparent 32%),
-    #08080a;
+    radial-gradient(circle at 82% 14%, rgba(255,255,255,.095), transparent 32%),
+    linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.018)),
+    #08090b;
   color: #fff;
-  box-shadow: 0 24px 60px rgba(29,29,31,.12);
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.035),
+    0 24px 60px rgba(0,0,0,.22);
+}
+
+.experience-results::before {
+  position: absolute;
+  top: 0;
+  left: -32%;
+  width: 32%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(235,238,242,.72), transparent);
+  content: "";
+  opacity: .5;
+  animation: experience-scan 5.5s var(--ease-micro) infinite;
+}
+
+.experience-results::after {
+  position: absolute;
+  right: -18%;
+  bottom: -28%;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,190,201,.08), transparent 66%);
+  content: "";
+  pointer-events: none;
+  animation: experience-result-glow 6s ease-in-out infinite;
 }
 
 .experience-results-label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
   margin: 0 0 1.5rem;
   color: rgba(255,255,255,.46);
   font-size: .68rem;
@@ -2897,7 +2940,19 @@ body:has(.project-detail-page--mobifone) .site-header {
   text-transform: uppercase;
 }
 
+.experience-results-label::before {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(238,241,245,.82);
+  box-shadow: 0 0 0 0 rgba(238,241,245,.25);
+  content: "";
+  animation: experience-dot-breathe 3.8s ease-in-out infinite;
+}
+
 .experience-metrics {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: 1.65rem;
 }
@@ -2914,6 +2969,8 @@ body:has(.project-detail-page--mobifone) .site-header {
   font-weight: 600;
   letter-spacing: -.065em;
   line-height: .95;
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 .experience-metric span {
@@ -2922,6 +2979,40 @@ body:has(.project-detail-page--mobifone) .site-header {
   color: rgba(255,255,255,.5);
   font-size: .78rem;
   line-height: 1.4;
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.reveal.is-visible .experience-metric strong,
+.reveal.is-visible .experience-metric span {
+  animation: experience-metric-enter 680ms var(--ease-reveal) forwards;
+}
+
+.reveal.is-visible .experience-metric:nth-child(1) strong,
+.reveal.is-visible .experience-metric:nth-child(1) span { animation-delay: 120ms; }
+.reveal.is-visible .experience-metric:nth-child(2) strong,
+.reveal.is-visible .experience-metric:nth-child(2) span { animation-delay: 220ms; }
+.reveal.is-visible .experience-metric:nth-child(3) strong,
+.reveal.is-visible .experience-metric:nth-child(3) span { animation-delay: 320ms; }
+
+@keyframes experience-metric-enter {
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes experience-scan {
+  0%, 62% { transform: translateX(0); opacity: 0; }
+  68% { opacity: .55; }
+  84%, 100% { transform: translateX(420%); opacity: 0; }
+}
+
+@keyframes experience-result-glow {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(.92); opacity: .6; }
+  50% { transform: translate3d(-8%, -7%, 0) scale(1.04); opacity: 1; }
+}
+
+@keyframes experience-dot-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(240,242,245,.18); }
+  50% { box-shadow: 0 0 0 5px rgba(240,242,245,0); }
 }
 
 @media (max-width: 860px) {
@@ -2932,7 +3023,7 @@ body:has(.project-detail-page--mobifone) .site-header {
   }
 
   .experience-heading h2 {
-    font-size: clamp(4rem, 16vw, 7rem);
+    font-size: var(--heading);
   }
 
   .experience-heading-note {
@@ -2964,7 +3055,7 @@ body:has(.project-detail-page--mobifone) .site-header {
   }
 
   .experience-heading h2 {
-    font-size: clamp(3.6rem, 19vw, 5.2rem);
+    font-size: clamp(2.15rem, 10vw, 3rem);
   }
 
   .experience-main h3 {
@@ -2982,8 +3073,18 @@ body:has(.project-detail-page--mobifone) .site-header {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .experience-section::before {
-    opacity: .22;
+  .experience-results::before,
+  .experience-results::after,
+  .experience-bullets li::before,
+  .experience-results-label::before {
+    animation: none;
+  }
+
+  .reveal.is-visible .experience-metric strong,
+  .reveal.is-visible .experience-metric span {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
