@@ -29,6 +29,18 @@ export type Certificate = {
   pdf: string;
 };
 
+export type Experience = {
+  role: string;
+  company: string;
+  period: string;
+  summary: string;
+  bullets: string[];
+  metrics: Array<{
+    value: string;
+    label: string;
+  }>;
+};
+
 export const portfolio = {
   person: {
     name: "Đồng Thành Đạt",
@@ -48,6 +60,7 @@ export const portfolio = {
     { label: "Trang chủ", href: "/#home" },
     { label: "Giới thiệu", href: "/#about" },
     { label: "Năng lực", href: "/#capabilities" },
+    { label: "Kinh nghiệm", href: "/#experience" },
     { label: "Dự án", href: "/#projects" },
     { label: "Học vấn", href: "/#education" },
     { label: "Chứng chỉ", href: "/#certificates" },
@@ -78,6 +91,23 @@ export const portfolio = {
     { name: "Python", slug: "python", image: "/tools/python.webp" },
     { name: "Google Apps Script", slug: "apps-script", image: "/tools/google-apps-script-v5.webp" },
   ],
+  experience: {
+    role: "Marketing Intern",
+    company: "MobiFone",
+    period: "06–09/2025",
+    summary:
+      "Phát triển nội dung cho kênh YouTube “Giải pháp Công nghệ Thông tin MobiFone”, từ hỗ trợ xây dựng kịch bản đến chỉnh sửa và tối ưu cách truyền tải nội dung.",
+    bullets: [
+      "Phát triển nội dung cho kênh YouTube “Giải pháp Công nghệ Thông tin MobiFone”, hỗ trợ xây dựng kịch bản đến chỉnh sửa qua 4 video, góp phần đạt 11,6K lượt xem đặc biệt với sản phẩm mới ra mắt “Loa Thần Tài” của MobiFone.",
+      "Tối ưu cấu trúc và cách truyền tải nội dung, đạt 7,6% CTR và 59% tỷ lệ xem trung bình, thông qua điều chỉnh thông điệp, cách triển khai chủ đề và hình thức thể hiện.",
+      "Đề xuất concept và hướng nội dung cho các sản phẩm/giải pháp công nghệ theo mục tiêu truyền thông của từng chủ đề.",
+    ],
+    metrics: [
+      { value: "11,6K", label: "lượt xem" },
+      { value: "7,6%", label: "CTR" },
+      { value: "59%", label: "tỷ lệ xem trung bình" },
+    ],
+  },
   education: {
     institution: "Trường Đại học Nguyễn Tất Thành",
     degree: "Cử nhân Marketing",
