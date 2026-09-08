@@ -1,5 +1,6 @@
 import { portfolio } from "@/content/portfolio.vi";
 import { Reveal } from "./Reveal";
+import { AnimatedMetric } from "./AnimatedMetric";
 
 export function Experience() {
   const experience = portfolio.experience;
@@ -46,11 +47,34 @@ export function Experience() {
             </div>
 
             <div className="experience-results" aria-label="Kết quả nổi bật">
+              <svg
+                className="experience-border-tracer"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <rect
+                  className="experience-border-tracer-path"
+                  x="0.8"
+                  y="0.8"
+                  width="98.4"
+                  height="98.4"
+                  rx="5.5"
+                  ry="5.5"
+                  pathLength="100"
+                />
+              </svg>
               <p className="experience-results-label">Kết quả nổi bật</p>
               <div className="experience-metrics">
-                {experience.metrics.map((metric) => (
+                {experience.metrics.map((metric, index) => (
                   <div className="experience-metric" key={metric.label}>
-                    <strong>{metric.value}</strong>
+                    <strong>
+                      <AnimatedMetric
+                        value={metric.value}
+                        delay={index * 180}
+                        duration={1800 + index * 120}
+                      />
+                    </strong>
                     <span>{metric.label}</span>
                   </div>
                 ))}

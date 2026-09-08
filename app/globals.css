@@ -2901,17 +2901,27 @@ body:has(.project-detail-page--mobifone) .site-header {
     0 24px 60px rgba(0,0,0,.22);
 }
 
-.experience-results::before {
+.experience-border-tracer {
   position: absolute;
-  top: 0;
-  left: -32%;
-  width: 32%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(235,238,242,.72), transparent);
-  content: "";
-  opacity: .5;
-  animation: experience-scan 5.5s var(--ease-micro) infinite;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
 }
+
+.experience-border-tracer-path {
+  fill: none;
+  stroke: rgba(255,255,255,.98);
+  stroke-width: .36;
+  stroke-linecap: round;
+  stroke-dasharray: 5 95;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 3px rgba(255,255,255,.48));
+  animation: experience-border-trace 18s linear infinite;
+}
+
 
 .experience-results::after {
   position: absolute;
@@ -2969,8 +2979,14 @@ body:has(.project-detail-page--mobifone) .site-header {
   font-weight: 600;
   letter-spacing: -.065em;
   line-height: .95;
+  font-variant-numeric: tabular-nums;
   opacity: 0;
   transform: translateY(10px);
+}
+
+.experience-counter {
+  display: inline-block;
+  min-width: 4.25ch;
 }
 
 .experience-metric span {
@@ -2999,10 +3015,8 @@ body:has(.project-detail-page--mobifone) .site-header {
   to { opacity: 1; transform: none; }
 }
 
-@keyframes experience-scan {
-  0%, 62% { transform: translateX(0); opacity: 0; }
-  68% { opacity: .55; }
-  84%, 100% { transform: translateX(420%); opacity: 0; }
+@keyframes experience-border-trace {
+  to { stroke-dashoffset: -100; }
 }
 
 @keyframes experience-result-glow {
@@ -3073,7 +3087,7 @@ body:has(.project-detail-page--mobifone) .site-header {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .experience-results::before,
+  .experience-border-tracer-path,
   .experience-results::after,
   .experience-bullets li::before,
   .experience-results-label::before {
