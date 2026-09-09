@@ -2810,7 +2810,8 @@ body:has(.project-detail-page--mobifone) .site-header {
 
 .experience-index {
   align-self: start;
-  color: rgba(232,235,240,.17);
+  color: rgba(242,244,248,.30);
+  text-shadow: 0 0 18px rgba(255,255,255,.035);
   font-size: clamp(4rem, 6.4vw, 6.8rem);
   font-weight: 600;
   letter-spacing: -.09em;
@@ -2818,7 +2819,7 @@ body:has(.project-detail-page--mobifone) .site-header {
   transition: color 280ms ease;
 }
 
-.experience-card.is-expanded .experience-index { color: rgba(232,235,240,.22); }
+.experience-card.is-expanded .experience-index { color: rgba(246,248,251,.34); text-shadow: 0 0 22px rgba(255,255,255,.045); }
 
 .experience-card-heading { min-width: 0; }
 
@@ -2860,6 +2861,8 @@ body:has(.project-detail-page--mobifone) .site-header {
 }
 
 .experience-card-action {
+  position: relative;
+  left: -0.38px;
   display: inline-flex;
   align-items: center;
   gap: .75rem;
