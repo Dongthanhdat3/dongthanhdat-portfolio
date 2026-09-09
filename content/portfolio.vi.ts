@@ -98,7 +98,7 @@ export const portfolio = {
     summary:
       "Phát triển nội dung cho kênh YouTube “Giải pháp Công nghệ Thông tin MobiFone”, từ hỗ trợ xây dựng kịch bản đến chỉnh sửa và tối ưu cách truyền tải nội dung.",
     bullets: [
-      "Phát triển nội dung cho kênh YouTube “Giải pháp Công nghệ Thông tin MobiFone”, hỗ trợ xây dựng kịch bản đến chỉnh sửa qua 4 video, góp phần đạt 11,6K lượt xem đặc biệt với sản phẩm mới ra mắt “Loa Thần Tài” của MobiFone.",
+      "Phát triển nội dung cho kênh YouTube “Giải pháp Công nghệ Thông tin MobiFone”, hỗ trợ xây dựng kịch bản đến chỉnh sửa qua các video, góp phần đạt 11,6K lượt xem đặc biệt với sản phẩm mới ra mắt “Loa Thần Tài” của MobiFone.",
       "Tối ưu cấu trúc và cách truyền tải nội dung, đạt 7,6% CTR và 59% tỷ lệ xem trung bình, thông qua điều chỉnh thông điệp, cách triển khai chủ đề và hình thức thể hiện.",
       "Đề xuất concept và hướng nội dung cho các sản phẩm/giải pháp công nghệ theo mục tiêu truyền thông của từng chủ đề.",
     ],

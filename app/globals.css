@@ -2810,7 +2810,7 @@ body:has(.project-detail-page--mobifone) .site-header {
 
 .experience-index {
   align-self: start;
-  color: rgba(232,235,240,.12);
+  color: rgba(232,235,240,.17);
   font-size: clamp(4rem, 6.4vw, 6.8rem);
   font-weight: 600;
   letter-spacing: -.09em;
@@ -2818,7 +2818,7 @@ body:has(.project-detail-page--mobifone) .site-header {
   transition: color 280ms ease;
 }
 
-.experience-card.is-expanded .experience-index { color: rgba(232,235,240,.2); }
+.experience-card.is-expanded .experience-index { color: rgba(232,235,240,.22); }
 
 .experience-card-heading { min-width: 0; }
 
@@ -3042,29 +3042,11 @@ body:has(.project-detail-page--mobifone) .site-header {
   transform: translate(-50%, -50%);
 }
 
-.experience-media-scroll-hint {
-  position: absolute;
-  right: 1px;
-  bottom: 3.2rem;
-  color: rgba(255,255,255,.94);
-  font-size: .48rem;
-  font-weight: 750;
-  letter-spacing: .16em;
-  writing-mode: vertical-rl;
-  text-transform: uppercase;
-  text-shadow: 0 0 8px rgba(255,255,255,.45);
-  animation: experience-scroll-hint 2.8s ease-in-out infinite;
-}
-
 @keyframes experience-scroll-thumb-pulse {
   0%, 100% { box-shadow: 0 0 8px rgba(255,255,255,.44), 0 0 18px rgba(255,255,255,.16), inset 0 1px rgba(255,255,255,1); }
   50% { box-shadow: 0 0 14px rgba(255,255,255,.78), 0 0 30px rgba(255,255,255,.28), inset 0 1px rgba(255,255,255,1); }
 }
 
-@keyframes experience-scroll-hint {
-  0%, 100% { opacity: .55; transform: translateY(0); }
-  50% { opacity: 1; transform: translateY(4px); }
-}
 
 .experience-media-caption {
   position: absolute;

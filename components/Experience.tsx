@@ -217,7 +217,6 @@ export function Experience() {
                       >
                         <span />
                       </button>
-                      <span className="experience-media-scroll-hint">KÉO</span>
                     </div>
                   )}
                   <div className="experience-media-caption">
