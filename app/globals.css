@@ -518,6 +518,7 @@ body.intro-open:not(.intro-revealing) .hero-copy { opacity:0; }
 .hero .contact-shortcut:hover { background:rgba(255,255,255,.08); color:#fff; }
 .hero .contact-tooltip { background:#f5f5f7; color:#111114; }
 
+/* Handwritten signature — exact supplied artwork, revealed with a soft pen-like write-on. */
 .hero-signature-wrap {
   position: absolute;
   z-index: 1;
@@ -528,59 +529,86 @@ body.intro-open:not(.intro-revealing) .hero-copy { opacity:0; }
   pointer-events: none;
   filter: drop-shadow(0 15px 28px rgba(0,0,0,.18));
 }
-.hero-signature {
+.hero-signature-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 653 / 397;
+  overflow: visible;
+  isolation: isolate;
+}
+.hero-signature-image {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
-  overflow: visible;
-}
-.hero-signature-write {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 34;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
   opacity: 0;
-  animation: hero-signature-mask-write 2.3s cubic-bezier(.67,.02,.18,1) forwards;
-  animation-play-state: paused;
+  clip-path: inset(0 100% 0 0);
+  will-change: clip-path, opacity, filter;
 }
-.hero-signature-write-dot {
-  fill: #fff;
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: hero-signature-mask-dot 170ms ease-out 2.13s forwards;
-  animation-play-state: paused;
+body:not(.intro-open) .hero-signature-image {
+  animation: hero-signature-write-on 2.3s cubic-bezier(.22,.61,.36,1) forwards;
 }
-.hero-signature-write--2 { animation-delay: .28s; }
-.hero-signature-write--3 { animation-delay: .52s; }
-.hero-signature-write--4 { animation-delay: .79s; }
-.hero-signature-write--5 { animation-delay: 1.08s; }
-.hero-signature-write--6 { animation-delay: 1.47s; }
-body:not(.intro-open) .hero-signature-write,
-body:not(.intro-open) .hero-signature-write-dot {
-  animation-play-state: running;
-}
-@keyframes hero-signature-mask-write {
-  0% { stroke-dashoffset: 1; opacity: 0; }
-  8% { opacity: 1; }
-  100% { stroke-dashoffset: 0; opacity: 1; }
-}
-@keyframes hero-signature-mask-dot {
-  from { opacity: 0; transform: scale(.45); }
-  to { opacity: 1; transform: scale(1); }
-}
-.hero-signature-wrap::after {
+.hero-signature-image::selection { background: transparent; }
+.hero-signature-stage::before {
   position: absolute;
-  z-index: -1;
-  inset: 18% 3% 11%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,.075), rgba(255,255,255,0) 70%);
+  z-index: 1;
+  inset: 0;
+  background: url('/images/signature-dat-exact.png') center / contain no-repeat;
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+  filter: blur(5px) brightness(1.8);
+  mix-blend-mode: screen;
   content: "";
-  opacity: .5;
+  pointer-events: none;
+}
+body:not(.intro-open) .hero-signature-stage::before {
+  animation: hero-signature-glow-on 2.3s cubic-bezier(.22,.61,.36,1) forwards;
+}
+.hero-signature-stage::after {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(255,255,255,.95), 0 0 20px rgba(255,255,255,.48), 0 0 34px rgba(255,255,255,.18);
+  content: "";
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  filter: blur(.15px);
+}
+body:not(.intro-open) .hero-signature-stage::after {
+  animation: hero-signature-pen-trace 2.3s cubic-bezier(.18,.78,.25,1) forwards;
+}
+@keyframes hero-signature-write-on {
+  0% { opacity: 0; clip-path: inset(0 100% 0 0); filter: brightness(1.05); }
+  7% { opacity: 1; }
+  100% { opacity: 1; clip-path: inset(0 0 0 0); filter: brightness(1.06); }
+}
+@keyframes hero-signature-glow-on {
+  0% { opacity: 0; clip-path: inset(0 100% 0 0); }
+  8% { opacity: .7; }
+  86% { opacity: .24; }
+  100% { opacity: 0; clip-path: inset(0 0 0 0); }
+}
+@keyframes hero-signature-pen-trace {
+  0% { left: 6%; top: 86%; opacity: 0; }
+  6% { opacity: 1; }
+  16% { left: 14%; top: 68%; }
+  28% { left: 27%; top: 36%; }
+  40% { left: 46%; top: 12%; }
+  52% { left: 57%; top: 28%; }
+  64% { left: 45%; top: 69%; }
+  75% { left: 67%; top: 56%; }
+  86% { left: 81%; top: 41%; }
+  94% { left: 91%; top: 66%; }
+  97% { left: 94%; top: 79%; opacity: 1; }
+  100% { left: 94%; top: 79%; opacity: 0; }
 }
 
 main > section:not(.hero) { position:relative; z-index:3; }
