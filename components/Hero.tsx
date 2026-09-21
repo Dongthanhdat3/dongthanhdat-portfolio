@@ -1,12 +1,10 @@
 import { portfolio } from "@/content/portfolio.vi";
 import { ContactShortcuts } from "./ContactShortcuts";
 import { HeroTitle } from "./HeroTitle";
-import { SignatureMark } from "./SignatureMark";
 
 export function Hero() {
   return (
     <section id="home" className="hero" aria-labelledby="hero-title">
-      <SignatureMark />
       <div className="container hero-inner">
         <div className="hero-copy">
           <HeroTitle name={portfolio.person.name} />
@@ -25,6 +23,17 @@ export function Hero() {
                 Liên hệ
               </a>
             </div>
+          </div>
+        </div>
+
+        <div className="hero-signature-wrap" aria-hidden="true">
+          <div className="hero-signature-reveal">
+            <img
+              className="hero-signature-image"
+              src="/images/signature-dat-source-red.png"
+              alt=""
+            />
+            <span className="hero-signature-writing-tip" />
           </div>
         </div>
       </div>

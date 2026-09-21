@@ -33,3 +33,9 @@ Pointer proximity or a touch tap separates the assembly. It returns with damping
 ## Typography and content
 
 The hero name uses Inter Variable with explicit line height, Vietnamese-safe clipping insets, and a transform/opacity reveal. All research content, PDF evidence, certificates, brand marks, tools, and contact information remain unchanged.
+
+## Signature treatment — V26
+
+- The Hero signature uses the user-supplied transparent signature artwork as the visual source; its silhouette is preserved and the visible ink is recolored to the portfolio red.
+- The reveal is CSS-based: a left-to-right clip reveal runs for approximately 4 seconds with a soft moving ink tip to suggest a handwriting/write-on effect.
+- No generated or hand-redrawn signature geometry is used for the visible mark.

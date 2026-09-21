@@ -518,49 +518,78 @@ body.intro-open:not(.intro-revealing) .hero-copy { opacity:0; }
 .hero .contact-shortcut:hover { background:rgba(255,255,255,.08); color:#fff; }
 .hero .contact-tooltip { background:#f5f5f7; color:#111114; }
 
-/* Signature mark: "Dat." rendered from real vector strokes of a signature
-   typeface (see SignatureMark.tsx), drawn on load like a pen writing it. */
-.signature-mark {
+.hero-signature-wrap {
   position: absolute;
   z-index: 1;
-  top: 53%;
-  right: clamp(1.5rem, 6vw, 6.5rem);
-  width: clamp(230px, 24vw, 420px);
-  transform: translateY(-50%);
+  top: 50%;
+  right: clamp(1rem, 2.5vw, 2.75rem);
+  width: min(41vw, 620px);
+  transform: translateY(-47%);
   pointer-events: none;
-  filter: drop-shadow(0 18px 34px rgba(0,0,0,.4));
 }
-.signature-mark-glyph {
-  fill: #f5f5f7;
-  fill-opacity: 0;
-  stroke: #f5f5f7;
-  stroke-width: 3.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: var(--len, 1px);
-  stroke-dashoffset: var(--len, 1px);
+.hero-signature-reveal {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  filter: drop-shadow(0 15px 28px rgba(0,0,0,.16));
+  isolation: isolate;
 }
-.signature-mark.is-active .signature-mark-glyph {
-  animation:
-    signature-draw var(--draw-duration, 700ms) var(--draw-delay, 0ms) both linear,
-    signature-fill var(--fill-duration, 240ms) var(--fill-delay, 400ms) both ease-out;
+.hero-signature-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  clip-path: inset(0 100% 0 0);
+  transform: translateZ(0);
+  will-change: clip-path, filter;
+  filter: drop-shadow(0 0 0 rgba(255,59,48,0));
+  animation: hero-signature-write-on 4s cubic-bezier(.22,.78,.2,1) .08s both;
+  animation-play-state: paused;
 }
-.signature-mark.is-active {
-  animation: signature-glow 720ms var(--glow-delay, 1900ms) both ease-out;
+.hero-signature-writing-tip {
+  position: absolute;
+  z-index: 2;
+  top: 18%;
+  left: 0;
+  width: 4px;
+  height: 64%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,112,104,.98) 25%, rgba(255,255,255,.98) 50%, rgba(255,86,74,.86) 74%, rgba(255,255,255,0));
+  box-shadow: 0 0 12px rgba(255,59,48,.42), 0 0 4px rgba(255,255,255,.75);
+  opacity: 0;
+  transform: translateX(0);
+  animation: hero-signature-tip 4s cubic-bezier(.22,.78,.2,1) .08s both;
+  animation-play-state: paused;
 }
-@keyframes signature-draw { to { stroke-dashoffset: 0; } }
-@keyframes signature-fill { to { fill-opacity: 1; } }
-@keyframes signature-glow {
-  0% { filter: drop-shadow(0 18px 34px rgba(0,0,0,.4)) brightness(1); }
-  45% { filter: drop-shadow(0 18px 40px rgba(245,245,247,.3)) brightness(1.22); }
-  100% { filter: drop-shadow(0 18px 34px rgba(0,0,0,.4)) brightness(1); }
+body:not(.intro-open) .hero-signature-image,
+body.intro-revealing .hero-signature-image,
+body:not(.intro-open) .hero-signature-writing-tip,
+body.intro-revealing .hero-signature-writing-tip {
+  animation-play-state: running;
 }
-@media (max-width: 1100px) {
-  .signature-mark { display: none; }
+@keyframes hero-signature-write-on {
+  0% { clip-path: inset(0 100% 0 0); filter: drop-shadow(0 0 0 rgba(255,59,48,0)); }
+  15% { clip-path: inset(0 86% 0 0); }
+  42% { clip-path: inset(0 58% 0 0); }
+  68% { clip-path: inset(0 31% 0 0); }
+  86% { clip-path: inset(0 12% 0 0); }
+  100% { clip-path: inset(0 0 0 0); filter: drop-shadow(0 0 5px rgba(255,59,48,.12)); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .signature-mark-glyph { fill-opacity: 1; stroke-dashoffset: 0; }
-  .signature-mark.is-active { animation: none; }
+@keyframes hero-signature-tip {
+  0% { left: -1%; opacity: 0; }
+  7% { opacity: .96; }
+  18% { left: 17%; }
+  44% { left: 43%; }
+  69% { left: 69%; }
+  88% { left: 89%; }
+  100% { left: 101%; opacity: 0; }
+}
+.hero-signature-wrap::after {
+  position: absolute;
+  z-index: -1;
+  inset: 18% 3% 11%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,59,48,.055), rgba(255,59,48,0) 70%);
+  content: "";
 }
 
 main > section:not(.hero) { position:relative; z-index:3; }
@@ -754,6 +783,12 @@ main > section:not(.hero) { position:relative; z-index:3; }
 }
 
 @media (max-width: 860px) {
+  .hero-signature-wrap {
+    right: 4vw;
+    width: min(52vw, 430px);
+    opacity: .92;
+  }
+
   :root { --header-height:70px; }
   .wordmark-full { display:none; }
   .menu-button { position:relative; z-index:3; display:grid; width:46px; height:46px; place-content:center; gap:6px; border:0; background:transparent; cursor:pointer; }
@@ -1444,6 +1479,12 @@ body:has(.project-detail-page) .primary-navigation a::after { background: #f4f5f
 body:has(.project-detail-page) .menu-button span { background: #f4f5f7; }
 
 @media (max-width: 860px) {
+  .hero-signature-wrap {
+    right: 4vw;
+    width: min(52vw, 430px);
+    opacity: .92;
+  }
+
   body:has(.project-detail-page) .primary-navigation {
     background: rgba(8,9,11,.985);
   }
@@ -1685,6 +1726,12 @@ body:has(.home-graphite) .site-footer {
 .home-graphite .contact-tooltip { background: #eef0f3; color: #090a0c; }
 
 @media (max-width: 860px) {
+  .hero-signature-wrap {
+    right: 4vw;
+    width: min(52vw, 430px);
+    opacity: .92;
+  }
+
   body:has(.home-graphite) .primary-navigation {
     background: rgba(7,8,10,.985);
   }
@@ -2606,6 +2653,12 @@ body:has(.project-detail-page--mobifone) .site-header {
 
 
 @media (max-width: 860px) {
+  .hero-signature-wrap {
+    right: 4vw;
+    width: min(52vw, 430px);
+    opacity: .92;
+  }
+
   .home-intro-grid { inset: 6vh 5vw; border-radius: 22px; }
   .home-intro-grid::before { left: 12%; }
   .home-intro-grid::after { bottom: 16%; }
@@ -3262,6 +3315,12 @@ body:has(.project-detail-page--mobifone) .site-header {
 }
 
 @media (max-width: 860px) {
+  .hero-signature-wrap {
+    right: 4vw;
+    width: min(52vw, 430px);
+    opacity: .92;
+  }
+
   .experience-heading { grid-template-columns: 1fr; gap: 1.35rem; margin-bottom: 3rem; }
   .experience-card-toggle { grid-template-columns: minmax(4rem, .16fr) minmax(0, 1fr); gap: 1.25rem; }
   .experience-card-action { grid-column: 2; justify-self: start; }
@@ -3281,6 +3340,8 @@ body:has(.project-detail-page--mobifone) .site-header {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-signature-image { clip-path: inset(0 0 0 0); animation: none !important; }
+  .hero-signature-writing-tip { display: none; animation: none !important; }
   .experience-media { transform: none !important; transition: none; }
   .experience-media-frame img { transition: none; }
   .experience-results-line::after,
