@@ -47,7 +47,3 @@ Dự án dùng asset tương đối, không phụ thuộc localhost hay đườn
 ## Design reference
 
 Các audit Apple, Tesla, portfolio cũ và design tokens nằm trong `design-reference/`; chúng không được đưa vào public bundle. Quyết định thiết kế được tóm tắt trong `DESIGN.md`.
-
-
-### V28 signature update
-The hero signature uses the supplied signature artwork as a white transparent asset with a 2.3-second left-to-right write-on reveal and a subtle moving pen-light cue.

@@ -1,11 +1,12 @@
 import { portfolio } from "@/content/portfolio.vi";
 import { ContactShortcuts } from "./ContactShortcuts";
 import { HeroTitle } from "./HeroTitle";
-import { SignaturePenflow } from "./SignaturePenflow";
+import { SignatureMark } from "./SignatureMark";
 
 export function Hero() {
   return (
     <section id="home" className="hero" aria-labelledby="hero-title">
+      <SignatureMark />
       <div className="container hero-inner">
         <div className="hero-copy">
           <HeroTitle name={portfolio.person.name} />
@@ -26,8 +27,6 @@ export function Hero() {
             </div>
           </div>
         </div>
-
-        <SignaturePenflow />
       </div>
     </section>
   );
