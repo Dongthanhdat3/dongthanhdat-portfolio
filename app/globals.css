@@ -523,73 +523,64 @@ body.intro-open:not(.intro-revealing) .hero-copy { opacity:0; }
   z-index: 1;
   top: 50%;
   right: clamp(1rem, 2.5vw, 2.75rem);
-  width: min(41vw, 620px);
-  transform: translateY(-47%);
+  width: min(36.9vw, 558px);
+  transform: translate(0.7cm, -47%);
   pointer-events: none;
+  filter: drop-shadow(0 15px 28px rgba(0,0,0,.18));
 }
-.hero-signature-reveal {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  filter: drop-shadow(0 15px 28px rgba(0,0,0,.16));
-  isolation: isolate;
-}
-.hero-signature-image {
+.hero-signature {
   display: block;
   width: 100%;
   height: auto;
-  clip-path: inset(0 100% 0 0);
-  transform: translateZ(0);
-  will-change: clip-path, filter;
-  filter: drop-shadow(0 0 0 rgba(255,59,48,0));
-  animation: hero-signature-write-on 4s cubic-bezier(.22,.78,.2,1) .08s both;
-  animation-play-state: paused;
+  overflow: visible;
 }
-.hero-signature-writing-tip {
-  position: absolute;
-  z-index: 2;
-  top: 18%;
-  left: 0;
-  width: 4px;
-  height: 64%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,112,104,.98) 25%, rgba(255,255,255,.98) 50%, rgba(255,86,74,.86) 74%, rgba(255,255,255,0));
-  box-shadow: 0 0 12px rgba(255,59,48,.42), 0 0 4px rgba(255,255,255,.75);
+.hero-signature-write {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 34;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
   opacity: 0;
-  transform: translateX(0);
-  animation: hero-signature-tip 4s cubic-bezier(.22,.78,.2,1) .08s both;
+  animation: hero-signature-mask-write 2.3s cubic-bezier(.67,.02,.18,1) forwards;
   animation-play-state: paused;
 }
-body:not(.intro-open) .hero-signature-image,
-body.intro-revealing .hero-signature-image,
-body:not(.intro-open) .hero-signature-writing-tip,
-body.intro-revealing .hero-signature-writing-tip {
+.hero-signature-write-dot {
+  fill: #fff;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hero-signature-mask-dot 170ms ease-out 2.13s forwards;
+  animation-play-state: paused;
+}
+.hero-signature-write--2 { animation-delay: .28s; }
+.hero-signature-write--3 { animation-delay: .52s; }
+.hero-signature-write--4 { animation-delay: .79s; }
+.hero-signature-write--5 { animation-delay: 1.08s; }
+.hero-signature-write--6 { animation-delay: 1.47s; }
+body:not(.intro-open) .hero-signature-write,
+body:not(.intro-open) .hero-signature-write-dot {
   animation-play-state: running;
 }
-@keyframes hero-signature-write-on {
-  0% { clip-path: inset(0 100% 0 0); filter: drop-shadow(0 0 0 rgba(255,59,48,0)); }
-  15% { clip-path: inset(0 86% 0 0); }
-  42% { clip-path: inset(0 58% 0 0); }
-  68% { clip-path: inset(0 31% 0 0); }
-  86% { clip-path: inset(0 12% 0 0); }
-  100% { clip-path: inset(0 0 0 0); filter: drop-shadow(0 0 5px rgba(255,59,48,.12)); }
+@keyframes hero-signature-mask-write {
+  0% { stroke-dashoffset: 1; opacity: 0; }
+  8% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
 }
-@keyframes hero-signature-tip {
-  0% { left: -1%; opacity: 0; }
-  7% { opacity: .96; }
-  18% { left: 17%; }
-  44% { left: 43%; }
-  69% { left: 69%; }
-  88% { left: 89%; }
-  100% { left: 101%; opacity: 0; }
+@keyframes hero-signature-mask-dot {
+  from { opacity: 0; transform: scale(.45); }
+  to { opacity: 1; transform: scale(1); }
 }
 .hero-signature-wrap::after {
   position: absolute;
   z-index: -1;
   inset: 18% 3% 11%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,59,48,.055), rgba(255,59,48,0) 70%);
+  background: radial-gradient(circle, rgba(255,255,255,.075), rgba(255,255,255,0) 70%);
   content: "";
+  opacity: .5;
 }
 
 main > section:not(.hero) { position:relative; z-index:3; }
@@ -3340,8 +3331,8 @@ body:has(.project-detail-page--mobifone) .site-header {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-signature-image { clip-path: inset(0 0 0 0); animation: none !important; }
-  .hero-signature-writing-tip { display: none; animation: none !important; }
+  .hero-signature-write { stroke-dashoffset: 0 !important; opacity: 1 !important; animation: none !important; }
+  .hero-signature-write-dot { opacity: 1 !important; animation: none !important; }
   .experience-media { transform: none !important; transition: none; }
   .experience-media-frame img { transition: none; }
   .experience-results-line::after,
