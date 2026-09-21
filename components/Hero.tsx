@@ -1,6 +1,7 @@
 import { portfolio } from "@/content/portfolio.vi";
 import { ContactShortcuts } from "./ContactShortcuts";
 import { HeroTitle } from "./HeroTitle";
+import { HeroSignature } from "./HeroSignature";
 
 export function Hero() {
   return (
@@ -26,17 +27,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="hero-signature-wrap" aria-hidden="true">
-          <div className="hero-signature-stage">
-            <img
-              className="hero-signature-image"
-              src="/images/signature-dat-exact.png"
-              alt=""
-              draggable="false"
-            />
-            <span className="hero-signature-pen" aria-hidden="true" />
-          </div>
-        </div>
+        <HeroSignature />
       </div>
     </section>
   );
