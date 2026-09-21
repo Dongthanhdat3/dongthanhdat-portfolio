@@ -518,6 +518,78 @@ body.intro-open:not(.intro-revealing) .hero-copy { opacity:0; }
 .hero .contact-shortcut:hover { background:rgba(255,255,255,.08); color:#fff; }
 .hero .contact-tooltip { background:#f5f5f7; color:#111114; }
 
+.hero-signature-wrap {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: clamp(1rem, 2.5vw, 2.75rem);
+  width: min(41vw, 620px);
+  transform: translateY(-47%);
+  pointer-events: none;
+  filter: drop-shadow(0 15px 28px rgba(0,0,0,.18));
+}
+.hero-signature {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.hero-signature-stroke,
+.hero-signature-dot {
+  fill: none;
+  stroke: #ff3b30;
+  stroke-width: 3.05;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+}
+.hero-signature-dot {
+  fill: #ff3b30;
+  stroke-width: 1.1;
+}
+.hero-signature-stroke {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: hero-signature-write 2.3s cubic-bezier(.67,.02,.18,1) forwards;
+  animation-play-state: paused;
+}
+body:not(.intro-open) .hero-signature-stroke,
+body.intro-revealing .hero-signature-stroke {
+  animation-play-state: running;
+}
+.hero-signature-stroke--2 { animation-delay: .22s; }
+.hero-signature-stroke--3 { animation-delay: .53s; }
+.hero-signature-stroke--4 { animation-delay: .83s; }
+.hero-signature-stroke--5 { animation-delay: 1.08s; }
+.hero-signature-stroke--6 { animation-delay: 1.50s; }
+.hero-signature-dot {
+  animation: hero-signature-dot 180ms ease-out 2.05s forwards;
+  animation-play-state: paused;
+}
+body:not(.intro-open) .hero-signature-dot,
+body.intro-revealing .hero-signature-dot {
+  animation-play-state: running;
+}
+@keyframes hero-signature-write {
+  0% { stroke-dashoffset: 1000; opacity: 0; }
+  7% { opacity: .98; }
+  100% { stroke-dashoffset: 0; opacity: .98; }
+}
+@keyframes hero-signature-dot {
+  from { opacity: 0; transform: scale(.55); transform-origin: 605px 195px; }
+  to { opacity: .98; transform: scale(1); transform-origin: 605px 195px; }
+}
+.hero-signature-wrap::after {
+  position: absolute;
+  z-index: -1;
+  inset: 18% 3% 11%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,59,48,.065), rgba(255,59,48,0) 70%);
+  content: "";
+  opacity: .55;
+}
+
 main > section:not(.hero) { position:relative; z-index:3; }
 
 /* About */
@@ -709,6 +781,12 @@ main > section:not(.hero) { position:relative; z-index:3; }
 }
 
 @media (max-width: 860px) {
+  .hero-signature-wrap {
+    right: 4vw;
+    width: min(52vw, 430px);
+    opacity: .9;
+  }
+
   :root { --header-height:70px; }
   .wordmark-full { display:none; }
   .menu-button { position:relative; z-index:3; display:grid; width:46px; height:46px; place-content:center; gap:6px; border:0; background:transparent; cursor:pointer; }
@@ -1399,6 +1477,12 @@ body:has(.project-detail-page) .primary-navigation a::after { background: #f4f5f
 body:has(.project-detail-page) .menu-button span { background: #f4f5f7; }
 
 @media (max-width: 860px) {
+  .hero-signature-wrap {
+    right: 4vw;
+    width: min(52vw, 430px);
+    opacity: .9;
+  }
+
   body:has(.project-detail-page) .primary-navigation {
     background: rgba(8,9,11,.985);
   }
@@ -1640,6 +1724,12 @@ body:has(.home-graphite) .site-footer {
 .home-graphite .contact-tooltip { background: #eef0f3; color: #090a0c; }
 
 @media (max-width: 860px) {
+  .hero-signature-wrap {
+    right: 4vw;
+    width: min(52vw, 430px);
+    opacity: .9;
+  }
+
   body:has(.home-graphite) .primary-navigation {
     background: rgba(7,8,10,.985);
   }
@@ -2561,6 +2651,12 @@ body:has(.project-detail-page--mobifone) .site-header {
 
 
 @media (max-width: 860px) {
+  .hero-signature-wrap {
+    right: 4vw;
+    width: min(52vw, 430px);
+    opacity: .9;
+  }
+
   .home-intro-grid { inset: 6vh 5vw; border-radius: 22px; }
   .home-intro-grid::before { left: 12%; }
   .home-intro-grid::after { bottom: 16%; }
@@ -3217,6 +3313,12 @@ body:has(.project-detail-page--mobifone) .site-header {
 }
 
 @media (max-width: 860px) {
+  .hero-signature-wrap {
+    right: 4vw;
+    width: min(52vw, 430px);
+    opacity: .9;
+  }
+
   .experience-heading { grid-template-columns: 1fr; gap: 1.35rem; margin-bottom: 3rem; }
   .experience-card-toggle { grid-template-columns: minmax(4rem, .16fr) minmax(0, 1fr); gap: 1.25rem; }
   .experience-card-action { grid-column: 2; justify-self: start; }
