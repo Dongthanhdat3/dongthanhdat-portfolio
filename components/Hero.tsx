@@ -1,7 +1,7 @@
 import { portfolio } from "@/content/portfolio.vi";
 import { ContactShortcuts } from "./ContactShortcuts";
 import { HeroTitle } from "./HeroTitle";
-import { HeroSignature } from "./HeroSignature";
+import { SignaturePenflow } from "./SignaturePenflow";
 
 export function Hero() {
   return (
@@ -27,7 +27,7 @@ export function Hero() {
           </div>
         </div>
 
-        <HeroSignature />
+        <SignaturePenflow />
       </div>
     </section>
   );

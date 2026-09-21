@@ -39,9 +39,3 @@ The hero name uses Inter Variable with explicit line height, Vietnamese-safe cli
 - The Hero signature uses the user-supplied transparent signature artwork as the visual source; its silhouette is preserved and the visible ink is recolored to the portfolio red.
 - The reveal is CSS-based: a left-to-right clip reveal runs for approximately 4 seconds with a soft moving ink tip to suggest a handwriting/write-on effect.
 - No generated or hand-redrawn signature geometry is used for the visible mark.
-
-## Signature treatment — V29
-
-- The signature is rendered as hand-drawn SVG vector paths rather than an image asset.
-- The visible mark is constructed from stroke paths modeled on the supplied signature reference, with a stroke-by-stroke reveal lasting 2.3 seconds after the intro closes.
-- Canva documents that its signature workflow can use handwritten/signature font styles, while public font references commonly classify styles such as Brittany Signature as signature scripts. The exact Canva font name is not asserted from the reference image alone.

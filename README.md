@@ -51,6 +51,3 @@ Các audit Apple, Tesla, portfolio cũ và design tokens nằm trong `design-ref
 
 ### V28 signature update
 The hero signature uses the supplied signature artwork as a white transparent asset with a 2.3-second left-to-right write-on reveal and a subtle moving pen-light cue.
-
-### V29 signature update
-The hero signature is now code-rendered as SVG vector strokes with a 2.3-second pen-like write-on animation after the intro ends. No signature raster asset is used.
