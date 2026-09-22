@@ -2,13 +2,11 @@ import { portfolio } from "@/content/portfolio.vi";
 import { ContactShortcuts } from "./ContactShortcuts";
 import { HeroTitle } from "./HeroTitle";
 import { Hero3D } from "./Hero3D";
-import { SignatureMark } from "./SignatureMark";
 
 export function Hero() {
   return (
     <section id="home" className="hero" aria-labelledby="hero-title">
       <Hero3D />
-      <SignatureMark />
       <div className="container hero-inner">
         <div className="hero-copy">
           <HeroTitle name={portfolio.person.name} />

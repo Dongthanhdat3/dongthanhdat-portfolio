@@ -520,140 +520,35 @@ body.intro-open:not(.intro-revealing) .hero-copy { opacity:0; }
 .hero .contact-tooltip { background:#f5f5f7; color:#111114; }
 
 
-/* V33 — restrained interactive 3D hero object. Keeps the signature above it and uses Three.js already present in the project. */
+/* V34 — high-quality interactive 3D hero object. Complete orbit geometry stays inside
+   the camera frame; no radial CSS mask is used, preventing abrupt clipping while the
+   scene rotates. */
 .hero-3d {
   position: absolute;
   z-index: 3;
-  top: 12%;
-  right: 8%;
-  width: min(45vw, 680px);
-  height: min(45vw, 680px);
-  opacity: .92;
+  top: 10%;
+  right: calc(8% - 0.6cm);
+  width: min(46vw, 700px);
+  height: min(46vw, 700px);
+  opacity: .95;
+  overflow: visible;
   pointer-events: auto;
-  filter: drop-shadow(0 28px 55px rgba(0,0,0,.35));
-  mask-image: radial-gradient(circle at 50% 50%, #000 0 64%, transparent 83%);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0 64%, transparent 83%);
+  filter: drop-shadow(0 30px 62px rgba(0,0,0,.38));
 }
-.hero-3d canvas { display:block; width:100%; height:100%; cursor:pointer; }
+.hero-3d canvas { display:block; width:100%; height:100%; cursor:pointer; overflow:visible; }
 body.intro-open:not(.intro-revealing) .hero-3d { opacity: 0; transform: scale(.96); }
 .hero-3d { transition: opacity 780ms var(--ease-reveal), transform 1100ms var(--ease-reveal); }
 @media (max-width: 1100px) {
-  .hero-3d { opacity: .65; right: 0; width: 54vw; height: 54vw; }
+  .hero-3d { opacity: .72; right: calc(0% - 0.6cm); width: 56vw; height: 56vw; }
 }
 @media (max-width: 860px) {
-  .hero-3d { top: 18%; right: -8%; width: 72vw; height: 72vw; opacity: .42; }
+  .hero-3d { top: 16%; right: calc(-8% - 0.6cm); width: 74vw; height: 74vw; opacity: .5; }
 }
 @media (max-width: 620px) {
-  .hero-3d { top: 22%; right: -22%; width: 94vw; height: 94vw; opacity: .23; }
+  .hero-3d { top: 20%; right: calc(-20% - 0.6cm); width: 96vw; height: 96vw; opacity: .28; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-3d { display: none; }
-}
-
-/* Signature mark: the real "Đạt." signature, hand-traced into vector pen
-   strokes and drawn stroke-by-stroke like someone actually signing — D stem,
-   D bowl, the Đ bar, "a", "t", the t-bar, then a small flourished dot to
-   finish (see SignatureMark.tsx / signature-data.ts). Each <path> uses the
-   normalised pathLength="1" trick so stroke-dasharray/dashoffset animate the
-   same way regardless of the curve's real length; per-stroke duration is
-   proportional to that stroke's real pen length so the pacing reads as
-   handwriting, not a mechanical wipe. */
-.signature-mark {
-  position: absolute;
-  z-index: 4;
-  top: calc(53% - 1cm);
-  right: clamp(1.5rem, 6vw, 6.5rem);
-  width: clamp(267px, 27.94vw, 498px);
-  transform: translate(-13.6px, -50%);
-  pointer-events: none;
-}
-.signature-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  filter: drop-shadow(0 18px 34px rgba(0,0,0,.45));
-}
-.signature-path {
-  fill: none;
-  stroke: #fff;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  filter: url(#signature-glow);
-}
-.signature-mark.is-active .signature-path {
-  animation: signature-draw var(--stroke-duration) cubic-bezier(.42,.04,.32,1) var(--stroke-start) both;
-}
-@keyframes signature-draw {
-  to { stroke-dashoffset: 0; }
-}
-/* traveling nib: a small bright point riding the pen tip while each stroke
-   is being drawn — light catching moving ink. */
-.signature-nib {
-  fill: #fff;
-  opacity: 0;
-  filter: url(#signature-dot-glow);
-  offset-rotate: 0deg;
-  offset-distance: 0%;
-}
-.signature-mark.is-active .signature-nib {
-  animation: signature-nib-move var(--stroke-duration) linear var(--stroke-start) both;
-}
-@keyframes signature-nib-move {
-  0% { offset-distance: 0%; opacity: 0; }
-  6% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
-}
-/* closing dot: pen presses down, a soft ink ring blooms outward and fades
-   while the dot itself pops in with a slight overshoot — a small flourish
-   to finish the signature. */
-.signature-dot-ring,
-.signature-dot-core {
-  opacity: 0;
-  transform: scale(0);
-}
-.signature-dot-core {
-  fill: #fff;
-  filter: url(#signature-dot-glow);
-}
-.signature-dot-ring {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 1.6;
-}
-.signature-mark.is-active .signature-dot-core {
-  animation: signature-dot-pop var(--dot-duration) cubic-bezier(.3,1.6,.4,1) var(--dot-start) both;
-}
-.signature-mark.is-active .signature-dot-ring {
-  animation: signature-dot-ring var(--dot-duration) ease-out var(--dot-start) both;
-}
-@keyframes signature-dot-pop {
-  0% { opacity: 0; transform: scale(0); }
-  55% { opacity: 1; transform: scale(1.4); }
-  78% { transform: scale(.88); }
-  100% { opacity: 1; transform: scale(1); }
-}
-@keyframes signature-dot-ring {
-  0% { opacity: 0; transform: scale(.4); }
-  25% { opacity: .8; transform: scale(1); }
-  100% { opacity: 0; transform: scale(3.4); }
-}
-@media (max-width: 1100px) {
-  .signature-mark { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .signature-path { stroke-dashoffset: 0 !important; animation: none !important; }
-  .signature-nib { display: none !important; }
-  .signature-dot-core,
-  .signature-dot-ring {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: scale(1) !important;
-  }
-  .signature-dot-ring { display: none !important; }
 }
 
 main > section:not(.hero) { position:relative; z-index:3; }

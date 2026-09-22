@@ -12,11 +12,13 @@ export function Hero3D() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(27, 1, 0.1, 100);
-    camera.position.set(0, 0.1, 7.4);
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+    camera.position.set(0, 0.12, 8.7);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 3));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setClearColor(0x000000, 0);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -27,16 +29,25 @@ export function Hero3D() {
     root.rotation.set(-0.08, 0.34, 0.04);
     scene.add(root);
 
-    const ambient = new THREE.AmbientLight(0xbfc7d5, 1.6);
+    const ambient = new THREE.AmbientLight(0xbfc7d5, 1.35);
     scene.add(ambient);
 
-    const key = new THREE.DirectionalLight(0xffffff, 3.4);
-    key.position.set(4, 5, 7);
+    const key = new THREE.DirectionalLight(0xffffff, 4.4);
+    key.position.set(4.8, 5.4, 7.8);
+    key.castShadow = true;
     scene.add(key);
 
-    const rim = new THREE.PointLight(0x9aa9c4, 11, 10, 2.2);
-    rim.position.set(-3.2, 1.5, 2.6);
+    const rim = new THREE.PointLight(0x9aa9c4, 13, 11, 2.0);
+    rim.position.set(-3.4, 1.7, 2.8);
     scene.add(rim);
+
+    const fill = new THREE.PointLight(0xdce6ff, 5.5, 9, 2);
+    fill.position.set(3.2, -1.8, 3.6);
+    scene.add(fill);
+
+    const topLight = new THREE.PointLight(0xffffff, 3.5, 7, 2);
+    topLight.position.set(0.5, 4.2, 2.4);
+    scene.add(topLight);
 
     const coreMaterial = new THREE.MeshPhysicalMaterial({
       color: 0x9ea5af,
@@ -48,11 +59,13 @@ export function Hero3D() {
       emissiveIntensity: 0.24,
     });
 
-    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.34, 5), coreMaterial);
+    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.34, 6), coreMaterial);
+    core.castShadow = true;
+    core.receiveShadow = true;
     root.add(core);
 
     const inner = new THREE.Mesh(
-      new THREE.SphereGeometry(0.84, 48, 48),
+      new THREE.SphereGeometry(0.84, 72, 72),
       new THREE.MeshPhysicalMaterial({
         color: 0x1f232b,
         metalness: 0.12,
@@ -65,25 +78,32 @@ export function Hero3D() {
         emissiveIntensity: 0.17,
       }),
     );
+    inner.castShadow = true;
+    inner.receiveShadow = true;
     root.add(inner);
 
-    const shell = new THREE.Mesh(
-      new THREE.SphereGeometry(1.58, 64, 64),
-      new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.075 }),
-    );
+    const shellGeometry = new THREE.SphereGeometry(1.60, 96, 72);
+    const shellMaterial = new THREE.MeshBasicMaterial({ color: 0xf7f9fd, wireframe: true, transparent: true, opacity: 0.09, depthWrite: false });
+    const shell = new THREE.Mesh(shellGeometry, shellMaterial);
     root.add(shell);
 
-    const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xf2f4f8, transparent: true, opacity: 0.45 });
-    const ringA = new THREE.Mesh(new THREE.TorusGeometry(1.95, 0.012, 12, 220), ringMaterial);
+    const shellHalo = new THREE.Mesh(
+      new THREE.SphereGeometry(1.69, 72, 54),
+      new THREE.MeshBasicMaterial({ color: 0x9ca9bd, transparent: true, opacity: 0.035, side: THREE.BackSide, depthWrite: false }),
+    );
+    root.add(shellHalo);
+
+    const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xf5f7fb, transparent: true, opacity: 0.38, depthWrite: false });
+    const ringA = new THREE.Mesh(new THREE.TorusGeometry(1.95, 0.011, 16, 320), ringMaterial);
     ringA.rotation.set(0.72, -0.28, 0.18);
     root.add(ringA);
 
-    const ringB = new THREE.Mesh(new THREE.TorusGeometry(2.23, 0.009, 12, 220), ringMaterial.clone());
+    const ringB = new THREE.Mesh(new THREE.TorusGeometry(2.22, 0.008, 16, 320), ringMaterial.clone());
     (ringB.material as THREE.MeshBasicMaterial).opacity = 0.21;
     ringB.rotation.set(-0.24, 0.78, 0.46);
     root.add(ringB);
 
-    const ringC = new THREE.Mesh(new THREE.TorusGeometry(1.68, 0.007, 12, 220), ringMaterial.clone());
+    const ringC = new THREE.Mesh(new THREE.TorusGeometry(1.68, 0.006, 16, 320), ringMaterial.clone());
     (ringC.material as THREE.MeshBasicMaterial).opacity = 0.18;
     ringC.rotation.set(1.18, 0.36, -0.28);
     root.add(ringC);
@@ -91,8 +111,8 @@ export function Hero3D() {
     const points = new THREE.Group();
     root.add(points);
 
-    const nodeGeometry = new THREE.SphereGeometry(0.042, 18, 18);
-    const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const nodeGeometry = new THREE.SphereGeometry(0.044, 24, 24);
+    const nodeMaterial = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 0.25, roughness: 0.22, clearcoat: 0.7, clearcoatRoughness: 0.1, emissive: 0x777f8d, emissiveIntensity: 0.14 });
     const nodeCount = 12;
     for (let i = 0; i < nodeCount; i += 1) {
       const angle = (i / nodeCount) * Math.PI * 2;
@@ -106,7 +126,7 @@ export function Hero3D() {
       points.add(node);
     }
 
-    const particleCount = 150;
+    const particleCount = 220;
     const positions = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i += 1) {
       const r = 2.25 + Math.random() * 1.7;
@@ -119,7 +139,7 @@ export function Hero3D() {
 
     const particleGeometry = new THREE.BufferGeometry();
     particleGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const particleMaterial = new THREE.PointsMaterial({ color: 0xcfd5de, size: 0.018, transparent: true, opacity: 0.55, sizeAttenuation: true });
+    const particleMaterial = new THREE.PointsMaterial({ color: 0xd6dce7, size: 0.018, transparent: true, opacity: 0.48, sizeAttenuation: true, depthWrite: false });
     const particles = new THREE.Points(particleGeometry, particleMaterial);
     root.add(particles);
 
@@ -186,9 +206,9 @@ export function Hero3D() {
       points.rotation.y += dt * 0.035;
 
       const hoverBoost = hovered ? 1 : 0;
-      (rim as THREE.PointLight).intensity = 11 + hoverBoost * 3 + pulse * 5;
+      (rim as THREE.PointLight).intensity = 13 + hoverBoost * 3 + pulse * 5;
       (coreMaterial as THREE.MeshPhysicalMaterial).emissiveIntensity = 0.24 + hoverBoost * 0.12 + pulse * 0.38;
-      (particleMaterial as THREE.PointsMaterial).opacity = 0.55 + hoverBoost * 0.16;
+      (particleMaterial as THREE.PointsMaterial).opacity = 0.48 + hoverBoost * 0.18;
       root.scale.setScalar(1 + (hovered ? 0.028 : 0) + pulse * 0.055);
 
       pulse *= Math.pow(0.035, dt);
@@ -213,6 +233,8 @@ export function Hero3D() {
       (inner.material as THREE.Material).dispose();
       shell.geometry.dispose();
       (shell.material as THREE.Material).dispose();
+      shellHalo.geometry.dispose();
+      (shellHalo.material as THREE.Material).dispose();
       ringA.geometry.dispose();
       ringA.material.dispose();
       ringB.geometry.dispose();
