@@ -518,75 +518,110 @@ body.intro-open:not(.intro-revealing) .hero-copy { opacity:0; }
 .hero .contact-shortcut:hover { background:rgba(255,255,255,.08); color:#fff; }
 .hero .contact-tooltip { background:#f5f5f7; color:#111114; }
 
-/* Signature mark: the real "Dat." photo, revealed through an SVG mask whose
-   shape is traced from that exact photo (see SignatureMark.tsx) — so the
-   reveal always lines up with the real ink and follows its true curves
-   (the D/a body, then the t, then the dot) instead of sliding a rectangle
-   across it. */
+/* Signature mark: the real "Đạt." signature, hand-traced into vector pen
+   strokes and drawn stroke-by-stroke like someone actually signing — D stem,
+   D bowl, the Đ bar, "a", "t", the t-bar, then a small flourished dot to
+   finish (see SignatureMark.tsx / signature-data.ts). Each <path> uses the
+   normalised pathLength="1" trick so stroke-dasharray/dashoffset animate the
+   same way regardless of the curve's real length; per-stroke duration is
+   proportional to that stroke's real pen length so the pacing reads as
+   handwriting, not a mechanical wipe. */
 .signature-mark {
   position: absolute;
   z-index: 1;
   top: 53%;
   right: clamp(1.5rem, 6vw, 6.5rem);
-  width: clamp(230px, 24vw, 420px);
+  width: clamp(210px, 22vw, 392px);
   transform: translateY(-50%);
   pointer-events: none;
 }
-.signature-photo {
-  filter: drop-shadow(0 18px 34px rgba(0,0,0,.4)) brightness(1);
+.signature-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 18px 34px rgba(0,0,0,.45));
 }
-.signature-mark.is-active .signature-photo {
-  animation: signature-glow 760ms ease-out 3880ms both;
+.signature-path {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: url(#signature-glow);
 }
-.signature-mask-stroke {
-  stroke-dasharray: var(--len, 1px);
-  stroke-dashoffset: var(--len, 1px);
+.signature-mark.is-active .signature-path {
+  animation: signature-draw var(--stroke-duration) cubic-bezier(.42,.04,.32,1) var(--stroke-start) both;
 }
-.signature-mark.is-active .signature-mask-stroke {
-  animation: signature-draw var(--draw-duration, 700ms) var(--draw-delay, 0ms) both cubic-bezier(.42,0,.22,1);
+@keyframes signature-draw {
+  to { stroke-dashoffset: 0; }
 }
-@keyframes signature-draw { to { stroke-dashoffset: 0; } }
-@keyframes signature-glow {
-  0% { filter: drop-shadow(0 18px 34px rgba(0,0,0,.4)) brightness(1); }
-  45% { filter: drop-shadow(0 18px 40px rgba(245,245,247,.3)) brightness(1.18); }
-  100% { filter: drop-shadow(0 18px 34px rgba(0,0,0,.4)) brightness(1); }
+/* traveling nib: a small bright point riding the pen tip while each stroke
+   is being drawn — light catching moving ink. */
+.signature-nib {
+  fill: #fff;
+  opacity: 0;
+  filter: url(#signature-dot-glow);
+  offset-rotate: 0deg;
+  offset-distance: 0%;
 }
-/* The final dot gets its own little flourish: a soft light burst plus a
-   handful of sparks flicking outward, like a pen lifting off with flair. */
-.signature-flourish-burst,
-.signature-flourish-spark { opacity: 0; }
-.signature-mark.is-active .signature-flourish-burst {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: signature-burst 620ms var(--flourish-delay, 3860ms) both ease-out;
+.signature-mark.is-active .signature-nib {
+  animation: signature-nib-move var(--stroke-duration) linear var(--stroke-start) both;
 }
-.signature-mark.is-active .signature-flourish-spark {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: signature-spark 520ms var(--flourish-delay, 3860ms) both ease-out;
+@keyframes signature-nib-move {
+  0% { offset-distance: 0%; opacity: 0; }
+  6% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
 }
-.signature-flourish-burst { fill: #f5f5f7; }
-.signature-flourish-spark { stroke: #f5f5f7; stroke-width: 2.4; stroke-linecap: round; }
-@keyframes signature-burst {
-  0% { opacity: 0; transform: scale(.2); }
-  25% { opacity: .95; transform: scale(1.9); }
-  100% { opacity: 0; transform: scale(4.6); }
+/* closing dot: pen presses down, a soft ink ring blooms outward and fades
+   while the dot itself pops in with a slight overshoot — a small flourish
+   to finish the signature. */
+.signature-dot-ring,
+.signature-dot-core {
+  opacity: 0;
+  transform: scale(0);
 }
-@keyframes signature-spark {
-  0% { opacity: 0; transform: scale(.3); }
-  30% { opacity: .9; transform: scale(1.4); }
+.signature-dot-core {
+  fill: #fff;
+  filter: url(#signature-dot-glow);
+}
+.signature-dot-ring {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.6;
+}
+.signature-mark.is-active .signature-dot-core {
+  animation: signature-dot-pop var(--dot-duration) cubic-bezier(.3,1.6,.4,1) var(--dot-start) both;
+}
+.signature-mark.is-active .signature-dot-ring {
+  animation: signature-dot-ring var(--dot-duration) ease-out var(--dot-start) both;
+}
+@keyframes signature-dot-pop {
+  0% { opacity: 0; transform: scale(0); }
+  55% { opacity: 1; transform: scale(1.4); }
+  78% { transform: scale(.88); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes signature-dot-ring {
+  0% { opacity: 0; transform: scale(.4); }
+  25% { opacity: .8; transform: scale(1); }
   100% { opacity: 0; transform: scale(3.4); }
 }
 @media (max-width: 1100px) {
   .signature-mark { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .signature-mask-stroke { stroke-dashoffset: 0 !important; }
-  .signature-mark.is-active .signature-photo,
-  .signature-mark.is-active .signature-mask-stroke,
-  .signature-mark.is-active .signature-flourish-burst,
-  .signature-mark.is-active .signature-flourish-spark { animation: none !important; }
-  .signature-flourish-burst, .signature-flourish-spark { display: none; }
+  .signature-path { stroke-dashoffset: 0 !important; animation: none !important; }
+  .signature-nib { display: none !important; }
+  .signature-dot-core,
+  .signature-dot-ring {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: scale(1) !important;
+  }
+  .signature-dot-ring { display: none !important; }
 }
 
 main > section:not(.hero) { position:relative; z-index:3; }
