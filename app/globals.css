@@ -529,7 +529,7 @@ body.intro-open:not(.intro-revealing) .hero-copy { opacity:0; }
 .signature-mark {
   position: absolute;
   z-index: 1;
-  top: 53%;
+  top: calc(53% - 1cm);
   right: clamp(1.5rem, 6vw, 6.5rem);
   width: clamp(267px, 27.94vw, 498px);
   transform: translate(-13.6px, -50%);
