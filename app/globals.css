@@ -530,8 +530,8 @@ body.intro-open:not(.intro-revealing) .hero-copy { opacity:0; }
   position: absolute;
   z-index: 1;
   top: 53%;
-  right: calc(clamp(1.5rem, 6vw, 6.5rem) + 1cm);
-  width: clamp(225px, 23.8vw, 424px);
+  right: calc(clamp(1.5rem, 6vw, 6.5rem) + 1.36cm);
+  width: clamp(247.5px, 26.18vw, 466.4px);
   transform: translateY(-50%);
   pointer-events: none;
 }
