@@ -530,9 +530,9 @@ body.intro-open:not(.intro-revealing) .hero-copy { opacity:0; }
   position: absolute;
   z-index: 1;
   top: 53%;
-  right: calc(clamp(1.5rem, 6vw, 6.5rem) + 1.36cm);
-  width: clamp(262.5px, 27.5vw, 490px);
-  transform: translateY(-50%);
+  right: clamp(1.5rem, 6vw, 6.5rem);
+  width: clamp(267px, 27.94vw, 498px);
+  transform: translate(-13.6px, -50%);
   pointer-events: none;
 }
 .signature-svg {
