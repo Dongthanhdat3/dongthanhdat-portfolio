@@ -47,7 +47,3 @@ Dự án dùng asset tương đối, không phụ thuộc localhost hay đườn
 ## Design reference
 
 Các audit Apple, Tesla, portfolio cũ và design tokens nằm trong `design-reference/`; chúng không được đưa vào public bundle. Quyết định thiết kế được tóm tắt trong `DESIGN.md`.
-
-## V34 update
-
-The hero now uses a higher-resolution Three.js scene with complete orbit framing and no signature overlay.
